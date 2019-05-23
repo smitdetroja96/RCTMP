@@ -159,6 +159,7 @@
         android:padding="15dp"
         android:text="Sign Up"
         android:textColor="#000"
+        android:onClick="onClickSignUp"
         android:background="@drawable/button_hover"
         />
 
