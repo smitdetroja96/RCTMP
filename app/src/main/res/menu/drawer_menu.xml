@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_refresh"
+            android:icon="@drawable/arrows"
+            android:title="Update Contest List" />
+
+        <item
+            android:id="@+id/change_app_layout"
+            android:icon="@drawable/change_view_black"
+            android:title="Change App Layout" />
+
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="Help" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_setting"
+            android:title="Settings" />
+
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_sign_out"
+            android:title="Sign Out" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+
+            <item
+                android:id="@+id/nav_rate_us"
+                android:icon="@drawable/ic_rate_us"
+                android:title="Rate Us" />
+
+            <item
+                android:id="@+id/nav_suggest_us"
+                android:icon="@drawable/ic_suggest_us"
+                android:title="Suggest Us" />
+
+            <item
+                android:id="@+id/nav_devlopers"
+                android:icon="@drawable/ic_devlopers"
+                android:title="Developers" />
+
+        </menu>
+    </item>
+
+
+</menu>

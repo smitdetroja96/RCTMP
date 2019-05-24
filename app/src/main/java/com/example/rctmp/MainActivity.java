@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSignUp(View view) {
-        Intent i =  new Intent(MainActivity.this,HomePageActivity.class);
+        Intent i =  new Intent(MainActivity.this,DrawerActivityLayout.class);
         startActivity(i);
         finish();
     }
