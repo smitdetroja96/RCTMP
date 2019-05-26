@@ -1,15 +1,22 @@
 package com.example.rctmp;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DrawerActivityLayout extends AppCompatActivity {
 
@@ -20,6 +27,7 @@ public class DrawerActivityLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
 
+        //------------------------------------------------------------------------------------------------------------------------------------
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,6 +38,8 @@ public class DrawerActivityLayout extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -37,7 +47,8 @@ public class DrawerActivityLayout extends AppCompatActivity {
     }
 
     public void onClickSearch(View view) {
-        Toast.makeText(this,"SEARCHING",Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(DrawerActivityLayout.this,SearchingActivity.class);
+        startActivity(i);
     }
 
     public void onClickIssuedBooks(View view) {
