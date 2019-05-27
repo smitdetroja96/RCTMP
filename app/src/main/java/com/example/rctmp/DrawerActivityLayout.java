@@ -100,4 +100,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
             super.onBackPressed();
         }
     }
+
+    public void onClickRCDetails(View view) {
+
+    }
 }
