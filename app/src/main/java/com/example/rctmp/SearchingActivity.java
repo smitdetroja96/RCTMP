@@ -1,5 +1,6 @@
 package com.example.rctmp;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,7 +111,11 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         {
             displayMessage("Menu2 Clicked...");
         }
-
+        else if(item.getItemId()==3)
+        {
+            Intent i = new Intent(SearchingActivity.this,ViewDetials.class);
+            startActivity(i);
+        }
 
         return super.onContextItemSelected(item);
     }

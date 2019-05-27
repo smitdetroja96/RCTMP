@@ -66,6 +66,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
             contextMenu.setHeaderTitle("Select An Option");
             contextMenu.add(this.getAdapterPosition(),1,0,"Menu1");
             contextMenu.add(this.getAdapterPosition(),2,0,"Menu2");
+            contextMenu.add(this.getAdapterPosition(),3,0,"More Details");
         }
     }
 
