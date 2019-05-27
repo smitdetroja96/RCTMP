@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class DrawerActivityLayout extends AppCompatActivity {
+public class DrawerActivityLayout extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
 
@@ -32,6 +34,8 @@ public class DrawerActivityLayout extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
 
@@ -44,6 +48,19 @@ public class DrawerActivityLayout extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.nav_user_profile:
+
+                break;
+        }
+
+        return true;
     }
 
     public void onClickSearch(View view) {
@@ -68,7 +85,7 @@ public class DrawerActivityLayout extends AppCompatActivity {
     }
 
     public void onClickSignOut(View view) {
-        Toast.makeText(this,"FUCKING OFF",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Signing Off",Toast.LENGTH_SHORT).show();
     }
 
     @Override

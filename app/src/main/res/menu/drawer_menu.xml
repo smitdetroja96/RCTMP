@@ -6,9 +6,9 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_refresh"
+            android:id="@+id/nav_user_profile"
             android:icon="@drawable/arrows"
-            android:title="Update Contest List" />
+            android:title="User Profile" />
 
         <item
             android:id="@+id/change_app_layout"
@@ -16,9 +16,9 @@
             android:title="Change App Layout" />
 
         <item
-            android:id="@+id/nav_help"
+            android:id="@+id/nav_rules"
             android:icon="@drawable/ic_help"
-            android:title="Help" />
+            android:title="Rules" />
 
         <item
             android:id="@+id/nav_settings"

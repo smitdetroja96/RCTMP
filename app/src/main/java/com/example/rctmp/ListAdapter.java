@@ -75,4 +75,10 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         notifyDataSetChanged();
     }
 
+    public void filter_list(ArrayList<String> filtered)
+    {
+        names = filtered;
+        notifyDataSetChanged();
+    }
+
 }
