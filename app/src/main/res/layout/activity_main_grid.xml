@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_da_image_2"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/da_image"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_below="@id/iv_da_image_2"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_search"
+            android:text="Search"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_issued_books"
+        android:orientation="vertical"
+        android:layout_below="@id/iv_da_image_2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_issued_books"
+            android:src="@drawable/ic_issued_books"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_issued_books"
+            android:text="Issued Books"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_history"
+        android:orientation="vertical"
+        android:layout_alignStart="@id/ll_search"
+        android:layout_below="@id/ll_search"
+        android:layout_marginTop="20dp"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_history"
+            android:src="@drawable/ic_history"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_gravity="center"
+            android:text="History"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_wishlist"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/ll_issued_books"
+        android:layout_alignStart="@id/ll_issued_books"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_wishlist"
+            android:src="@drawable/ic_wishlist"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_Wishlist"
+            android:text="Wishlist"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_suggestions"
+        android:orientation="vertical"
+        android:layout_below="@id/ll_history"
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@id/ll_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_suggestions"
+            android:src="@drawable/ic_suggest"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_"
+            android:text="Recommendations"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_sign_out"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@id/ll_wishlist"
+        android:layout_below="@id/ll_wishlist"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_sign_out"
+            android:src="@drawable/ic_sign_out"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/tv_sign_out"
+            android:text="Sign Out"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

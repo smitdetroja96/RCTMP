@@ -54,7 +54,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="24sp"
-                    android:src="@drawable/ic_add_to_wishlist"
+                    android:src="@drawable/ic_wishlist"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/tv_book_details"
                     app:layout_constraintTop_toTopOf="@+id/tv_book_details" />
