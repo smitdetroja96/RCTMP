@@ -56,7 +56,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         switch (item.getItemId())
         {
             case R.id.nav_user_profile:
-
+                displayMessage("Smit");
                 break;
         }
 
@@ -64,7 +64,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickSearch(View view) {
-        Intent i = new Intent(DrawerActivityLayout.this,SearchingActivity.class);
+        Intent i = new Intent(DrawerActivityLayout.this,IntermediateActivity.class);
         startActivity(i);
     }
 
@@ -103,5 +103,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
     public void onClickRCDetails(View view) {
 
+    }
+
+    public void displayMessage(String message)
+    {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
