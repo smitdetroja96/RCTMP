@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    tools:context=".ChangedLayoutActivity">
+
+    <ImageView
+        android:id="@+id/iv_da_image"
+        android:src="@drawable/da_image"
+        android:layout_marginBottom="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TableLayout
+        android:layout_below="@id/iv_da_image"
+        android:layout_width="match_parent"
+        android:columnCount="2"
+        android:layout_height="fill_parent">
+
+        <TableRow
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_width="wrap_content"
+                android:layout_column="0"
+                android:orientation="vertical"
+                android:id="@+id/ll_search">
+
+                <ImageView
+                    android:id="@+id/searchImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_search_1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="Search"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_column="1"
+                android:id="@+id/ll_issuedBooks"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:layout_gravity="center"
+                    android:id="@+id/issuedBooksImage"
+                    android:src="@drawable/ic_issued_books" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="Issued Books"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+
+            <LinearLayout
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/ll_history"
+                android:layout_column="0"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:layout_gravity="center"
+                    android:id="@+id/historyImage"
+                    android:src="@drawable/ic_history" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="History"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/ll_wishList"
+                android:layout_column="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/wishListImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_wishlist" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="Wishlist"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <LinearLayout
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_column="0"
+                android:id="@+id/ll_suggestions"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:id="@+id/suggestionsImage"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_suggest" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="Suggestions"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/ll_signOut"
+                android:layout_column="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:id="@+id/signOutImage"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_logout" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10pt"
+                    android:text="Sign Out"/>
+
+            </LinearLayout>
+        </TableRow>
+
+
+    </TableLayout>
+
+</RelativeLayout>
