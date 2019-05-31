@@ -1,9 +1,11 @@
 package com.example.rctmp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +27,8 @@ public class WebSearchActivity extends AppCompatActivity {
     String site_to_be_searched;
     String search_query;
 
+    String refresh_url;
+
     Toolbar web_search_toolbar;
 
     boolean page_load_error = false;
@@ -37,6 +41,9 @@ public class WebSearchActivity extends AppCompatActivity {
 
         web_search_toolbar = findViewById(R.id.toolbar_web_search);
         setSupportActionBar(web_search_toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("RC");
 
         progressBar = findViewById(R.id.pb_progressBar);
         wv = findViewById(R.id.wv_search_result);
@@ -89,39 +96,48 @@ public class WebSearchActivity extends AppCompatActivity {
         switch (site_to_be_searched)
         {
             case "aps":
+//                refresh_url = "https://journals.aps.org/search/results?sort=relevance&clauses=[%7B%22operator%22:%22AND%22,%22field%22:%22all%22,%22value%22:%22"+search_query+"%22%7D]";
                 wv.loadUrl("https://journals.aps.org/search/results?sort=relevance&clauses=[%7B%22operator%22:%22AND%22,%22field%22:%22all%22,%22value%22:%22"+search_query+"%22%7D]");
+                break;
             case "bloomsbury":
+//                refresh_url = "https://www.bloomsburydesignlibrary.com/search-results?any="+search_query;
                 wv.loadUrl("https://www.bloomsburydesignlibrary.com/search-results?any="+search_query);
                 break;
             case "jstor" :
+//                refresh_url = "https://www.jstor.org/action/doBasicSearch?Query="+search_query+"&acc=on&wc=on&fc=off&group=none";
                 wv.loadUrl("https://www.jstor.org/action/doBasicSearch?Query="+search_query+"&acc=on&wc=on&fc=off&group=none");
                 loaded = false;
                 break;
             case "ieee":
+//                refresh_url = "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText="+search_query+"&subscribed=true";
                 wv.loadUrl("https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText="+search_query+"&subscribed=true");
                 loaded = false;
                 break;
             case "science_direct":
+//                refresh_url = "https://www.sciencedirect.com/browse/journals-and-books?contentType=JL&subject=computer-science&searchPhrase="+search_query;
                 wv.loadUrl("https://www.sciencedirect.com/browse/journals-and-books?contentType=JL&subject=computer-science&searchPhrase="+search_query);
                 loaded = false;
                 break;
             case "springer":
+//                refresh_url = "https://link.springer.com/search?&query="+search_query+"&showAll=false";
                 wv.loadUrl("https://link.springer.com/search?&query="+search_query+"&showAll=false");
                 break;
             case "india_stat":
+//                refresh_url = "https://www.indiastat.com/";
                 wv.loadUrl("https://www.indiastat.com/");
                 break;
             case "usenix":
+//                refresh_url = "https://www.usenix.org/search/site/"+search_query;
                 wv.loadUrl("https://www.usenix.org/search/site/"+search_query);
                 break;
         }
     }
 
     public void onBackPressed(){
-        if(wv.canGoBack()){
+        if(wv.canGoBack())
+        {
             wv.goBack();
         }
-        else finish();
     }
 
     @Override
@@ -137,20 +153,49 @@ public class WebSearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int menu_id = item.getItemId();
-        if(menu_id == R.id.toolbar_menu1)
+        if(menu_id == R.id.toolbar_refresh)
         {
-            Toast.makeText(this, "Toolbar Menu 1", Toast.LENGTH_SHORT).show();
+            refresh_url = wv.getUrl();
+            wv.loadUrl(refresh_url);
+//            Toast.makeText(this, "Toolbar Menu 1", Toast.LENGTH_SHORT).show();
         }
-        else if(menu_id == R.id.toolbar_menu2)
+        else if(menu_id == R.id.toolbar_open_browser)
         {
-            Toast.makeText(this, "Toolbar Menu 2", Toast.LENGTH_SHORT).show();
+            String temp_url = wv.getUrl();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(temp_url));
+            startActivity(i);
+
+//            Toast.makeText(this, "Toolbar Menu 2", Toast.LENGTH_SHORT).show();
         }
-        else if(menu_id == R.id.toolbar_menu3)
+        else if(menu_id == R.id.toolbar_share)
         {
-            Toast.makeText(this, "Toolbar Menu 3", Toast.LENGTH_SHORT).show();
+            try
+            {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "RC APP");
+
+                String share_string = wv.getUrl();
+
+                String sAux = "RC APP\n";
+                sAux = sAux + share_string;
+
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "Read One"));
+
+            }
+            catch (Exception e) {}
+//            Toast.makeText(this, "Toolbar Menu 3", Toast.LENGTH_SHORT).show();
+        }
+        else if(menu_id == R.id.home)
+        {
+            Log.e("Hiii","........");
+//            Toast.makeText(this, "Hiii....", Toast.LENGTH_SHORT).show();
+//            this.finish();
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }
 
