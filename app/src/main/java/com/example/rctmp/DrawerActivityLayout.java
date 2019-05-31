@@ -58,6 +58,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
             case R.id.nav_user_profile:
                 displayMessage("Smit");
                 break;
+            case R.id.change_app_layout:
+                displayMessage("Layout Changed");
+                break;
+
         }
 
         return true;

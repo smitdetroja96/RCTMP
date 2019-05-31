@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app = "http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/toolbar_menu1"
-        android:title="Title1"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"
-        />
+    <item
+        android:id="@+id/toolbar_refresh"
+        android:icon="@drawable/ic_refresh_black"
+        android:title="Refresh"
+        app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/toolbar_menu2"
-        android:title="Title2"
-        android:icon="@drawable/ic_image_1"
-        app:showAsAction="ifRoom"
-        />
+    <item
+        android:id="@+id/toolbar_share"
+        android:icon="@drawable/ic_menu_share"
+        android:title="Share URL"
+        app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/toolbar_menu3"
-        android:title="Title3"
-        app:showAsAction="never"
-        />
+    <item
+        android:id="@+id/toolbar_open_browser"
+        android:title="Open In Browser"
+        app:showAsAction="ifRoom" />
 
 
 </menu>
