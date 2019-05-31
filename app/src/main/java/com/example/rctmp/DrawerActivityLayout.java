@@ -59,11 +59,12 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 displayMessage("Smit");
                 break;
             case R.id.change_app_layout:
-                displayMessage("Layout Changed");
+                Intent i = new Intent(DrawerActivityLayout.this,ChangedLayoutActivity.class);
+                startActivity(i);
+                finish();
                 break;
 
         }
-
         return true;
     }
 

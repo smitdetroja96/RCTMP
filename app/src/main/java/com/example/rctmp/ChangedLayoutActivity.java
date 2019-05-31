@@ -1,5 +1,6 @@
 package com.example.rctmp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,42 +25,45 @@ public class ChangedLayoutActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Search",0).show();
+                Intent i = new Intent(ChangedLayoutActivity.this,IntermediateActivity.class);
+                startActivity(i);
             }
         });
 
         issuedBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Issued Books",0).show();
+
+                Toast.makeText(ChangedLayoutActivity.this, "Issued Books", Toast.LENGTH_SHORT).show();
+
             }
         });
 
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"History",0).show();
+                Toast.makeText(ChangedLayoutActivity.this,"History",Toast.LENGTH_SHORT).show();
             }
         });
 
         wishList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Wishlist",0).show();
+                Toast.makeText(ChangedLayoutActivity.this,"Wishlist",Toast.LENGTH_SHORT).show();
             }
         });
 
         suggestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Suggestions",0).show();
+                Toast.makeText(ChangedLayoutActivity.this,"Suggestions",Toast.LENGTH_SHORT).show();
             }
         });
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"SignOut",0).show();
+                Toast.makeText(ChangedLayoutActivity.this,"SignOut",Toast.LENGTH_SHORT).show();
             }
         });
     }
