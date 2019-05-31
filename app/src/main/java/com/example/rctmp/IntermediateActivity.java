@@ -21,7 +21,7 @@ public class IntermediateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(IntermediateActivity.this,WebSearchActivity.class);
+                Intent i = new Intent(IntermediateActivity.this,OnlineResourceSearchActivity.class);
                 startActivity(i);
             }
         });

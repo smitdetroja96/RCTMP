@@ -16,5 +16,19 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ProgressBar
+        android:id="@+id/pb_progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="false"
+        android:layout_below="@id/toolbar_web_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <WebView
+        android:id="@+id/wv_search_result"
+        android:layout_below="@id/pb_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+
 
 </RelativeLayout>
