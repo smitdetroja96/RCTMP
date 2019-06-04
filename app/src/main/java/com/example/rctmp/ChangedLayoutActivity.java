@@ -33,6 +33,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         Toolbar toolbar = findViewById(R.id.toolbar_1);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setTitle("RC");
+
         drawer = findViewById(R.id.drawer_layout_1);
 
         NavigationView navigationView = findViewById(R.id.nav_view_1);
