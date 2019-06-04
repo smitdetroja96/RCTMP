@@ -10,7 +10,8 @@
     android:fitsSystemWindows="true"
     tools:context=".DrawerActivityLayout">
 
-    <RelativeLayout xmlns:card_view="http://schemas.android.com/tools"
+    <RelativeLayout
+        xmlns:card_view="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
