@@ -10,6 +10,16 @@
     android:layout_marginRight="15dp"
     tools:context=".MainActivity">
 
+    <WebView
+        android:visibility="invisible"
+        android:id="@+id/wv_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/iv_da_image">
+    </WebView>
+
+
     <ImageView
         android:id="@+id/iv_da_image"
         android:layout_width="wrap_content"
@@ -114,7 +124,9 @@
         android:textColor="#000"
         android:onClick="onClickSignUp"
         android:background="@drawable/button_hover"
+        android:enabled="false"
         />
+
 
 
 </RelativeLayout>
