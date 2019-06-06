@@ -13,6 +13,8 @@ class CustomJavaScriptInterface {
     {
         Log.d("returnVal",val);
         MainActivity.loginState = !(val.compareTo("false")==0);
+        DrawerActivityLayout.loginState = !(val.compareTo("false")==0);
+        ChangedLayoutActivity.loginState = !(val.compareTo("false")==0);
     }
 
     @JavascriptInterface

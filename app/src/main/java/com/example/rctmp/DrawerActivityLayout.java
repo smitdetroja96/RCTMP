@@ -16,6 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.ValueCallback;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,10 +30,70 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
     private DrawerLayout drawer;
 
+    static boolean loginState;
+    private WebView wv_check;
+    private WebSettings webSettings;
+    private boolean try_once=false;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
+
+
+
+        wv_check = findViewById(R.id.wv_check);
+        wv_check.addJavascriptInterface(new CustomJavaScriptInterface(DrawerActivityLayout.this),"app");
+
+        wv_check.setWebViewClient(new WebViewClient(){
+            boolean page_load_error = false;
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                page_load_error = true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if(page_load_error){
+                    Toast.makeText(DrawerActivityLayout.this, "Failed to Connect!", Toast.LENGTH_SHORT).show(); }
+                else{
+                    if(!try_once) return;
+                    try_once = false;
+
+                    wv_check.evaluateJavascript("var check2 = !(!(document.getElementById('userdetails')));", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String s) {
+                            wv_check.evaluateJavascript("app.userCheck(check2);", new ValueCallback<String>() {
+                                @Override
+                                public void onReceiveValue(String s) {
+                                    if(!loginState){
+                                        startActivity(new Intent(DrawerActivityLayout.this,MainActivity.class));
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+        });
+
+        webSettings = wv_check.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
+
+
+
+
+
+
 
         //------------------------------------------------------------------------------------------------------------------------------------
         Toolbar toolbar = findViewById(R.id.toolbar);
