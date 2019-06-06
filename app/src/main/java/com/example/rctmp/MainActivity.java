@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         sign_in_button = findViewById(R.id.bt_sign_in);
-        webView = findViewById(R.id.wv_signin);
+        webView = findViewById(R.id.wv_sign_in);
         username_field = findViewById(R.id.ti_et_student_id);
         password_field = findViewById(R.id.ti_et_password);
 
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                             webView.evaluateJavascript("app.userCheck(check);", new ValueCallback<String>() {
                                 @Override
                                 public void onReceiveValue(String value) {
-                                    if (loginState) {
+                                    if (loginState)
+                                    {
                                         startActivity(new Intent(MainActivity.this,DrawerActivityLayout.class));
                                         finish();
 

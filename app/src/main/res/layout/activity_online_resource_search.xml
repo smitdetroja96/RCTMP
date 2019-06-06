@@ -96,6 +96,20 @@
             android:layout_height="wrap_content" />
 
     </RadioGroup>
+    
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_nav_view"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"
+        android:backgroundTint="#ffffff"
+        android:foregroundTint="#ffffff"
+        app:itemIconTint="@drawable/bottom_nav_item_selected"
+        app:itemTextColor="@drawable/bottom_nav_item_selected">
+
+
+    </android.support.design.widget.BottomNavigationView>
 
 
 </RelativeLayout>
