@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -27,7 +30,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     static boolean loginState;
     private WebView wv_check;
     private WebSettings webSettings;
-    private boolean try_once=false;
+    private boolean try_once=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                                         startActivity(new Intent(ChangedLayoutActivity.this,MainActivity.class));
                                         finish();
                                     }
+                                    else
+                                        Log.d("CHANGED_TEST","Yes");
                                 }
                             });
                         }
@@ -108,8 +113,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //------------------------------------------------------------------------------------------------------------------------------------
-
+//--------------------------------------------------------------------------------------------------------------------------------------------
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +155,10 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"SignOut",Toast.LENGTH_SHORT).show();
+                saveData1();
+                Intent i = new Intent(ChangedLayoutActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -165,6 +172,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                 displayMessage("Smit");
                 break;
             case R.id.change_app_layout:
+                saveData();
                 Intent i = new Intent(ChangedLayoutActivity.this,DrawerActivityLayout.class);
                 startActivity(i);
                 finish();
@@ -178,4 +186,22 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    private void saveData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("isDefaultView", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean("isDefaultView",true);
+        editor.commit();
+    }
+
+    private void saveData1()
+    {
+        SharedPreferences sharedpreferences1 = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedpreferences1.edit();
+        editor1.putBoolean("isSignIn",false);
+        editor1.commit();
+
+    }
+
 }

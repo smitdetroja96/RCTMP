@@ -124,7 +124,7 @@
         android:textColor="#000"
         android:onClick="onClickSignUp"
         android:background="@drawable/button_hover"
-        android:enabled="false"
+        android:enabled="true"
         />
 
 

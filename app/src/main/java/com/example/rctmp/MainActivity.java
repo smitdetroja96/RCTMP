@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,23 +24,63 @@ public class MainActivity extends AppCompatActivity {
     WebView webView;
     WebSettings webSettings;
     String username="",password="";
-    boolean try_once = false,sign_in_tried = false;
+    boolean first_if=false,second_if=false;
     Button sign_in_button;
+    boolean sign_in_attempted = false;
+
+    boolean isSignIn = false;
+    boolean isDefaultView = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        readData();
 
+        if(isSignIn)
+        {
+            //saveData();
+
+            if(isDefaultView)
+            {
+                startActivity(new Intent(MainActivity.this, DrawerActivityLayout.class));
+                finish();
+            }
+            else
+            {
+                startActivity(new Intent(MainActivity.this, ChangedLayoutActivity.class));
+                finish();
+            }
+
+            return;
+
+        }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
         sign_in_button = findViewById(R.id.bt_sign_in);
         webView = findViewById(R.id.wv_sign_in);
         username_field = findViewById(R.id.ti_et_student_id);
         password_field = findViewById(R.id.ti_et_password);
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+    }
+
+    public void onClickSignUp(View view) {
+
+        if(TextUtils.isEmpty(username_field.getText()) || TextUtils.isEmpty(password_field.getText()))
+        {
+            Toast.makeText(MainActivity.this, "Field Empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        username = username_field.getText().toString();
+        password = password_field.getText().toString();
+        first_if = false;
+        second_if = false;
+        sign_in_attempted = false;
+
         webView.addJavascriptInterface(new CustomJavaScriptInterface(MainActivity.this),"app");
 
-        try_once = true;
 
         webView.setWebViewClient(new WebViewClient() {
             boolean page_load_error = false;
@@ -53,37 +95,52 @@ public class MainActivity extends AppCompatActivity {
                 if (page_load_error)
                     Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
                 else {
-                    if (!try_once) return;
-                    try_once = false;
+
                     //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
 
-                    webView.evaluateJavascript("var check = !(!(document.getElementById('userdetails')));", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String value) {
-                            webView.evaluateJavascript("app.userCheck(check);", new ValueCallback<String>() {
-                                @Override
-                                public void onReceiveValue(String value) {
-                                    if (loginState)
-                                    {
-                                        startActivity(new Intent(MainActivity.this,DrawerActivityLayout.class));
-                                        finish();
 
-                                    } else {
-                                        if (sign_in_tried)
-                                            Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
-                                        sign_in_tried = false;
-                                        sign_in_button.setEnabled(true);
 
+                    if(!first_if && !sign_in_attempted) {
+                        first_if=true;
+                        webView.evaluateJavascript("document.getElementById('userid').value = '" + username + "';", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String value) {
+                                //webView.evaluateJavascript("document.getElementById('password').value = '" + s_password + "';",);
+                                webView.evaluateJavascript("document.getElementById('password').value = '" + password + "';", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String value) {
+                                        sign_in_attempted = true;
+                                        webView.evaluateJavascript("document.getElementById('auth').submit();", null);
+                                        sign_in_button.setEnabled(false);
                                     }
-                                }
-                            });
-                        }
-                    });
+                                });
 
-                    if (loginState)
-                        Toast.makeText(MainActivity.this, "LOGGED IN SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
-                    else {
-                        sign_in_button.setEnabled(false);
+                            }
+                        });
+                    }
+                    else if(!second_if && sign_in_attempted){
+                        second_if=true;
+                        webView.evaluateJavascript("var check = !(!(document.getElementById('userdetails')));", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String value) {
+                                webView.evaluateJavascript("app.userCheck(check);", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String value) {
+                                        if (loginState) {
+                                            saveData();
+                                            Intent intent = new Intent(MainActivity.this,DrawerActivityLayout.class);
+                                            intent.putExtra("ID",username);
+                                            startActivity(intent);
+                                            finish();
+
+                                        } else {
+                                            Toast.makeText(MainActivity.this, "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
+                                            sign_in_button.setEnabled(true);
+                                        }
+                                    }
+                                });
+                            }
+                        });
                     }
                 }
 
@@ -99,34 +156,33 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDatabaseEnabled(true);
         webView.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
 
-    }
-
-    public void onClickSignUp(View view) {
-
-        if(TextUtils.isEmpty(username_field.getText()) || TextUtils.isEmpty(password_field.getText()))
-        {
-            Toast.makeText(MainActivity.this, "Field Empty!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        username = username_field.getText().toString();
-        password = password_field.getText().toString();
-        sign_in_tried = true;
-        webView.evaluateJavascript("document.getElementById('userid').value = '" + username + "';", new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String value) {
-                //webView.evaluateJavascript("document.getElementById('password').value = '" + s_password + "';",);
-                webView.evaluateJavascript("document.getElementById('password').value = '" + password + "';", new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String value) {
-                        try_once = true;
-                        webView.evaluateJavascript("document.getElementById('auth').submit();",null);
-
-                    }
-                });
-
-            }
-        });
 
     }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void readData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedpreferences.edit();
+        isSignIn = sharedpreferences.getBoolean("isSignIn",false);
+        //editor.clear().commit();
+
+        SharedPreferences preferences = getSharedPreferences("isDefaultView", Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor1 = preferences.edit();
+        isDefaultView = preferences.getBoolean("isDefaultView",true);
+        //editor1.clear().commit();
+
+    }
+
+    private void saveData() {
+        SharedPreferences sharedpreferences2 = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences2.edit();
+        editor.putBoolean("isSignIn",true);
+        editor.commit();
+
+    }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 }
 

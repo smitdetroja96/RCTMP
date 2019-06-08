@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +36,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     static boolean loginState;
     private WebView wv_check;
     private WebSettings webSettings;
-    private boolean try_once=false;
+    private boolean try_once=true;
 
 
 
@@ -41,8 +44,6 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
-
-
 
         wv_check = findViewById(R.id.wv_check);
         wv_check.addJavascriptInterface(new CustomJavaScriptInterface(DrawerActivityLayout.this),"app");
@@ -73,6 +74,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                         startActivity(new Intent(DrawerActivityLayout.this,MainActivity.class));
                                         finish();
                                     }
+                                    else
+                                        Log.d("DRAWER_TEST","Yes");
                                 }
                             });
                         }
@@ -88,7 +91,6 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
         wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
-
 
 
 
@@ -127,6 +129,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 displayMessage("Smit");
                 break;
             case R.id.change_app_layout:
+                saveData();
                 Intent i = new Intent(DrawerActivityLayout.this,ChangedLayoutActivity.class);
                 startActivity(i);
                 finish();
@@ -158,7 +161,12 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickSignOut(View view) {
-        Toast.makeText(this,"Signing Off",Toast.LENGTH_SHORT).show();
+        saveData1();
+        //try_once = true;
+        //wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-main.pl?logout.x=1");
+        Intent i = new Intent(DrawerActivityLayout.this,MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -182,4 +190,24 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    private void saveData()
+    {
+
+        SharedPreferences sharedpreferences = getSharedPreferences("isDefaultView", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean("isDefaultView",false);
+        editor.commit();
+
+    }
+
+    private void saveData1()
+    {
+        SharedPreferences sharedpreferences1 = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedpreferences1.edit();
+        editor1.putBoolean("isSignIn",false);
+        editor1.commit();
+
+    }
+
 }
