@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -156,9 +157,14 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
             @Override
             public void onClick(View v) {
                 saveData1();
-                Intent i = new Intent(ChangedLayoutActivity.this,MainActivity.class);
-                startActivity(i);
-                finish();
+                CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+                    @Override
+                    public void onReceiveValue(Boolean aBoolean) {
+                        Intent i = new Intent(ChangedLayoutActivity.this,MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
             }
         });
     }

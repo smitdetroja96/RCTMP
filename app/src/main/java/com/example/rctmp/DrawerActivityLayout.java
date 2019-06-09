@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -162,11 +163,14 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
     public void onClickSignOut(View view) {
         saveData1();
-        //try_once = true;
-        //wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-main.pl?logout.x=1");
-        Intent i = new Intent(DrawerActivityLayout.this,MainActivity.class);
-        startActivity(i);
-        finish();
+        CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+            @Override
+            public void onReceiveValue(Boolean aBoolean) {
+                Intent i = new Intent(DrawerActivityLayout.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
