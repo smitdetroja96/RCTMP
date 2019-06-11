@@ -16,6 +16,12 @@
             android:title="Change App Layout" />
 
         <item
+            android:id="@+id/change_password"
+            android:icon="@drawable/change_pwd"
+            android:title="Change Password"
+            />
+
+        <item
             android:id="@+id/nav_rules"
             android:icon="@drawable/ic_help"
             android:title="Rules" />

@@ -126,6 +126,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
         switch (item.getItemId())
         {
+            case R.id.change_password:
+                Intent i1 = new Intent(DrawerActivityLayout.this,ChangePasswordActivity.class);
+                startActivity(i1);
+                break;
             case R.id.nav_user_profile:
                 displayMessage("Smit");
                 break;

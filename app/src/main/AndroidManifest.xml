@@ -11,11 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangedLayoutActivity"></activity>
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".ChangedLayoutActivity" />
         <activity android:name=".OnlineResourceSearchActivity" />
         <activity android:name=".IntermediateActivity" />
-        <activity android:name=".WebSearchActivity"
-            android:parentActivityName=".OnlineResourceSearchActivity"/>
+        <activity
+            android:name=".WebSearchActivity"
+            android:parentActivityName=".OnlineResourceSearchActivity" />
         <activity android:name=".ViewDetials" />
         <activity android:name=".SearchingActivity" />
         <activity

@@ -174,6 +174,10 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.change_password:
+                Intent i1 = new Intent(ChangedLayoutActivity.this,ChangePasswordActivity.class);
+                startActivity(i1);
+                break;
             case R.id.nav_user_profile:
                 displayMessage("Smit");
                 break;
