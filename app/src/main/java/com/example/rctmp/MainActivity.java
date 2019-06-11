@@ -1,5 +1,6 @@
 package com.example.rctmp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -16,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickSignUp(View view) {
 
+
         if(TextUtils.isEmpty(username_field.getText()) || TextUtils.isEmpty(password_field.getText()))
         {
             Toast.makeText(MainActivity.this, "Field Empty!", Toast.LENGTH_SHORT).show();
@@ -80,8 +85,28 @@ public class MainActivity extends AppCompatActivity {
         second_if = false;
         sign_in_attempted = false;
 
-        webView.addJavascriptInterface(new CustomJavaScriptInterface(MainActivity.this),"app");
+        //***********************************************************************************************
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_dialogue_layout);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
+        dialog.show();
+
+        //***********************************************************************************************
+
+        webView.addJavascriptInterface(new CustomJavaScriptInterface(MainActivity.this),"app");
 
         webView.setWebViewClient(new WebViewClient() {
             boolean page_load_error = false;
@@ -93,14 +118,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (page_load_error)
+                if (page_load_error) {
+
+                    dialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+
+                }
                 else {
 
                     //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
-
-
-
                     if(!first_if && !sign_in_attempted) {
                         first_if=true;
                         webView.evaluateJavascript("document.getElementById('userid').value = '" + username + "';", new ValueCallback<String>() {
@@ -128,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onReceiveValue(String value) {
                                         if (loginState) {
+                                            dialog.dismiss();
                                             saveData();
                                             Intent intent = new Intent(MainActivity.this,DrawerActivityLayout.class);
                                             intent.putExtra("ID",username);
@@ -135,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                             finish();
 
                                         } else {
+                                            dialog.dismiss();
                                             Toast.makeText(MainActivity.this, "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
                                             sign_in_button.setEnabled(true);
                                         }
@@ -265,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDatabaseEnabled(true);
         webView.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-password-recovery.pl");
     }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void readData()
     {
         SharedPreferences sharedpreferences = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
