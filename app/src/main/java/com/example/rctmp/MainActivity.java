@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
         username = username_field.getText().toString();
         password = password_field.getText().toString();
+        String ans = "123";
         first_if = false;
         second_if = false;
         sign_in_attempted = false;
