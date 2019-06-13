@@ -135,7 +135,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"History",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChangedLayoutActivity.this,ReadingHistoryActivity.class);
+                startActivity(intent);
             }
         });
 

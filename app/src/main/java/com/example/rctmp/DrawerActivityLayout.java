@@ -160,7 +160,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickHistory(View view) {
-        Toast.makeText(this,"HISTORY",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(DrawerActivityLayout.this,ReadingHistoryActivity.class);
+        startActivity(intent);
     }
 
     public void onClickSuggestions(View view) {
