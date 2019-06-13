@@ -17,15 +17,16 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/item_constraint_layout">
 
 
             <ImageView
                 android:id="@+id/iv_book"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:src="@drawable/book"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -37,15 +38,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="TITLE"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:maxWidth="220dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_author"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.004"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_book"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
@@ -55,9 +59,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="Author"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_material_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_book" />
 
             <TextView
@@ -65,19 +73,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="4dp"
                 android:text="Material Type"
-                app:layout_constraintBottom_toTopOf="@+id/tv_literary_form"
-                app:layout_constraintStart_toEndOf="@+id/iv_book" />
-
-            <TextView
-                android:id="@+id/tv_literary_form"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="4dp"
-                android:text="Literary Form"
-                app:layout_constraintBottom_toTopOf="@+id/tv_publisher"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tv_status"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_book" />
 
             <TextView
@@ -85,22 +86,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:text="Publisher"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_book" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/iv_book"
+                app:layout_constraintTop_toBottomOf="@+id/tv_status"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/tv_format"
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Format"
-                app:layout_constraintBottom_toTopOf="@+id/tv_literary_form"
-                app:layout_constraintStart_toEndOf="@+id/tv_material_type"
-                app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="Status"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.004"
+                app:layout_constraintStart_toEndOf="@+id/iv_book"
+                app:layout_constraintTop_toBottomOf="@+id/tv_material_type" />
 
 
         </android.support.constraint.ConstraintLayout>

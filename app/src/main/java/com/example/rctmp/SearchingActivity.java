@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +12,21 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -24,28 +36,71 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     ListAdapter adapter;
     Spinner spinner;
     EditText search_edit_text;
-    ArrayList<String> temp;
+    ArrayList<BooksClass> books;
 
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching);
 
-        //-------------------------------------------------------------------------------------------------------------
-        temp = new ArrayList<>();
+        //***********************************************************************************************
 
-        int i;
-        for(i = 0; i < 15; i++)
-        {
-            temp.add("" + i);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchingActivity.this);
+        builder.setCancelable(false);
+//        TextView textView = findViewById(R.id.loader);
+//        textView.setText("Fetching Books...");
+        builder.setView(R.layout.progress_dialogue_layout_1);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
         }
+
+        dialog.show();
+
+        //***********************************************************************************************
+
+        //-------------------------------------------------------------------------------------------------------------
+
+        books = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Books");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    BooksClass temp = snapshot.getValue(BooksClass.class);
+                    books.add(temp);
+                }
+
+                dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                dialog.dismiss();
+                Toast.makeText(SearchingActivity.this, "Failed : "+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
         recyclerView = findViewById(R.id.recycler_view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ListAdapter(this,temp);
+        adapter = new ListAdapter(this,books);
 
         recyclerView.setAdapter(adapter);
         //--------------------------------------------------------------------------------------------------------------
@@ -84,11 +139,11 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
     public void filter(String text)
     {
-        ArrayList<String> filtered = new ArrayList<>();
+        ArrayList<BooksClass> filtered = new ArrayList<>();
 
-        for (String s : temp) {
+        for (BooksClass s : books) {
             //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
+            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
                 filtered.add(s);
             }
@@ -103,9 +158,8 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         if(item.getItemId() == 1)
         {
-            adapter.removeItem(item.getGroupId());
+//            adapter.removeItem(item.getGroupId());
             displayMessage("Menu1 Clicked...");
-
         }
         else if(item.getItemId() == 2)
         {

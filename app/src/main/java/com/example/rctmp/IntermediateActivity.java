@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class IntermediateActivity extends AppCompatActivity {
 
-    Button button_web_search;
+    Button button_web_search,button_book_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +16,7 @@ public class IntermediateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intermediate);
 
         button_web_search = findViewById(R.id.bt_web_search);
+        button_book_search = findViewById(R.id.bt_book_search);
 
         button_web_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,6 +24,16 @@ public class IntermediateActivity extends AppCompatActivity {
 
                 Intent i = new Intent(IntermediateActivity.this,OnlineResourceSearchActivity.class);
                 startActivity(i);
+            }
+        });
+
+        button_book_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i1 = new Intent(IntermediateActivity.this,SearchingActivity.class);
+                startActivity(i1);
+
             }
         });
 
