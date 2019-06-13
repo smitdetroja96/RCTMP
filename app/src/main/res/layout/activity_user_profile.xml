@@ -114,6 +114,7 @@ tools:context=".UserProfileActivity">
             android:layout_marginTop="10dp"
             android:text="Change Password"
             android:textSize="20sp"
+            android:onClick="onClickChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

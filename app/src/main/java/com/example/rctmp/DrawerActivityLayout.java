@@ -135,6 +135,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_user_profile:
                 Intent i2 = new Intent(DrawerActivityLayout.this, UserProfileActivity.class);
+                startActivity(i2);
                 break;
             case R.id.change_app_layout:
                 saveData();
