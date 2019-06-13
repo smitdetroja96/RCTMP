@@ -3,6 +3,8 @@ package com.example.rctmp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -46,57 +48,59 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
 
-        wv_check = findViewById(R.id.wv_check);
-        wv_check.addJavascriptInterface(new CustomJavaScriptInterface(DrawerActivityLayout.this),"app");
+        if(isInternet()) {
 
-        wv_check.setWebViewClient(new WebViewClient(){
-            boolean page_load_error = false;
+            wv_check = findViewById(R.id.wv_check);
+            wv_check.addJavascriptInterface(new CustomJavaScriptInterface(DrawerActivityLayout.this), "app");
 
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                page_load_error = true;
-            }
+            wv_check.setWebViewClient(new WebViewClient() {
+                boolean page_load_error = false;
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if(page_load_error){
-                    Toast.makeText(DrawerActivityLayout.this, "Failed to Connect!", Toast.LENGTH_SHORT).show(); }
-                else{
-                    if(!try_once) return;
-                    try_once = false;
-
-                    wv_check.evaluateJavascript("var check2 = !(!(document.getElementById('userdetails')));", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String s) {
-                            wv_check.evaluateJavascript("app.userCheck(check2);", new ValueCallback<String>() {
-                                @Override
-                                public void onReceiveValue(String s) {
-                                    if(!loginState){
-                                        startActivity(new Intent(DrawerActivityLayout.this,MainActivity.class));
-                                        finish();
-                                    }
-                                    else
-                                        Log.d("DRAWER_TEST","Yes");
-                                }
-                            });
-                        }
-                    });
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    page_load_error = true;
                 }
 
-            }
-        });
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if (page_load_error) {
+                        Toast.makeText(DrawerActivityLayout.this, "Failed to Connect!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!try_once) return;
+                        try_once = false;
 
-        webSettings = wv_check.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDatabaseEnabled(true);
-        wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
+                        wv_check.evaluateJavascript("var check2 = !(!(document.getElementById('userdetails')));", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
+                                wv_check.evaluateJavascript("app.userCheck(check2);", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String s) {
+                                        if (!loginState) {
+                                            startActivity(new Intent(DrawerActivityLayout.this, MainActivity.class));
+                                            finish();
+                                        } else
+                                            Log.d("DRAWER_TEST", "Yes");
+                                    }
+                                });
+                            }
+                        });
+                    }
 
+                }
+            });
 
+            webSettings = wv_check.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setAllowContentAccess(true);
+            webSettings.setDomStorageEnabled(true);
+            webSettings.setDatabaseEnabled(true);
+            wv_check.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
 
-
-
+        }
+        else
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+        }
 
         //------------------------------------------------------------------------------------------------------------------------------------
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -114,8 +118,6 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         toggle.syncState();
 
         //------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 
 
@@ -198,7 +200,19 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+    public boolean isInternet() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
+            return true;
+
+        return false;
+    }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
     private void saveData()
     {
 
@@ -217,5 +231,5 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         editor1.commit();
 
     }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
 }
