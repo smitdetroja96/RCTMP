@@ -37,6 +37,9 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     Spinner spinner;
     EditText search_edit_text;
     ArrayList<BooksClass> books;
+    String Search_tag;
+
+    ArrayList<BooksClass> filtered = new ArrayList<>();
 
     DatabaseReference databaseReference;
 
@@ -112,6 +115,8 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+//        Toast.makeText(this, Search_tag, Toast.LENGTH_SHORT).show();
+
         //--------------------------------------------------------------------------------------------------------------
 
         search_edit_text = findViewById(R.id.et_search_books);
@@ -130,6 +135,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
             @Override
             public void afterTextChanged(Editable editable) {
 
+//                Toast.makeText(SearchingActivity.this, Search_tag + "+++++++", Toast.LENGTH_SHORT).show();
                 filter(editable.toString());
 
             }
@@ -139,13 +145,82 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
     public void filter(String text)
     {
-        ArrayList<BooksClass> filtered = new ArrayList<>();
+        filtered.clear();
 
-        for (BooksClass s : books) {
-            //if the existing elements contains the search input
-            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filtered.add(s);
+        if(Search_tag.compareTo("Title") == 0)
+        {
+//            Toast.makeText(this, "111111111", Toast.LENGTH_SHORT).show();
+
+            for (BooksClass s : books) {
+                //if the existing elements contains the search input
+                if (s.getName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filtered.add(s);
+                }
+            }
+        }
+        else if(Search_tag.compareTo("Keyword") == 0)
+        {
+
+//            Toast.makeText(this, Search_tag + "---------", Toast.LENGTH_SHORT).show();
+
+//            Toast.makeText(this, "2222222222222222", Toast.LENGTH_SHORT).show();
+
+            for (BooksClass s : books) {
+                //if the existing elements contains the search input
+                if (s.getName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filtered.add(s);
+                }
+                else if(s.getAuthors().toLowerCase().contains(text.toLowerCase()))
+                {
+                    filtered.add(s);
+                }
+                else if(s.getPublisher().toLowerCase().contains(text.toLowerCase()))
+                {
+                    filtered.add(s);
+                }
+                else if(s.getSubjects().toLowerCase().contains(text.toLowerCase()))
+                {
+                    filtered.add(s);
+                }
+            }
+        }
+        else if(Search_tag.compareTo("Author") == 0)
+        {
+//            Toast.makeText(this, "3333333333333333333", Toast.LENGTH_SHORT).show();
+
+            for (BooksClass s : books) {
+                //if the existing elements contains the search input
+                if (s.getAuthors().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filtered.add(s);
+                }
+            }
+        }
+        else if(Search_tag.compareTo("Publisher") == 0)
+        {
+//            Toast.makeText(this, "444444444444", Toast.LENGTH_SHORT).show();
+
+            for (BooksClass s : books) {
+                //if the existing elements contains the search input
+                if (s.getPublisher().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filtered.add(s);
+                }
+            }
+        }
+        else if(Search_tag.compareTo("Subject") == 0)
+        {
+
+//            Toast.makeText(this, "555555555555555555", Toast.LENGTH_SHORT).show();
+
+            for (BooksClass s : books) {
+                //if the existing elements contains the search input
+                if (s.getSubjects().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filtered.add(s);
+                }
             }
         }
 
@@ -158,17 +233,16 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         if(item.getItemId() == 1)
         {
-//            adapter.removeItem(item.getGroupId());
-            displayMessage("Menu1 Clicked...");
+            displayMessage("Added To WishList" + filtered.get(item.getGroupId()).getName());
         }
         else if(item.getItemId() == 2)
         {
-            displayMessage("Menu2 Clicked...");
+            Intent i = new Intent(SearchingActivity.this,ViewDetials.class);
+            startActivity(i);
         }
         else if(item.getItemId()==3)
         {
-            Intent i = new Intent(SearchingActivity.this,ViewDetials.class);
-            startActivity(i);
+            displayMessage("Share Book" + + item.getGroupId());
         }
 
         return super.onContextItemSelected(item);
@@ -183,7 +257,11 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+        Search_tag = adapterView.getSelectedItem().toString();
+        String change = search_edit_text.getText().toString();
+//        Toast.makeText(this, change, Toast.LENGTH_SHORT).show();
+        filter(change);
+
     }
 
     @Override

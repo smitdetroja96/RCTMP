@@ -5,9 +5,11 @@
 
     <string-array name="spinner_items">
 
+        <item>Keyword</item>
         <item>Title</item>
         <item>Author</item>
-        <item>Publication</item>
+        <item>Publisher</item>
+        <item>Subject</item>
 
     </string-array>
 
