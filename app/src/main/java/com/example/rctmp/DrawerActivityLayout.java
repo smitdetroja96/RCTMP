@@ -3,6 +3,7 @@ package com.example.rctmp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.usb.UsbRequest;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -133,7 +134,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 startActivity(i1);
                 break;
             case R.id.nav_user_profile:
-                displayMessage("Smit");
+                Intent i2 = new Intent(DrawerActivityLayout.this, UserProfileActivity.class);
                 break;
             case R.id.change_app_layout:
                 saveData();

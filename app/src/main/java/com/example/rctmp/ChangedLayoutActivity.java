@@ -180,7 +180,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                 startActivity(i1);
                 break;
             case R.id.nav_user_profile:
-                displayMessage("Smit");
+                Intent i2 = new Intent(ChangedLayoutActivity.this,UserProfileActivity.class);
+                startActivity(i2);
                 break;
             case R.id.change_app_layout:
                 saveData();
