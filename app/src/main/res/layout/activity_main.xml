@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/root_layout_main_activity">
 
     <WebView
         android:visibility="invisible"
