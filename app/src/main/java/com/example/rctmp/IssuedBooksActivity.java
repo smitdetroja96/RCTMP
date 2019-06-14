@@ -17,27 +17,26 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ReadingHistoryActivity extends AppCompatActivity {
+public class IssuedBooksActivity extends AppCompatActivity {
 
-    ArrayList<HistoryBooksClass> MyHistory = new ArrayList<>();
+    ArrayList<HistoryBooksClass> MyIssues = new ArrayList<>();
     WebView wv;
     WebSettings webSettings;
-    boolean try_once = false;
     RadioGroup radioGroup;
-
+    boolean try_once = false;
 
     private RecyclerView recyclerView;
-    HistoryListAdapter mAdapter;
+    private IssuedBooksAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reading_history);
-        recyclerView = findViewById(R.id.rv_history);
+        setContentView(R.layout.activity_issued_books);
 
-        wv = findViewById(R.id.wv_history);
+        recyclerView = findViewById(R.id.rv_issued);
+
+        wv = findViewById(R.id.wv_issued_book);
 
         try_once = true;
         wv.setWebViewClient(new WebViewClient(){
@@ -56,6 +55,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                     if(!try_once)return;
                     try_once = false;
 
+
                     //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
                     wv.evaluateJavascript("(function(){return window.document.body.outerHTML})();", new ValueCallback<String>() {
                         @Override
@@ -66,7 +66,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                             String search_date = "span title=";
                             String search_author = "item-details";
 
-                            //index_x = index where substring search_x is present in HTML PAGE(string value)
+                            //ind = index where substring search_bib is present in HTML PAGE(string value)
                             int index_bib = value.indexOf(search_bib);
                             int index_date = value.indexOf(search_date);
                             int index_author = value.indexOf(search_author);
@@ -99,7 +99,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                                 }
                                 while(true){
                                     char q = value.charAt(k);
-                                    if(q==' ')break;
+                                    if(q=='T')break;
                                     date_string.append(q);
                                     k++;
                                 }
@@ -110,7 +110,6 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                                     l++;
                                 }
                                 String date_str = date_string.toString();
-                                //Check if the check-in date has value "Checked Out" (it is currently issued and not history)
                                 if(date_str.compareTo("Checked")!=0) {
                                     StringBuilder year = new StringBuilder();
                                     StringBuilder month = new StringBuilder();
@@ -131,7 +130,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
 
                                     date_str = day.toString() + "/" + month.toString() + "/" + year.toString();
 
-                                    MyHistory.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
+                                    MyIssues.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
                                 }
                                 //MyDateList.add(temp2.toString());
                                 //MyBibList.add(temp.toString());
@@ -139,36 +138,35 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                                 index_date = value.indexOf(search_date,index_date+search_date.length());
                                 index_author = value.indexOf(search_author,index_author+search_author.length());
                             }
-                            Log.d("count=",Integer.toString(MyHistory.size()));
-
-                            MyHistory.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
-                            MyHistory.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
-                            MyHistory.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
+                            MyIssues.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
+                            MyIssues.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
+                            MyIssues.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
+                            Log.d("count=",Integer.toString(MyIssues.size()));
 
 
                             //Log.d("date=",Integer.toString(MyDateList.size()));
 
-                            Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                            layoutManager = new LinearLayoutManager(ReadingHistoryActivity.this);
+                            Collections.sort(MyIssues,HistoryBooksClass.TitleComparator);
+                            layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
-                            mAdapter = new HistoryListAdapter(MyHistory);
+                            mAdapter = new IssuedBooksAdapter(MyIssues);
                             recyclerView.setAdapter(mAdapter);
 
-                            radioGroup = findViewById(R.id.rg_history_sort_choices);
+                            radioGroup = findViewById(R.id.rg_issues_sort_choices);
                             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                                 @Override
                                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                    if(checkedId==R.id.rb_title_history){
-                                        Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                                        mAdapter.filterList(MyHistory);
+                                    if(checkedId==R.id.rb_title_issue){
+                                        Collections.sort(MyIssues,HistoryBooksClass.TitleComparator);
+                                        mAdapter.filterList(MyIssues);
                                     }
-                                    else if(checkedId==R.id.rb_author_history){
-                                        Collections.sort(MyHistory,HistoryBooksClass.AuthorComparator);
-                                        mAdapter.filterList(MyHistory);
+                                    else if(checkedId==R.id.rb_author_issue){
+                                        Collections.sort(MyIssues,HistoryBooksClass.AuthorComparator);
+                                        mAdapter.filterList(MyIssues);
                                     }
                                     else{
-                                        Collections.sort(MyHistory,HistoryBooksClass.DateComparator);
-                                        mAdapter.filterList(MyHistory);
+                                        Collections.sort(MyIssues,HistoryBooksClass.DateComparator);
+                                        mAdapter.filterList(MyIssues);
                                     }
                                 }
                             });
@@ -189,7 +187,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
         webSettings.setAllowContentAccess(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
-        wv.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-readingrecord.pl?limit=full");
+        wv.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
 
 
     }

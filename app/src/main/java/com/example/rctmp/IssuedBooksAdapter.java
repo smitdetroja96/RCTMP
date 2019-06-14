@@ -11,28 +11,28 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.MyViewHolder2> {
+public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.MyViewHolder3> {
 
     private ArrayList<HistoryBooksClass> historyItems;
 
-    public HistoryListAdapter(ArrayList<HistoryBooksClass> historyItemsList) {
+    public IssuedBooksAdapter(ArrayList<HistoryBooksClass> historyItemsList) {
         historyItems = historyItemsList;
     }
 
     @Override
-    public MyViewHolder2 onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder3 onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.history_item, parent, false);
 
-        return new MyViewHolder2(v);
+        return new MyViewHolder3(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HistoryListAdapter.MyViewHolder2 holder, int position) {
+    public void onBindViewHolder(@NonNull IssuedBooksAdapter.MyViewHolder3 holder, int position) {
 
         String title_val = "Title: " + historyItems.get(position).title;
         String author_val = "Author: " + historyItems.get(position).author;
-        String date_val = "Check-in Date: " + historyItems.get(position).checkInDate;
+        String date_val = "Due Date: " + historyItems.get(position).checkInDate;
 
         holder.title.setText(title_val);
         holder.author.setText(author_val);
@@ -43,12 +43,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     public int getItemCount() {return historyItems.size();}
 
 
-    public static class MyViewHolder2 extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class MyViewHolder3 extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView title,date,author;
         CardView cardView;
 
-        public MyViewHolder2(View itemView) {
+        public MyViewHolder3(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_title);
             author = itemView.findViewById(R.id.tv_author);

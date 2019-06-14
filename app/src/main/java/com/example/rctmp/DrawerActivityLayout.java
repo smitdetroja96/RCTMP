@@ -154,7 +154,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickIssuedBooks(View view) {
-        Toast.makeText(this,"Showing Issued Books",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(DrawerActivityLayout.this,IssuedBooksActivity.class);
+        startActivity(intent);
     }
 
     public void onClickWishList(View view) {

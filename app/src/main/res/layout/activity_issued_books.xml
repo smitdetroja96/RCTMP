@@ -6,12 +6,12 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_height="match_parent"
-    tools:context=".ReadingHistoryActivity">
+    tools:context=".IssuedBooksActivity">
 
     <WebView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/wv_history"
+        android:id="@+id/wv_issued_book"
         android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="0dp">
@@ -19,14 +19,14 @@
 
 
     <RelativeLayout
-        android:id="@+id/rl_sort_history"
+        android:id="@+id/rl_sort_issues"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_sort_label_history"
+            android:id="@+id/tv_sort_label_issues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -38,27 +38,27 @@
             android:textColor="#000000" />
 
         <RadioGroup
-            android:id="@+id/rg_history_sort_choices"
+            android:id="@+id/rg_issues_sort_choices"
             android:orientation="horizontal"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tv_sort_label_history"
+            android:layout_toEndOf="@id/tv_sort_label_issues"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:id="@+id/rb_title_history"
+                android:id="@+id/rb_title_issue"
                 android:text="Title"
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/rb_author_history"
+                android:id="@+id/rb_author_issue"
                 android:text="Author"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/rb_check_out_date_history"
-                android:text="Check-in Date"
+                android:id="@+id/rb_check_out_date_issue"
+                android:text="Due Date"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -68,11 +68,11 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_history"
+        android:id="@+id/rv_issued"
         android:scrollbars="vertical"
         android:layout_marginTop="20dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/rl_sort_history"
+        android:layout_below="@id/rl_sort_issues"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
