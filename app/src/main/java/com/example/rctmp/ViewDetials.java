@@ -9,5 +9,8 @@ public class ViewDetials extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detials);
+
+        BooksClass book_viewed = (BooksClass) getIntent().getSerializableExtra("BookDetails");
+
     }
 }

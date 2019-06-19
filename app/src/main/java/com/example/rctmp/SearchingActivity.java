@@ -238,11 +238,34 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         else if(item.getItemId() == 2)
         {
             Intent i = new Intent(SearchingActivity.this,ViewDetials.class);
+            i.putExtra("BookDetails",filtered.get(item.getGroupId()));
             startActivity(i);
         }
         else if(item.getItemId()==3)
         {
-            displayMessage("Share Book" + + item.getGroupId());
+            try
+            {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "RC APP");
+
+                BooksClass share_book = filtered.get(item.getGroupId());
+
+                String share_string = "RC APP" + "\n\n\n";
+
+                share_string = share_string + share_book.getName() + "\n\n";
+                share_string = share_string + "Authors : " + share_book.getAuthors() + "\n\n";
+
+                share_string = share_string + "Published By : " + share_book.getPublisher() + "\n\n";
+
+                share_string = share_string  + "Biblionumber : " + share_book.getBiblionumber();
+
+                i.putExtra(Intent.EXTRA_TEXT, share_string);
+                startActivity(Intent.createChooser(i, "Happy Reading..."));
+
+            }
+            catch (Exception e) {}
+//            displayMessage("Share Book" + + item.getGroupId());
         }
 
         return super.onContextItemSelected(item);

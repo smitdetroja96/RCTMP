@@ -182,7 +182,7 @@ public class WebSearchActivity extends AppCompatActivity {
                 sAux = sAux + share_string;
 
                 i.putExtra(Intent.EXTRA_TEXT, sAux);
-                startActivity(Intent.createChooser(i, "Read One"));
+                startActivity(Intent.createChooser(i, "Read..."));
 
             }
             catch (Exception e) {}

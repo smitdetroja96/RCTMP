@@ -1,6 +1,8 @@
 package com.example.rctmp;
 
-public class BooksClass {
+import java.io.Serializable;
+
+public class BooksClass implements Serializable {
 
     String authors,barcode,biblionumber,callnumber,ddc,description,materialType,name,publisher,status,subjects;
 
