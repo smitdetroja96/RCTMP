@@ -29,6 +29,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,13 +42,17 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     private WebView wv_check;
     private WebSettings webSettings;
     private boolean try_once=true;
+    String user_id;
 
+    TextView userId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
+
+        readData();
 
         if(isInternet()) {
 
@@ -111,6 +116,11 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View view = navigationView.getHeaderView(0);
+        userId = view.findViewById(R.id.nav_header_textView);
+
+        userId.setText(user_id);
+
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
@@ -217,6 +227,13 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void readData()
+    {
+        SharedPreferences preferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        user_id = preferences.getString("ID","No user");
+    }
+
     private void saveData()
     {
 
@@ -233,6 +250,11 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         SharedPreferences.Editor editor1 = sharedpreferences1.edit();
         editor1.putBoolean("isSignIn",false);
         editor1.commit();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ID","No user");
+        editor.commit();
 
     }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,16 +1,37 @@
 package com.example.rctmp;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -20,12 +41,47 @@ public class UserProfileActivity extends AppCompatActivity {
 
     String name = "";
 
+    TextView card_number,full_name;
+
+    ImageView user_image;
+
+    String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
         webView = findViewById(R.id.wv_personal_details);
+
+        card_number = findViewById(R.id.tv_libraryCardNumber);
+        full_name = findViewById(R.id.tv_userName);
+        user_image = findViewById(R.id.iv_user_image);
+
+        //***********************************************************************************************
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
+        builder.setCancelable(false);
+//        TextView textView = findViewById(R.id.loader);
+//        textView.setText("Fetching Books...");
+        builder.setView(R.layout.progress_dialogue_layout_1);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
+        dialog.show();
+
+        //***********************************************************************************************
+
+        readData();
 
         webView.setWebViewClient(new WebViewClient() {
             boolean page_load_error = false;
@@ -40,6 +96,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (page_load_error) {
 
                     Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
                 else
                 {
@@ -71,7 +128,13 @@ public class UserProfileActivity extends AppCompatActivity {
                         @Override
                         public void onReceiveValue(String s) {
                             name = name  + s.substring(1,s.length() - 1);
-                            Toast.makeText(UserProfileActivity.this, name, Toast.LENGTH_SHORT).show();
+
+                            card_number.setText(user_id);
+                            full_name.setText(name);
+
+                            dialog.dismiss();
+
+//                            Toast.makeText(UserProfileActivity.this, name, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -95,4 +158,12 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent i = new Intent(UserProfileActivity.this,ChangePasswordActivity.class);
         startActivity(i);
     }
+//--------------------------------------------------------------------------------------------------------------------------------------
+    private void readData()
+    {
+        SharedPreferences preferences = getSharedPreferences("ID", Context.MODE_PRIVATE);
+        user_id = preferences.getString("ID","No user");
+    }
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 }

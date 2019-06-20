@@ -21,6 +21,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ChangedLayoutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +33,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     private WebView wv_check;
     private WebSettings webSettings;
     private boolean try_once=true;
+    String user_id;
+    TextView userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         wishList = findViewById(R.id.ll_wishList);
         suggestions = findViewById(R.id.ll_suggestions);
         signOut = findViewById(R.id.ll_signOut);
+
+        readData();
 
         wv_check = findViewById(R.id.wv_check_cl);
         wv_check.addJavascriptInterface(new CustomJavaScriptInterface(ChangedLayoutActivity.this),"app");
@@ -107,6 +112,10 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         drawer = findViewById(R.id.drawer_layout_1);
 
         NavigationView navigationView = findViewById(R.id.nav_view_1);
+        View view = navigationView.getHeaderView(0);
+        userId = view.findViewById(R.id.nav_header_textView);
+
+        userId.setText(user_id);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
@@ -198,6 +207,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+//----------------------------------------------------------------------------------------------------------------------------
+
+    private void readData()
+    {
+        SharedPreferences preferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        user_id = preferences.getString("ID","No user");
+    }
 
     private void saveData()
     {
@@ -214,6 +230,11 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         editor1.putBoolean("isSignIn",false);
         editor1.commit();
 
-    }
+        SharedPreferences sharedPreferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ID","No user");
+        editor.commit();
 
+    }
+//------------------------------------------------------------------------------------------------------------------------------
 }

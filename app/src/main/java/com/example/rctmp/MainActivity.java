@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
                                             dialog.dismiss();
                                             saveData();
                                             Intent intent = new Intent(MainActivity.this,DrawerActivityLayout.class);
-                                            intent.putExtra("ID",username);
                                             startActivity(intent);
                                             finish();
 
@@ -347,6 +346,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences2.edit();
         editor.putBoolean("isSignIn",true);
         editor.commit();
+
+        SharedPreferences preferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = preferences.edit();
+        editor1.putString("ID",username);
+        editor1.commit();
 
     }
 
