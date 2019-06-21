@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IssuedBooksActivity"></activity>
+        <activity android:name=".FinesActivity"></activity>
+        <activity android:name=".IssuedBooksActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".ReadingHistoryActivity" />
         <activity android:name=".ChangePasswordActivity" />
