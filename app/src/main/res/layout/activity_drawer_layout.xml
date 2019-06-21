@@ -22,6 +22,13 @@
             android:layout_height="0dp">
         </WebView>
 
+        <WebView
+            android:id="@+id/wv_alarm"
+            android:visibility="invisible"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
+        </WebView>
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

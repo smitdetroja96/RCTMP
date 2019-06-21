@@ -4,47 +4,42 @@ import java.io.Serializable;
 
 public class BooksClass implements Serializable {
 
-    String authors,barcode,biblionumber,callnumber,ddc,description,materialType,name,publisher,status,subjects;
+    String authors;
+    int biblionumber;
+    String callnumber,description,isbn,materialType,name,publisher;
+    int quantity;
+    String subjects,url;
 
-
-    public BooksClass(String authors, String barcode, String biblionumber, String callnumber, String ddc, String description, String materialType, String name, String publisher, String status, String subjects) {
+    public BooksClass(String authors, int biblionumber, String callnumber, String description, String isbn, String materialType, String name, String publisher, int quantity, String subjects, String url) {
         this.authors = authors;
-        this.barcode = barcode;
         this.biblionumber = biblionumber;
         this.callnumber = callnumber;
-        this.ddc = ddc;
         this.description = description;
+        this.isbn = isbn;
         this.materialType = materialType;
         this.name = name;
         this.publisher = publisher;
-        this.status = status;
+        this.quantity = quantity;
         this.subjects = subjects;
+        this.url = url;
+    }
+
+    public BooksClass() {
     }
 
     public String getAuthors() {
         return authors;
     }
 
-    public BooksClass() {
-    }
-
     public void setAuthors(String authors) {
         this.authors = authors;
     }
 
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public String getBiblionumber() {
+    public int getBiblionumber() {
         return biblionumber;
     }
 
-    public void setBiblionumber(String biblionumber) {
+    public void setBiblionumber(int biblionumber) {
         this.biblionumber = biblionumber;
     }
 
@@ -56,20 +51,20 @@ public class BooksClass implements Serializable {
         this.callnumber = callnumber;
     }
 
-    public String getDdc() {
-        return ddc;
-    }
-
-    public void setDdc(String ddc) {
-        this.ddc = ddc;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getMaterialType() {
@@ -96,12 +91,12 @@ public class BooksClass implements Serializable {
         this.publisher = publisher;
     }
 
-    public String getStatus() {
-        return status;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getSubjects() {
@@ -110,5 +105,13 @@ public class BooksClass implements Serializable {
 
     public void setSubjects(String subjects) {
         this.subjects = subjects;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

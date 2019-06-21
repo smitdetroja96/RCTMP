@@ -74,7 +74,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         //-------------------------------------------------------------------------------------------------------------
 
         books = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Books");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child("inside");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

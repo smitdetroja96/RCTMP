@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         holder.title.setText(firebase_books.get(position).getName());
         holder.author.setText(firebase_books.get(position).getAuthors());
         holder.material_type.setText(firebase_books.get(position).getMaterialType());
-        holder.status.setText(firebase_books.get(position).getStatus());
+        holder.status.setText("" + firebase_books.get(position).getQuantity());
         holder.publisher.setText(firebase_books.get(position).getPublisher());
 
     }
@@ -58,7 +59,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
     {
         TextView title,author,material_type,status,publisher;
         CardView cardView;
-        ConstraintLayout constraintLayout;
+        RelativeLayout relativeLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -68,7 +69,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
             material_type = itemView.findViewById(R.id.tv_material_type);
             status = itemView.findViewById(R.id.tv_status);
             publisher = itemView.findViewById(R.id.tv_publisher);
-            constraintLayout = itemView.findViewById(R.id.item_constraint_layout);
+            relativeLayout = itemView.findViewById(R.id.item_relative_layout);
             cardView = itemView.findViewById(R.id.item_book_card_view);
             cardView.setOnCreateContextMenuListener(this);
         }

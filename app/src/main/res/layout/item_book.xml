@@ -15,23 +15,20 @@
     card_view:cardUseCompatPadding="true"
     android:id="@+id/item_book_card_view">
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/item_constraint_layout">
+            android:id="@+id/item_relative_layout">
 
 
             <ImageView
+                android:layout_alignParentStart="true"
                 android:id="@+id/iv_book"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="5dp"
                 android:layout_marginStart="4dp"
-                android:src="@drawable/book"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.47" />
+                android:src="@drawable/book"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -44,15 +41,7 @@
                 android:text="TITLE"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:maxLines="3"
-                android:singleLine="false"
-                android:maxWidth="220dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_author"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_book"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                android:layout_toEndOf="@id/iv_book" />
 
             <TextView
                 android:id="@+id/tv_author"
@@ -63,10 +52,8 @@
                 android:layout_marginBottom="4dp"
                 android:text="Author"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_material_type"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_book" />
+                android:layout_toEndOf="@id/iv_book"
+                android:layout_below="@id/tv_title"/>
 
             <TextView
                 android:id="@+id/tv_material_type"
@@ -76,10 +63,8 @@
                 android:layout_marginEnd="4dp"
                 android:text="Material Type"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/tv_status"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_book" />
+                android:layout_toEndOf="@id/iv_book"
+                android:layout_below="@id/tv_author"/>
 
             <TextView
                 android:id="@+id/tv_publisher"
@@ -91,12 +76,8 @@
                 android:layout_marginBottom="4dp"
                 android:text="Publisher"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_book"
-                app:layout_constraintTop_toBottomOf="@+id/tv_status"
-                app:layout_constraintVertical_bias="1.0" />
+                android:layout_toEndOf="@id/iv_book"
+                android:layout_below="@id/tv_status"/>
 
             <TextView
                 android:id="@+id/tv_status"
@@ -107,13 +88,11 @@
                 android:layout_marginEnd="4dp"
                 android:text="Status"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.004"
-                app:layout_constraintStart_toEndOf="@+id/iv_book"
-                app:layout_constraintTop_toBottomOf="@+id/tv_material_type" />
+                android:layout_toEndOf="@id/iv_book"
+                android:layout_below="@id/tv_material_type"/>
 
 
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
 
 
 
