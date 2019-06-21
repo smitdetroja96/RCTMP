@@ -1,5 +1,7 @@
 package com.example.rctmp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +34,11 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DrawerActivityLayout extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -230,11 +236,42 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                     index_author = value.indexOf(search_author, index_author + search_author.length());
                                 }
 
-                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "12/12/2017"));
-                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "12/01/2017"));
-                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "10/01/2019"));
+                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "12/12/2019"));
+                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "10/12/2019"));
+
+                                for(HistoryBooksClass i : MyIssues)
+                                {
+                                    try {
+                                        Date d = new SimpleDateFormat("dd/MM/yyyy").parse(i.checkInDate);
+
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(d);
+                                        calendar.set(Calendar.HOUR_OF_DAY,20);
+                                        calendar.set(Calendar.MINUTE,30);
+
+                                        AlarmManager alarmManager;
+                                        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                                        Intent intent;
+                                        intent = new Intent(DrawerActivityLayout.this,AlarmReceiver.class);
+
+                                        int requestCode = Integer.parseInt(i.biblionumber);
+                                        intent.putExtra("requestCode",requestCode);
 
 
+                                        PendingIntent pendingIntent;
+                                        pendingIntent = PendingIntent.getBroadcast(DrawerActivityLayout.this,requestCode,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+
+
+
+
+
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
                                 Log.d("count=", Integer.toString(MyIssues.size()));
 
