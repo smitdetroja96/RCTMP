@@ -38,4 +38,10 @@ public class IntermediateActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onClickRaxterSearch(View view) {
+        Intent i2 = new Intent(IntermediateActivity.this,RaxterSearchActivity.class);
+        startActivity(i2);
+
+    }
 }
