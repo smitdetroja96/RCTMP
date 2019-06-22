@@ -34,8 +34,8 @@ tools:context=".UserProfileActivity">
 
         <ImageView
             android:id="@+id/iv_user_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/app_name"
@@ -133,13 +133,14 @@ tools:context=".UserProfileActivity">
 
         <Button
             android:id="@+id/bt_messagingSettings"
-            android:text="Messaging Settings"
+            android:text="SignOut"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
-            android:drawableStart="@drawable/ic_suggest"
+            android:drawableStart="@drawable/ic_power_settings"
             android:layout_below="@id/bt_changePassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onClickSignOut"/>
     </RelativeLayout>
 
 </ScrollView>

@@ -52,7 +52,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/iv_da_rc_image">
+            android:layout_below="@+id/iv_da_rc_image"
+            android:scrollbars="vertical">
 
             <RelativeLayout
             android:layout_width="match_parent"
@@ -297,12 +298,60 @@
 
             </android.support.v7.widget.CardView>
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvMyFavourites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvWishList"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#fcfcfc"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="3dp"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
 
-            <android.support.v7.widget.CardView
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClickMyFavourites">
+
+
+                        <ImageView
+                            android:id="@+id/chat_image11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_favorite"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/chat_name11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="5dp"
+                            android:text="MY FAVOURITES"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toRightOf="@+id/chat_image11"
+                            app:layout_constraintTop_toTopOf="@+id/chat_image11" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
                 android:id="@+id/cvSuggestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cvWishList"
+                android:layout_below="@+id/cvMyFavourites"
                 android:layout_margin="4dp"
                 app:cardBackgroundColor="#fcfcfc"
                 app:cardCornerRadius="10dp"

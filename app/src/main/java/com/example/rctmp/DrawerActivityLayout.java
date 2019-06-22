@@ -1,8 +1,10 @@
 package com.example.rctmp;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.usb.UsbRequest;
@@ -24,6 +26,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
@@ -31,6 +35,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +65,29 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
         readData();
 
+        //***********************************************************************************************
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(DrawerActivityLayout.this);
+        builder.setCancelable(false);
+//        TextView textView = findViewById(R.id.loader);
+//        textView.setText("Fetching Books...");
+        builder.setView(R.layout.progress_dialogue_layout_1);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
+        dialog.show();
+
+        //***********************************************************************************************
+
         if(isInternet()) {
 
             wv_check = findViewById(R.id.wv_check);
@@ -76,6 +104,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     if (page_load_error) {
+                        dialog.dismiss();
                         Toast.makeText(DrawerActivityLayout.this, "Failed to Connect!", Toast.LENGTH_SHORT).show();
                     } else {
                         if (!try_once) return;
@@ -88,10 +117,12 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                     @Override
                                     public void onReceiveValue(String s) {
                                         if (!loginState) {
+                                            dialog.dismiss();
                                             startActivity(new Intent(DrawerActivityLayout.this, MainActivity.class));
                                             finish();
-                                        } else
+                                        } else {
                                             Log.d("DRAWER_TEST", "Yes");
+                                        }
                                     }
                                 });
                             }
@@ -111,6 +142,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         }
         else
         {
+            dialog.dismiss();
             Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
         }
 
@@ -151,6 +183,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     if (page_load_error) {
+                        dialog.dismiss();
                         Toast.makeText(DrawerActivityLayout.this, "Failed to Connect!", Toast.LENGTH_SHORT).show();
                     } else {
                         if (!try_once_alarm) return;
@@ -237,8 +270,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                 }
 
                                 MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
-                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "12/12/2019"));
-                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "10/12/2019"));
+                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
+                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
 
                                 for(HistoryBooksClass i : MyIssues)
                                 {
@@ -247,8 +280,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
 
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(d);
-                                        calendar.set(Calendar.HOUR_OF_DAY,20);
-                                        calendar.set(Calendar.MINUTE,30);
+                                        calendar.set(Calendar.HOUR_OF_DAY,21);
+                                        calendar.set(Calendar.MINUTE,21);
 
                                         AlarmManager alarmManager;
                                         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -273,6 +306,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                     }
                                 }
 
+                                dialog.dismiss();
+
                                 Log.d("count=", Integer.toString(MyIssues.size()));
 
 
@@ -292,11 +327,13 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         }
         else
         {
+            dialog.dismiss();
             Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
         }
 
-
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -357,6 +394,9 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         });
     }
 
+    public void onClickMyFavourites(View view) {
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -366,7 +406,17 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         }
         else
         {
-            super.onBackPressed();
+
+            new AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            DrawerActivityLayout.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
 
@@ -421,5 +471,9 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
         editor.commit();
 
     }
+
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
 }

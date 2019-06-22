@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -158,12 +159,42 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent i = new Intent(UserProfileActivity.this,ChangePasswordActivity.class);
         startActivity(i);
     }
+
+    public void onClickSignOut(View view) {
+
+        saveData1();
+        CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+            @Override
+            public void onReceiveValue(Boolean aBoolean) {
+                Intent i = new Intent(UserProfileActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+    }
+
 //--------------------------------------------------------------------------------------------------------------------------------------
     private void readData()
     {
         SharedPreferences preferences = getSharedPreferences("ID", Context.MODE_PRIVATE);
         user_id = preferences.getString("ID","No user");
     }
+
+    private void saveData1()
+    {
+        SharedPreferences sharedpreferences1 = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedpreferences1.edit();
+        editor1.putBoolean("isSignIn",false);
+        editor1.commit();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ID",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ID","No user");
+        editor.commit();
+
+    }
+
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 }
