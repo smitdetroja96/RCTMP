@@ -10,8 +10,13 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginBottom="20dp"
-    tools:context=".ViewDetials">
+    tools:context=".ViewDetails">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:verticalScrollbarPosition="defaultPosition"
+        android:scrollbars="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,40 +101,42 @@
             android:textSize="25dp"/>
 
         <TextView
-            android:id="@+id/tv_material_type"
+            android:id="@+id/tv_subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/tv_author"
+            android:text="Subjects"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/tv_material_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tv_subject"
             android:text="Material Type"
             android:textSize="25dp"/>
 
         <TextView
-            android:id="@+id/tv_format"
+            android:id="@+id/tv_callnumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/tv_material_type"
-            android:text="Format"
+            android:text="Call Number"
             android:textSize="25dp"/>
 
-        <TextView
-            android:id="@+id/tv_literary_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/tv_format"
-            android:text="Literary Form"
-            android:textSize="25dp"/>
 
         <TextView
             android:id="@+id/tv_publisher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_below="@+id/tv_literary_form"
+            android:layout_below="@+id/tv_callnumber"
             android:text="Publisher"
             android:textSize="25dp"/>
+
 
         <TextView
             android:id="@+id/tv_description"
@@ -140,8 +147,18 @@
             android:text="DESCRIPTION"
             android:textSize="20dp"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_description"
+            android:layout_marginTop="15dp"
+            android:text="URL"
+            android:id="@+id/btn_url"
+            android:onClick="onClickUrl"/>
+
 
     </RelativeLayout>
+    </ScrollView>
 
     
 </ScrollView>

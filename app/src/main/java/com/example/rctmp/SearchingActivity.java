@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -237,7 +236,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         }
         else if(item.getItemId() == 2)
         {
-            Intent i = new Intent(SearchingActivity.this,ViewDetials.class);
+            Intent i = new Intent(SearchingActivity.this, ViewDetails.class);
             i.putExtra("BookDetails",filtered.get(item.getGroupId()));
             startActivity(i);
         }

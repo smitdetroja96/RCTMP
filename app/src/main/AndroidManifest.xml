@@ -26,7 +26,7 @@
         <activity
             android:name=".WebSearchActivity"
             android:parentActivityName=".OnlineResourceSearchActivity" />
-        <activity android:name=".ViewDetials" />
+        <activity android:name=".ViewDetails" />
         <activity android:name=".SearchingActivity" />
         <activity
             android:name=".DrawerActivityLayout"
