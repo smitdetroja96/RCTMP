@@ -59,6 +59,7 @@ public class UserProfileActivity extends AppCompatActivity {
         full_name = findViewById(R.id.tv_userName);
         user_image = findViewById(R.id.wv_user_image);
 
+
         //***********************************************************************************************
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
@@ -170,6 +171,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onReceiveValue(Boolean aBoolean) {
                 Intent i = new Intent(UserProfileActivity.this,MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();
             }

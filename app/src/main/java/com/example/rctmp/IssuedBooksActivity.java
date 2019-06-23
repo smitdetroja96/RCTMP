@@ -1,5 +1,6 @@
 package com.example.rctmp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -36,6 +40,26 @@ public class IssuedBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issued_books);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(IssuedBooksActivity.this);
+        builder.setCancelable(false);
+//        TextView textView = findViewById(R.id.loader);
+//        textView.setText("Fetching Books...");
+        builder.setView(R.layout.progress_dialogue_layout_1);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
+        dialog.show();
+
+
         recyclerView = findViewById(R.id.rv_issued);
 
         wv = findViewById(R.id.wv_issued_book);
@@ -50,8 +74,10 @@ public class IssuedBooksActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if(page_load_error)
-                    Toast.makeText(getApplicationContext(),"Failed to Connect!",Toast.LENGTH_SHORT).show();
+                if(page_load_error) {
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+                }
                 else
                 {
                     if(!try_once)return;
@@ -147,6 +173,7 @@ public class IssuedBooksActivity extends AppCompatActivity {
 
 
                             //Log.d("date=",Integer.toString(MyDateList.size()));
+                            dialog.dismiss();
 
                             Collections.sort(MyIssues,HistoryBooksClass.TitleComparator);
                             layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);

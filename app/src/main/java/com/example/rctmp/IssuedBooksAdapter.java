@@ -45,6 +45,9 @@ public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.
             if(bookDate.compareTo(curDate)<=0){
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#CFC9D1"));
             }
+            else {
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#FCFCFC"));
+            }
         }catch(Exception e){}
 
 

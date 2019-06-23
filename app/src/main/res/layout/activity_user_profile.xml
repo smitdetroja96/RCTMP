@@ -20,6 +20,7 @@ tools:context=".UserProfileActivity">
 
 <ScrollView
     android:id="@+id/sv_userProfile"
+    android:layout_marginTop="70dp"
     app:layout_constraintStart_toStartOf="parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
