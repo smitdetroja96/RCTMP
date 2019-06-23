@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#2148A0</color>
     <color name="colorAccent">#2148A0</color>
 
+    <color name="ColorSecondary">#ffffff</color>
+
     <color name="black">#000000</color>
 
 </resources>
