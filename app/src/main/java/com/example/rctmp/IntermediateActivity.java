@@ -44,4 +44,9 @@ public class IntermediateActivity extends AppCompatActivity {
         startActivity(i2);
 
     }
+
+    public void onClickScholarlyResourcesSearch(View view){
+        Intent i3 = new Intent(IntermediateActivity.this,ScholarlyResourcesActivity.class);
+        startActivity(i3);
+    }
 }
