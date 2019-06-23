@@ -3,17 +3,28 @@ package com.example.rctmp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
 
 public class IntermediateActivity extends AppCompatActivity {
 
     Button button_web_search,button_book_search;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intermediate);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_intermediate_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("RC");
+//-------------------------------------------------------------------------------------------------------------------------------------
 
         button_web_search = findViewById(R.id.bt_web_search);
         button_book_search = findViewById(R.id.bt_book_search);
