@@ -1,7 +1,9 @@
 package com.example.rctmp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -81,15 +83,11 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    count++;
-                    if(count == 20) {
-                        dialog.dismiss();
-                        return;
-                    }
                     BooksClass temp = snapshot.getValue(BooksClass.class);
                     books.add(temp);
                 }
 
+                saveData();
                 dialog.dismiss();
 
             }
@@ -297,6 +295,50 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+//-------------------------------------------------------------------------------------------------
+
+    private void saveData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        editor.putInt("numberOfBooks",books.size());
+
+        int i;
+
+        for(i = 0 ; i < books.size() ; i++)
+        {
+            complexPreferences.putObject("Books" + Integer.toString(i), books.get(i));
+        }
+
+        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
+
+        editor.commit();
+        complexPreferences.commit();
+
+    }
+
+    private void readData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+        ArrayList<BooksClass> all = new ArrayList<>();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            all.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+        editor.clear().commit();
+        complexPreferences.clearObject();
+
+    }
+
 //-------------------------------------------------------------------------------------------------
 
 }

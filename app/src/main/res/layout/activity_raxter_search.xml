@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".RaxterSearchActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_raxter_search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
+
 
     <ProgressBar
         android:layout_width="match_parent"
@@ -13,15 +23,12 @@
         android:id="@+id/pb_raxter"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:indeterminate="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_below="@id/toolbar_raxter_search"/>
 
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/pb_raxter"
-        android:visibility="visible"
-        android:layout_alignParentTop="true"
         android:id="@+id/wv_raxter">
     </WebView>
 

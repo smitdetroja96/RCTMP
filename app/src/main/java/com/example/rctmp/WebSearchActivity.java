@@ -38,13 +38,13 @@ public class WebSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_search);
-
+//-------------------------------------------------------------------------------------------------------------------------------------------
         web_search_toolbar = findViewById(R.id.toolbar_web_search);
         setSupportActionBar(web_search_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("RC");
-
+//-------------------------------------------------------------------------------------------------------------------------------------------
         progressBar = findViewById(R.id.pb_progressBar);
         wv = findViewById(R.id.wv_search_result);
         WebSettings ws = wv.getSettings();
