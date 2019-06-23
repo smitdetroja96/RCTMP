@@ -1,16 +1,52 @@
 package com.example.rctmp;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-public class HistoryBooksClass {
+public class HistoryBooksClass implements Serializable {
     String biblionumber;
     String title;
     String author;
     String checkInDate;
 
-    public HistoryBooksClass(String bib,String tit,String aut,String che){
+    public String getBiblionumber() {
+        return biblionumber;
+    }
+
+    public void setBiblionumber(String biblionumber) {
+        this.biblionumber = biblionumber;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getCheckInDate() {
+        return checkInDate;
+    }
+
+    public void setCheckInDate(String checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public HistoryBooksClass() {
+    }
+
+    public HistoryBooksClass(String bib, String tit, String aut, String che){
         biblionumber = bib;
         title = tit;
         author = aut;

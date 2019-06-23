@@ -244,6 +244,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         {
             Intent i = new Intent(SearchingActivity.this, ViewDetails.class);
             i.putExtra("BookDetails",filtered.get(item.getGroupId()));
+            i.putExtra("isMain",true);
             startActivity(i);
         }
         else if(item.getItemId()==3)

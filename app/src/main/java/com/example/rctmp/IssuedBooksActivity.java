@@ -198,8 +198,10 @@ public class IssuedBooksActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         if(item.getItemId() == 1){}
         else if(item.getItemId() == 2){
+            Toast.makeText(this, ""+item.getGroupId(), Toast.LENGTH_SHORT).show();
             Intent intent1 = new Intent(IssuedBooksActivity.this,ViewDetails.class);
-//            intent1.putExtra("BookDetails",MyIssues.get(item.getGroupId()));
+            intent1.putExtra("BookDetails",MyIssues.get(item.getGroupId()));
+            intent1.putExtra("isMain","false");
         }
 
         return super.onContextItemSelected(item);

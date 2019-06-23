@@ -13,13 +13,21 @@ public class ViewDetails extends AppCompatActivity {
     TextView tv_author,tv_title,tv_material_type,tv_publisher,tv_description;
     TextView tv_subjects,tv_callnumber,tv_quantity;
     BooksClass book_viewed = new BooksClass();
+    HistoryBooksClass book_now = new HistoryBooksClass();
+    String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
 
-        book_viewed = (BooksClass) getIntent().getSerializableExtra("BookDetails");
+        boolean whattofetch = (boolean) getIntent().getBooleanExtra("isMain",false);
+        if(whattofetch == true){
+            book_viewed = (BooksClass) getIntent().getSerializableExtra("BookDetails");
+        }
+        else{
+            book_now = (HistoryBooksClass) getIntent().getSerializableExtra("BookDetails");
+        }
 
         tv_author = findViewById(R.id.tv_author);
         tv_title = findViewById(R.id.tv_title);
@@ -30,18 +38,31 @@ public class ViewDetails extends AppCompatActivity {
         tv_subjects = findViewById(R.id.tv_subject);
         tv_quantity = findViewById(R.id.tv_quantity);
 
-        tv_author.setText("Authors: "+book_viewed.getAuthors());
-        tv_title.setText(book_viewed.getName());
-        tv_material_type.setText("Type: "+book_viewed.getMaterialType());
-        tv_publisher.setText("Publisher: "+book_viewed.getPublisher());
-        tv_callnumber.setText("Call Number: "+book_viewed.getCallnumber());
-        tv_subjects.setText("Subjects: "+book_viewed.getSubjects());
-        tv_quantity.setText("Quantity: "+book_viewed.getQuantity());
-        tv_description.setText("Description: "+book_viewed.getDescription());
+
+        if(whattofetch) {
+            String temp = "Authors: " + book_viewed.getAuthors();
+            tv_author.setText(temp);
+            tv_title.setText(book_viewed.getName());
+            temp = "Type: " + book_viewed.getMaterialType();
+            tv_material_type.setText(temp);
+            temp = "Publisher: " + book_viewed.getPublisher();
+            tv_publisher.setText(temp);
+            temp = "Call Number: " + book_viewed.getCallnumber();
+            tv_callnumber.setText(temp);
+            temp = "Subjects: " + book_viewed.getSubjects();
+            tv_subjects.setText(temp);
+            temp = "Quantity: " + book_viewed.getQuantity();
+            tv_quantity.setText(temp);
+            temp = "Description: " + book_viewed.getDescription();
+            tv_description.setText(temp);
+            url = book_viewed.getUrl();
+        }
+        else{
+            url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-detail.pl?biblionumber=" + book_now.getBiblionumber();
+        }
     }
 
     public void onClickUrl(View view) {
-        String url = book_viewed.getUrl();
         Uri uri = Uri.parse(url);
         Intent i1 = new Intent(Intent.ACTION_VIEW,uri);
         startActivity(i1);
