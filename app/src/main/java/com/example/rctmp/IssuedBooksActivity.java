@@ -168,6 +168,7 @@ public class IssuedBooksActivity extends AppCompatActivity {
                                     }
                                     else{
                                         Collections.sort(MyIssues,HistoryBooksClass.DateComparator);
+                                        Collections.reverse(MyIssues);
                                         mAdapter.filterList(MyIssues);
                                     }
                                 }

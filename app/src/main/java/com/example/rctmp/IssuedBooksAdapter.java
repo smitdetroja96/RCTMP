@@ -1,5 +1,6 @@
 package com.example.rctmp;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.MyViewHolder3> {
 
@@ -33,6 +36,17 @@ public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.
         String title_val = "Title: " + historyItems.get(position).title;
         String author_val = "Author: " + historyItems.get(position).author;
         String date_val = "Due Date: " + historyItems.get(position).checkInDate;
+
+        try {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date curDate = new Date();
+            Date bookDate = dateFormatter.parse(historyItems.get(position).checkInDate);
+
+            if(bookDate.compareTo(curDate)<=0){
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#CFC9D1"));
+            }
+        }catch(Exception e){}
+
 
         holder.title.setText(title_val);
         holder.author.setText(author_val);

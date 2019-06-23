@@ -2,6 +2,8 @@ package com.example.rctmp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +50,13 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         holder.status.setText("" + firebase_books.get(position).getQuantity());
         holder.publisher.setText(firebase_books.get(position).getPublisher());
 
+        int quantity = firebase_books.get(position).getQuantity();
+        if(quantity==0){
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#CFC9D1"));
+        }
+        else{
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#FCFCFC"));
+        }
     }
 
     @Override
