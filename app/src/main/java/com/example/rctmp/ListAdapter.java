@@ -82,6 +82,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
             contextMenu.add(this.getAdapterPosition(),2,0,"Show Book Details");
             contextMenu.add(this.getAdapterPosition(),3,0,"Share Book");
         }
+
     }
 
     public void removeItem(int position)

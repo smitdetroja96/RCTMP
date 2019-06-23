@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class ViewDetails extends AppCompatActivity {
 
     TextView tv_author,tv_title,tv_material_type,tv_publisher,tv_description;
-    TextView tv_subjects,tv_callnumber;
+    TextView tv_subjects,tv_callnumber,tv_quantity;
     BooksClass book_viewed = new BooksClass();
 
     @Override
@@ -28,13 +28,16 @@ public class ViewDetails extends AppCompatActivity {
         tv_description = findViewById(R.id.tv_description);
         tv_callnumber = findViewById(R.id.tv_callnumber);
         tv_subjects = findViewById(R.id.tv_subject);
+        tv_quantity = findViewById(R.id.tv_quantity);
 
-        tv_author.setText(book_viewed.getAuthors());
+        tv_author.setText("Authors: "+book_viewed.getAuthors());
         tv_title.setText(book_viewed.getName());
-        tv_material_type.setText(book_viewed.getMaterialType());
-        tv_publisher.setText(book_viewed.getPublisher());
-        tv_callnumber.setText(book_viewed.getCallnumber());
-        tv_subjects.setText(book_viewed.getSubjects());
+        tv_material_type.setText("Type: "+book_viewed.getMaterialType());
+        tv_publisher.setText("Publisher: "+book_viewed.getPublisher());
+        tv_callnumber.setText("Call Number: "+book_viewed.getCallnumber());
+        tv_subjects.setText("Subjects: "+book_viewed.getSubjects());
+        tv_quantity.setText("Quantity: "+book_viewed.getQuantity());
+        tv_description.setText("Description: "+book_viewed.getDescription());
     }
 
     public void onClickUrl(View view) {

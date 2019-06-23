@@ -37,6 +37,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     EditText search_edit_text;
     ArrayList<BooksClass> books;
     String Search_tag;
+    int count = 0;
 
     ArrayList<BooksClass> filtered = new ArrayList<>();
 
@@ -80,6 +81,11 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
+                    count++;
+                    if(count == 20) {
+                        dialog.dismiss();
+                        return;
+                    }
                     BooksClass temp = snapshot.getValue(BooksClass.class);
                     books.add(temp);
                 }
@@ -252,12 +258,12 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
                 String share_string = "RC APP" + "\n\n\n";
 
-                share_string = share_string + share_book.getName() + "\n\n";
-                share_string = share_string + "Authors : " + share_book.getAuthors() + "\n\n";
-
-                share_string = share_string + "Published By : " + share_book.getPublisher() + "\n\n";
-
-                share_string = share_string  + "Biblionumber : " + share_book.getBiblionumber();
+                share_string = share_string + share_book.getName() + "\n";
+                share_string = share_string + "Authors : " + share_book.getAuthors() + "\n";
+                share_string = share_string + "Subjects : " + share_book.getSubjects() + "\n";
+                share_string = share_string + "Published By : " + share_book.getPublisher() + "\n";
+                share_string = share_string + "Call Number : " + share_book.getCallnumber() + "\n";
+                share_string = share_string + "For more visit: " + share_book.getUrl();
 
                 i.putExtra(Intent.EXTRA_TEXT, share_string);
                 startActivity(Intent.createChooser(i, "Happy Reading..."));

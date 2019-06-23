@@ -17,63 +17,18 @@
         android:layout_height="wrap_content"
         android:verticalScrollbarPosition="defaultPosition"
         android:scrollbars="vertical">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         >
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_book_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="#fcfcfc"
-            app:cardCornerRadius="10dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="3dp"
-            card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="3dp"
-            card_view:cardUseCompatPadding="true">
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:id="@+id/tv_book_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="ADD TO WISHLIST"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_wish_list"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="30dp"
-                    android:textSize="24sp"
-                    android:src="@drawable/ic_wishlist"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_book_details"
-                    app:layout_constraintTop_toTopOf="@+id/tv_book_details" />
-
-
-            </android.support.constraint.ConstraintLayout>
-
-
-        </android.support.v7.widget.CardView>
 
         <ImageView
             android:id="@+id/ivIcon"
             android:layout_marginTop="40dp"
-            android:layout_below="@+id/cv_book_details"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
@@ -110,11 +65,20 @@
             android:textSize="25dp"/>
 
         <TextView
-            android:id="@+id/tv_material_type"
+            android:id="@+id/tv_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/tv_subject"
+            android:text="Quantity"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/tv_material_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tv_quantity"
             android:text="Material Type"
             android:textSize="25dp"/>
 
@@ -147,15 +111,132 @@
             android:text="DESCRIPTION"
             android:textSize="20dp"/>
 
-        <Button
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_open_browser"
+            android:layout_below="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_description"
-            android:layout_marginTop="15dp"
-            android:text="URL"
-            android:id="@+id/btn_url"
-            android:onClick="onClickUrl"/>
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="#fcfcfc"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="3dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
 
+            <RelativeLayout
+                android:onClick="onClickUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_open_browser"
+                    android:layout_width="199dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Open in Browser"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_open_browser"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="65dp"
+                    android:src="@drawable/open_in_browser"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/tv_open_browser"/>
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_add_wishlist"
+            android:layout_below="@+id/cv_open_browser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="#fcfcfc"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="3dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_add_to_wish"
+                    android:layout_width="199dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Add to Wishlist"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_wish_list"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="65dp"
+                    android:src="@drawable/ic_playlist_add_check_black_24dp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/tv_add_to_wish"/>
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_add_favourites"
+            android:layout_below="@+id/cv_add_wishlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="#fcfcfc"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="3dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_add_to_fav"
+                    android:layout_width="199dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Add to Favourites"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_favourites"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="65dp"
+                    android:src="@drawable/ic_favorite"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/tv_add_to_fav"/>
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
     </ScrollView>

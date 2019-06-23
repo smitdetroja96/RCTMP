@@ -1,10 +1,12 @@
 package com.example.rctmp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -190,5 +192,16 @@ public class IssuedBooksActivity extends AppCompatActivity {
         wv.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-user.pl");
 
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getItemId() == 1){}
+        else if(item.getItemId() == 2){
+            Intent intent1 = new Intent(IssuedBooksActivity.this,ViewDetails.class);
+//            intent1.putExtra("BookDetails",MyIssues.get(item.getGroupId()));
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

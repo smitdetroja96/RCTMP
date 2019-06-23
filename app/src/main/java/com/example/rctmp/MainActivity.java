@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         sign_in_button = findViewById(R.id.bt_sign_in);
         webView = findViewById(R.id.wv_sign_in);
         username_field = findViewById(R.id.ti_et_student_id);
+        username_field.setText("201601112");
         password_field = findViewById(R.id.ti_et_password);
+        password_field.setText("abc");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
