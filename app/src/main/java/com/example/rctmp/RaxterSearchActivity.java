@@ -63,6 +63,30 @@ public class RaxterSearchActivity extends AppCompatActivity {
             }
         });
 
+        webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                page_load_error = true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if(!loaded) {
+                    super.onPageFinished(view, url);
+                    if (!page_load_error) {
+                        loaded = true;
+                    }
+                }
+                else {
+                    //Toast.makeText(getApplicationContext(), "Error: Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+                    page_load_error = false;
+                }
+
+            }
+
+        });
 
         webSettings = webView.getSettings();
         if(Build.VERSION.SDK_INT >= 28){

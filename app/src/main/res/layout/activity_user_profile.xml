@@ -28,12 +28,12 @@ tools:context=".UserProfileActivity">
     <RelativeLayout
         android:id="@+id/rl_userProfile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
 
-        <ImageView
-            android:id="@+id/iv_user_image"
+        <WebView
+            android:id="@+id/wv_user_image"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_marginTop="50dp"
@@ -45,7 +45,7 @@ tools:context=".UserProfileActivity">
             android:id="@+id/tv_personalDetails"
             android:textSize="25sp"
             android:text="PERSONAL DETAILS"
-            android:layout_below="@id/iv_user_image"
+            android:layout_below="@id/wv_user_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -115,6 +115,7 @@ tools:context=".UserProfileActivity">
             android:drawableStart="@drawable/ic_wishlist"
             android:layout_marginTop="10dp"
             android:text="My Fines"
+            android:onClick="onClickUserFines"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

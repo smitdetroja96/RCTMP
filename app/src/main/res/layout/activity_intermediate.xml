@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,59 +7,118 @@
     tools:context=".IntermediateActivity">
 
 
-    <Button
-        android:id="@+id/bt_web_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_intermediate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_intermediate_layout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <Button
+                android:id="@+id/bt_web_search"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="sans-serif"
+                android:padding="10dp"
+                android:text="ONLINE resources"
+                android:textColor="#FFF" />
+
+            <Button
+                android:id="@+id/bt_book_search"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_web_search"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/textviewborder"
+                android:fontFamily="sans-serif"
+                android:padding="10dp"
+                android:text="RC Catalogue Search"
+                android:textColor="@color/colorPrimaryDark" />
+
+
+            <Button
+                android:id="@+id/bt_raxter_search"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bt_book_search"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="sans-serif"
+                android:onClick="onClickRaxterSearch"
+                android:padding="10dp"
+                android:text="Raxter Search"
+                android:textColor="#FFF" />
+
+
+            <Button
+                android:id="@+id/bt_scholar_search"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bt_raxter_search"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/textviewborder"
+                android:fontFamily="sans-serif"
+                android:onClick="onClickScholarlyResourcesSearch"
+                android:padding="10dp"
+                android:text="Scholarly Resources Search"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/scrollView"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Web Search"
-        app:layout_constraintBottom_toTopOf="@+id/bt_book_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_book_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="272dp"
-        android:text="Book Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        <View
+            android:id="@+id/lightView"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_above="@+id/darkView"
+            android:background="@color/ColorSecondary" />
 
-    <Button
-        android:onClick="onClickRaxterSearch"
-        android:id="@+id/bt_raxter_search"
-        app:layout_constraintTop_toBottomOf="@+id/bt_book_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Raxter Search"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        <View
+            android:id="@+id/darkView"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/bt_scholar_search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_raxter_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
-        android:text="Scholarly Resources Search"
-        android:onClick="onClickScholarlyResourcesSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Field Empty!", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "CLICK KIA Me", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sending Mail to Email-ID", Toast.LENGTH_SHORT).show();
         username = username_field.getText().toString();
         username_emailid = username + "@daiict.ac.in";
         first_if = false;
@@ -273,31 +273,27 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("on recev val","--");
                                 if(value.compareTo("false") == 0){
                                     Log.d("does this work?","hope so");
-                                    forgot_password_attempted = false;
-                                    Toast.makeText(MainActivity.this, "INCORRECT USERNAME. PLEASE CHANGE ", Toast.LENGTH_SHORT).show();
-                                    sign_in_button.setEnabled(true);
+                                    webView.evaluateJavascript("(function (){ return !(!(document.getElementsByClassName('alert alert-warning')[0]))}()) ;", new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String value) {
+                                            if(value.compareTo("true") == 0){
+                                                forgot_password_attempted = false;
+                                                Toast.makeText(MainActivity.this, "Mail has already been sent. Please Check Again. ", Toast.LENGTH_SHORT).show();
+                                                sign_in_button.setEnabled(true);
+                                            }
+                                            else{
+                                                forgot_password_attempted = false;
+                                                Toast.makeText(MainActivity.this, "INCORRECT USERNAME. PLEASE CHANGE ", Toast.LENGTH_SHORT).show();
+                                                sign_in_button.setEnabled(true);
+                                            }
+                                        }
+                                    });
                                 }
                                 else{
                                     forgot_password_attempted = false;
                                     Toast.makeText(MainActivity.this, "MAIL SENT. PLEASE FOLLOW LINK IN MAIL TO RESET PASSWORD", Toast.LENGTH_SHORT).show();
                                     sign_in_button.setEnabled(true);
                                 }
-//                                webView.evaluateJavascript("app.userCheck(check);", new ValueCallback<String>() {
-//                                    @Override
-//                                    public void onReceiveValue(String value) {
-//                                        if (loginState) {
-//                                            saveData();
-//                                            Intent intent = new Intent(MainActivity.this,DrawerActivityLayout.class);
-//                                            intent.putExtra("ID",username);
-//                                            startActivity(intent);
-//                                            finish();
-//
-//                                        } else {
-//                                            Toast.makeText(MainActivity.this, "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
-//                                            sign_in_button.setEnabled(true);
-//                                        }
-//                                    }
-//                                });
                             }
                         });
                     }

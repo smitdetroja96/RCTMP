@@ -44,7 +44,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     TextView card_number,full_name;
 
-    ImageView user_image;
+    WebView user_image;
 
     String user_id;
 
@@ -57,7 +57,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         card_number = findViewById(R.id.tv_libraryCardNumber);
         full_name = findViewById(R.id.tv_userName);
-        user_image = findViewById(R.id.iv_user_image);
+        user_image = findViewById(R.id.wv_user_image);
 
         //***********************************************************************************************
 
@@ -153,6 +153,9 @@ public class UserProfileActivity extends AppCompatActivity {
         webSettings.setDatabaseEnabled(true);
         webView.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-memberentry.pl");
 
+
+        user_image.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-patron-image.pl");
+
     }
 
     public void onClickChangePassword(View view) {
@@ -193,6 +196,11 @@ public class UserProfileActivity extends AppCompatActivity {
         editor.putString("ID","No user");
         editor.commit();
 
+    }
+
+    public void onClickUserFines(View view) {
+        Intent i = new Intent(UserProfileActivity.this,FinesActivity.class);
+        startActivity(i);
     }
 
 //--------------------------------------------------------------------------------------------------------------------------------------
