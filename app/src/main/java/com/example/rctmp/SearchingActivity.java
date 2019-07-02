@@ -328,12 +328,14 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         String cur_date = df.format(date);
 
         editor1.putString("CUR_DATE",cur_date);
-        editor1.commit();
+
 
 
         SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        complexPreferences.clearObject();
 
         editor.putInt("numberOfBooks",books.size());
 
@@ -348,7 +350,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         editor.commit();
         complexPreferences.commit();
-
+        editor1.commit();
     }
 
     private void readBookData()
@@ -359,6 +361,8 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
 
+        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+
         books.clear();
 
         for(int i=0;i<numberOfAllBooks;i++)
@@ -366,9 +370,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
             books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
         }
 
-        editor.clear().commit();
-        complexPreferences.clearObject();
-
+        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 
     private void readData()
