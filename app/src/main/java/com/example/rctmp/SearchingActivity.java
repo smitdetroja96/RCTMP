@@ -29,7 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SearchingActivity extends AppCompatActivity  implements AdapterView.OnItemSelectedListener {
 
@@ -41,6 +44,8 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     String Search_tag;
     int count = 0;
 
+    String current_date,todays_date;
+
     ArrayList<BooksClass> filtered = new ArrayList<>();
 
     DatabaseReference databaseReference;
@@ -49,6 +54,15 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching);
+
+
+        books = new ArrayList<>();
+
+        readData();
+
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        todays_date = df.format(date);
 
         //***********************************************************************************************
 
@@ -73,34 +87,40 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         //***********************************************************************************************
 
-        //-------------------------------------------------------------------------------------------------------------
+        if(todays_date.equals(current_date) == false)
+        {
 
-        books = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child("inside");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //-------------------------------------------------------------------------------------------------------------
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    BooksClass temp = snapshot.getValue(BooksClass.class);
-                    books.add(temp);
+            databaseReference = FirebaseDatabase.getInstance().getReference("Books").child("inside");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        BooksClass temp = snapshot.getValue(BooksClass.class);
+                        books.add(temp);
+                    }
+
+                    saveData();
+                    dialog.dismiss();
+
                 }
 
-                saveData();
-                dialog.dismiss();
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
+                    dialog.dismiss();
+                    Toast.makeText(SearchingActivity.this, "Failed : " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                dialog.dismiss();
-                Toast.makeText(SearchingActivity.this, "Failed : "+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
+                }
+            });
+        }
+        else
+        {
+            readBookData();
+            dialog.dismiss();
+        }
 
         recyclerView = findViewById(R.id.recycler_view);
 
@@ -299,6 +319,18 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
     private void saveData()
     {
+
+        SharedPreferences preferences = getSharedPreferences("CUR_DATE",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = preferences.edit();
+
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String cur_date = df.format(date);
+
+        editor1.putString("CUR_DATE",cur_date);
+        editor1.commit();
+
+
         SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
@@ -319,7 +351,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
     }
 
-    private void readData()
+    private void readBookData()
     {
         SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -327,16 +359,22 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
 
-        ArrayList<BooksClass> all = new ArrayList<>();
+        books.clear();
 
         for(int i=0;i<numberOfAllBooks;i++)
         {
-            all.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
         }
 
         editor.clear().commit();
         complexPreferences.clearObject();
 
+    }
+
+    private void readData()
+    {
+        SharedPreferences preferences = getSharedPreferences("CUR_DATE",Context.MODE_PRIVATE);
+        current_date = preferences.getString("CUR_DATE","No date");
     }
 
 //-------------------------------------------------------------------------------------------------

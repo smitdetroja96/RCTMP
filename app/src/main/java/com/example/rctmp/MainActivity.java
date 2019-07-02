@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CookieManager.getInstance().removeAllCookies(null);
+//        CookieManager.getInstance().removeAllCookies(null);
         readData();
 
         if(!isInternet())
