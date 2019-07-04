@@ -30,8 +30,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     @Override
     public void onBindViewHolder(@NonNull HistoryListAdapter.MyViewHolder2 holder, int position) {
 
-        String title_val = "Title: " + historyItems.get(position).title;
-        String author_val = "Author: " + historyItems.get(position).author;
+        String title_val = "Title: " + historyItems.get(position).getMybook().name;
+        String author_val = "Author: " + historyItems.get(position).getMybook().authors;
         String date_val = "Check-in Date: " + historyItems.get(position).checkInDate;
 
         holder.title.setText(title_val);
@@ -61,9 +61,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
 
             contextMenu.setHeaderTitle("Select An Option");
-            contextMenu.add(this.getAdapterPosition(),1,0,"Menu1");
-            contextMenu.add(this.getAdapterPosition(),2,0,"Menu2");
-            contextMenu.add(this.getAdapterPosition(),3,0,"More Details");
+            contextMenu.add(this.getAdapterPosition(),1,0,"Add to Favourites");
+            contextMenu.add(this.getAdapterPosition(),2,0,"Show Book Details");
+            contextMenu.add(this.getAdapterPosition(),3,0,"More Share Book");
         }
     }
 

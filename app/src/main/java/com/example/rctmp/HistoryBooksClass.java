@@ -6,33 +6,23 @@ import java.util.Comparator;
 import java.util.Date;
 
 public class HistoryBooksClass implements Serializable {
-    String biblionumber;
-    String title;
-    String author;
+    BooksClass mybook;
     String checkInDate;
 
-    public String getBiblionumber() {
-        return biblionumber;
+    public HistoryBooksClass(BooksClass mybook, String checkInDate) {
+        this.mybook = mybook;
+        this.checkInDate = checkInDate;
     }
 
-    public void setBiblionumber(String biblionumber) {
-        this.biblionumber = biblionumber;
+    public HistoryBooksClass() {
     }
 
-    public String getTitle() {
-        return title;
+    public BooksClass getMybook() {
+        return mybook;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setMybook(BooksClass mybook) {
+        this.mybook = mybook;
     }
 
     public String getCheckInDate() {
@@ -43,26 +33,16 @@ public class HistoryBooksClass implements Serializable {
         this.checkInDate = checkInDate;
     }
 
-    public HistoryBooksClass() {
-    }
-
-    public HistoryBooksClass(String bib, String tit, String aut, String che){
-        biblionumber = bib;
-        title = tit;
-        author = aut;
-        checkInDate = che;
-    }
-
     public static Comparator<HistoryBooksClass> TitleComparator = new Comparator<HistoryBooksClass>() {
         @Override
         public int compare(HistoryBooksClass o1,HistoryBooksClass o2) {
-            return o1.title.compareTo(o2.title);
+            return o1.mybook.name.compareTo(o2.mybook.name);
         }
     };
     public static Comparator<HistoryBooksClass> AuthorComparator = new Comparator<HistoryBooksClass>() {
         @Override
         public int compare(HistoryBooksClass o1,HistoryBooksClass o2) {
-            return o1.author.compareTo(o2.author);
+            return o1.mybook.authors.compareTo(o2.mybook.authors);
         }
     };
     public static Comparator<HistoryBooksClass> DateComparator = new Comparator<HistoryBooksClass>() {

@@ -1,7 +1,9 @@
 package com.example.rctmp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ public class IssuedBooksActivity extends AppCompatActivity {
     WebView wv;
     WebSettings webSettings;
     RadioGroup radioGroup;
+    ArrayList<BooksClass> books = new ArrayList<>();
     boolean try_once = false;
 
     private RecyclerView recyclerView;
@@ -39,6 +42,8 @@ public class IssuedBooksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issued_books);
+
+        readBookData();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(IssuedBooksActivity.this);
         builder.setCancelable(false);
@@ -157,8 +162,16 @@ public class IssuedBooksActivity extends AppCompatActivity {
                                     }
 
                                     date_str = day.toString() + "/" + month.toString() + "/" + year.toString();
-
-                                    MyIssues.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
+                                    int biblionumber = Integer.parseInt(biblio_string.toString());
+                                    BooksClass bk = new BooksClass();
+                                    for(int i=0 ; i<books.size() ; i++){
+                                        if(books.get(i).getBiblionumber() == biblionumber){
+                                            bk = books.get(i);
+                                            break;
+                                        }
+                                    }
+                                    MyIssues.add(new HistoryBooksClass(bk,date_str));
+//                                    MyIssues.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
                                 }
                                 //MyDateList.add(temp2.toString());
                                 //MyBibList.add(temp.toString());
@@ -166,9 +179,9 @@ public class IssuedBooksActivity extends AppCompatActivity {
                                 index_date = value.indexOf(search_date,index_date+search_date.length());
                                 index_author = value.indexOf(search_author,index_author+search_author.length());
                             }
-                            MyIssues.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
-                            MyIssues.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
-                            MyIssues.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
+//                            MyIssues.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
+//                            MyIssues.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
+//                            MyIssues.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
                             Log.d("count=",Integer.toString(MyIssues.size()));
 
 
@@ -228,10 +241,31 @@ public class IssuedBooksActivity extends AppCompatActivity {
         else if(item.getItemId() == 2){
             Toast.makeText(this, ""+item.getGroupId(), Toast.LENGTH_SHORT).show();
             Intent intent1 = new Intent(IssuedBooksActivity.this,ViewDetails.class);
-            intent1.putExtra("BookDetails",MyIssues.get(item.getGroupId()));
-            intent1.putExtra("isMain","false");
+            intent1.putExtra("BookDetails",MyIssues.get(item.getGroupId()).getMybook());
+            intent1.putExtra("isMain",true);
+            startActivity(intent1);
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void readBookData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+
+        books.clear();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 }

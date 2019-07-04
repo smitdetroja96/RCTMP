@@ -45,11 +45,21 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.title.setText(firebase_books.get(position).getName());
-        holder.author.setText(firebase_books.get(position).getAuthors());
-        holder.material_type.setText(firebase_books.get(position).getMaterialType());
-        holder.status.setText("" + firebase_books.get(position).getQuantity());
-        holder.publisher.setText(firebase_books.get(position).getPublisher());
+        String empty = "empty@2019";
+        String temp = firebase_books.get(position).getAuthors();
+        if(temp.equals(empty))
+            holder.author.setVisibility(View.GONE);
+        else
+            holder.author.setText(temp);
 
+        holder.status.setText("" + firebase_books.get(position).getQuantity());
+
+        temp = firebase_books.get(position).getPublisher();
+        if(temp.equals(empty))
+            holder.publisher.setVisibility(View.GONE);
+        else
+            holder.publisher.setText(temp);
+        holder.due_date.setVisibility(View.GONE);
         int quantity = firebase_books.get(position).getQuantity();
         if(quantity==0){
             holder.cardView.setCardBackgroundColor(Color.parseColor("#CFC9D1"));
@@ -66,7 +76,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener
     {
-        TextView title,author,material_type,status,publisher;
+        TextView title,author,material_type,status,publisher,due_date;
         CardView cardView;
         RelativeLayout relativeLayout;
 
@@ -79,6 +89,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
             status = itemView.findViewById(R.id.tv_status);
             publisher = itemView.findViewById(R.id.tv_publisher);
             relativeLayout = itemView.findViewById(R.id.item_relative_layout);
+            due_date = itemView.findViewById(R.id.tv_due_date);
             cardView = itemView.findViewById(R.id.item_book_card_view);
             cardView.setOnCreateContextMenuListener(this);
         }

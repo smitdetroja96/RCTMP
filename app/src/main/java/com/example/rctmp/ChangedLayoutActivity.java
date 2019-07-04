@@ -52,6 +52,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
     String user_id;
     TextView userId;
     ArrayList<HistoryBooksClass> MyIssues = new ArrayList<>();
+    ArrayList<BooksClass> books = new ArrayList<>();
 
 
     @Override
@@ -64,7 +65,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         wishList = findViewById(R.id.ll_wishList);
         suggestions = findViewById(R.id.ll_suggestions);
         signOut = findViewById(R.id.ll_signOut);
-
+        readBookData();
         readData();
 
         //***********************************************************************************************
@@ -319,8 +320,11 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                                         }
 
                                         date_str = day.toString() + "/" + month.toString() + "/" + year.toString();
-
-                                        MyIssues.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
+                                        BooksClass bk = new BooksClass();
+                                        bk.setBiblionumber(Integer.parseInt(biblio_string.toString()));
+                                        bk.setName(title_string.toString());
+                                        bk.setAuthors(author_string.toString());
+                                        MyIssues.add(new HistoryBooksClass(bk, date_str));
                                     }
                                     //MyDateList.add(temp2.toString());
                                     //MyBibList.add(temp.toString());
@@ -329,9 +333,9 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                                     index_author = value.indexOf(search_author, index_author + search_author.length());
                                 }
 
-                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
-                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
-                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
 
                                 for(HistoryBooksClass i : MyIssues)
                                 {
@@ -349,7 +353,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                                         Intent intent;
                                         intent = new Intent(ChangedLayoutActivity.this,AlarmReceiver.class);
 
-                                        int requestCode = Integer.parseInt(i.biblionumber);
+                                        int requestCode = (i.getMybook().biblionumber);
                                         intent.putExtra("requestCode",requestCode);
 
 
@@ -470,6 +474,26 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putBoolean("isDefaultView",true);
         editor.commit();
+    }
+
+    private void readBookData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+
+        books.clear();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 
     private void saveData1()

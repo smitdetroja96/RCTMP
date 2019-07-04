@@ -259,8 +259,11 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                         }
 
                                         date_str = day.toString() + "/" + month.toString() + "/" + year.toString();
-
-                                        MyIssues.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
+                                        BooksClass bk = new BooksClass();
+                                        bk.setBiblionumber(Integer.parseInt(biblio_string.toString()));
+                                        bk.setName(title_string.toString());
+                                        bk.setAuthors(author_string.toString());
+                                        MyIssues.add(new HistoryBooksClass(bk, date_str));
                                     }
                                     //MyDateList.add(temp2.toString());
                                     //MyBibList.add(temp.toString());
@@ -269,9 +272,9 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                     index_author = value.indexOf(search_author, index_author + search_author.length());
                                 }
 
-                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
-                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
-                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
 
                                 for(HistoryBooksClass i : MyIssues)
                                 {
@@ -289,7 +292,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                         Intent intent;
                                         intent = new Intent(DrawerActivityLayout.this,AlarmReceiver.class);
 
-                                        int requestCode = Integer.parseInt(i.biblionumber);
+                                        int requestCode = (i.getMybook().biblionumber);
                                         intent.putExtra("requestCode",requestCode);
 
 

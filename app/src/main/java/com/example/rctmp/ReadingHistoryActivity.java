@@ -1,11 +1,15 @@
 package com.example.rctmp;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -28,6 +32,7 @@ public class ReadingHistoryActivity extends AppCompatActivity {
     WebSettings webSettings;
     boolean try_once = false;
     RadioGroup radioGroup;
+    ArrayList<BooksClass> books;
 
 
     private RecyclerView recyclerView;
@@ -45,6 +50,8 @@ public class ReadingHistoryActivity extends AppCompatActivity {
 //        TextView textView = findViewById(R.id.loader);
 //        textView.setText("Fetching Books...");
         builder.setView(R.layout.progress_dialogue_layout_1);
+        books = new ArrayList<>();
+        readBookData();
 
         final AlertDialog dialog = builder.create();
         dialog.show();
@@ -157,8 +164,16 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                                     }
 
                                     date_str = day.toString() + "/" + month.toString() + "/" + year.toString();
-
-                                    MyHistory.add(new HistoryBooksClass(biblio_string.toString(), title_string.toString(), author_string.toString(), date_str));
+                                    int biblionumber = Integer.parseInt(biblio_string.toString());
+                                    BooksClass bk = new BooksClass();
+                                    for(int i=0 ; i<books.size() ; i++){
+                                        if(books.get(i).getBiblionumber() == biblionumber){
+                                            bk = books.get(i);
+                                            break;
+                                        }
+                                    }
+                                    HistoryBooksClass toinsert = new HistoryBooksClass(bk,date_str);
+                                    MyHistory.add(toinsert);
                                 }
                                 //MyDateList.add(temp2.toString());
                                 //MyBibList.add(temp.toString());
@@ -168,9 +183,9 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                             }
                             Log.d("count=",Integer.toString(MyHistory.size()));
 
-                            MyHistory.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
-                            MyHistory.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
-                            MyHistory.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
+//                            MyHistory.add(new HistoryBooksClass("123","An approach to Indian Society","Shreyansh Surana","12/12/2017"));
+//                            MyHistory.add(new HistoryBooksClass("125","Busy Bastards On the Street","Smit Detroja","12/01/2017"));
+//                            MyHistory.add(new HistoryBooksClass("128","One More approach to Indian Society","Shreyansh Surana","10/01/2019"));
 
 
                             //Log.d("date=",Integer.toString(MyDateList.size()));
@@ -220,5 +235,39 @@ public class ReadingHistoryActivity extends AppCompatActivity {
         wv.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-readingrecord.pl?limit=full");
 
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getItemId() == 1){}
+        else if(item.getItemId() == 2){
+            Toast.makeText(this, ""+item.getGroupId(), Toast.LENGTH_SHORT).show();
+            Intent intent1 = new Intent(ReadingHistoryActivity.this,ViewDetails.class);
+            intent1.putExtra("BookDetails",MyHistory.get(item.getGroupId()).getMybook());
+            intent1.putExtra("isMain",true);
+            startActivity(intent1);
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void readBookData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+
+        books.clear();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 }

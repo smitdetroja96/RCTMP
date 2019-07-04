@@ -100,7 +100,7 @@ public class ViewDetails extends AppCompatActivity {
             url = book_viewed.getUrl();
         }
         else{
-            url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-detail.pl?biblionumber=" + book_now.getBiblionumber();
+            url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-detail.pl?biblionumber=" + book_now.getMybook().getBiblionumber();
         }
     }
 
