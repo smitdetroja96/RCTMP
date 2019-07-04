@@ -285,8 +285,6 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         editor1.putString("CUR_DATE",cur_date);
 
-
-
         SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);

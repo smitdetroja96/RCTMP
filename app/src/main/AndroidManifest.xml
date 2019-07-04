@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowFavouritesActivity"></activity>
+        <activity android:name=".SuggestionsActivity"></activity>
+        <activity android:name=".ShowFavouritesActivity" />
         <activity
             android:name=".ScholarlyResourcesActivity"
             android:parentActivityName=".IntermediateActivity" />

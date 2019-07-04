@@ -382,7 +382,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickSuggestions(View view) {
-        Toast.makeText(this,"Suggestions",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(DrawerActivityLayout.this,SuggestionsActivity.class);
+        startActivity(intent);
     }
 
     public void onClickSignOut(View view) {
