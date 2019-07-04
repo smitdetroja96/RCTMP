@@ -1,6 +1,7 @@
 package com.example.rctmp;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class BooksClass implements Serializable {
 
@@ -114,4 +115,17 @@ public class BooksClass implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public static Comparator<BooksClass> TitleComparator = new Comparator<BooksClass>() {
+        @Override
+        public int compare(BooksClass o1,BooksClass o2) {
+            return o1.name.compareTo(o2.name);
+        }
+    };
+    public static Comparator<BooksClass> AuthorComparator = new Comparator<BooksClass>() {
+        @Override
+        public int compare(BooksClass o1,BooksClass o2) {
+            return o1.authors.compareTo(o2.authors);
+        }
+    };
 }

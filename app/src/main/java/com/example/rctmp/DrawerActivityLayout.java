@@ -398,6 +398,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickMyFavourites(View view) {
+        Intent intent = new Intent(DrawerActivityLayout.this,ShowFavouritesActivity.class);
+        startActivity(intent);
     }
 
     @Override

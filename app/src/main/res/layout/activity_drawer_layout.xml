@@ -250,59 +250,12 @@
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvWishList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cvHistory"
-                android:layout_margin="4dp"
-                app:cardBackgroundColor="#fcfcfc"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="3dp"
-                card_view:cardCornerRadius="10dp"
-                card_view:cardElevation="3dp"
-                card_view:cardUseCompatPadding="true">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClickWishList">
-
-
-                    <ImageView
-                        android:id="@+id/chat_image3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_playlist_add_check_black_24dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/chat_name3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="5dp"
-                        android:text="WISH LIST"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintLeft_toRightOf="@+id/chat_image3"
-                        app:layout_constraintTop_toTopOf="@+id/chat_image3" />
-
-
-                </android.support.constraint.ConstraintLayout>
-
-
-            </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cvMyFavourites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cvWishList"
+                    android:layout_below="@+id/cvHistory"
                     android:layout_margin="4dp"
                     app:cardBackgroundColor="#fcfcfc"
                     app:cardCornerRadius="10dp"
