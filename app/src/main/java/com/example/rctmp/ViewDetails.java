@@ -201,4 +201,24 @@ public class ViewDetails extends AppCompatActivity {
         String url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-addbybiblionumber.pl?biblionumber=" + bib;
         webView.loadUrl(url);
     }
+
+    public void onClickShare(View view) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, "RC APP");
+
+        BooksClass share_book = book_viewed;
+
+        String share_string = "RC APP" + "\n\n\n";
+
+        share_string = share_string + share_book.getName() + "\n";
+        share_string = share_string + "Authors : " + share_book.getAuthors() + "\n";
+        share_string = share_string + "Subjects : " + share_book.getSubjects() + "\n";
+        share_string = share_string + "Published By : " + share_book.getPublisher() + "\n";
+        share_string = share_string + "Call Number : " + share_book.getCallnumber() + "\n";
+        share_string = share_string + "For more visit: " + share_book.getUrl();
+
+        i.putExtra(Intent.EXTRA_TEXT, share_string);
+        startActivity(Intent.createChooser(i, "Happy Reading..."));
+    }
 }

@@ -2,6 +2,7 @@ package com.example.rctmp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
@@ -37,12 +38,12 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_book,parent,false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(v,context);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.title.setText(firebase_books.get(position).getName());
         String empty = "empty@2019";
@@ -67,6 +68,15 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         else{
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FCFCFC"));
         }
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ViewDetails.class);
+                i.putExtra("BookDetails",firebase_books.get(position));
+                i.putExtra("isMain",true);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -74,13 +84,13 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
         return firebase_books.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener
+    public static class MyViewHolder extends RecyclerView.ViewHolder
     {
         TextView title,author,material_type,status,publisher,due_date;
         CardView cardView;
         RelativeLayout relativeLayout;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView,final Context context) {
             super(itemView);
 
             title = itemView.findViewById(R.id.tv_title);
@@ -91,16 +101,6 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.MyViewHolder>
             relativeLayout = itemView.findViewById(R.id.item_relative_layout);
             due_date = itemView.findViewById(R.id.tv_due_date);
             cardView = itemView.findViewById(R.id.item_book_card_view);
-            cardView.setOnCreateContextMenuListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-
-            contextMenu.setHeaderTitle("Select An Option");
-            contextMenu.add(this.getAdapterPosition(),1,0,"Add To WishList");
-            contextMenu.add(this.getAdapterPosition(),2,0,"Show Book Details");
-            contextMenu.add(this.getAdapterPosition(),3,0,"Share Book");
         }
 
     }

@@ -250,50 +250,6 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
         adapter.filter_list(filtered);
     }
 
-//----------------------------------------------------------------------------------------------------------
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        if(item.getItemId() == 1)
-        {
-            displayMessage("Added To WishList" + filtered.get(item.getGroupId()).getName());
-        }
-        else if(item.getItemId() == 2)
-        {
-            Intent i = new Intent(SearchingActivity.this, ViewDetails.class);
-            i.putExtra("BookDetails",filtered.get(item.getGroupId()));
-            i.putExtra("isMain",true);
-            startActivity(i);
-        }
-        else if(item.getItemId()==3)
-        {
-            try
-            {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_SUBJECT, "RC APP");
-
-                BooksClass share_book = filtered.get(item.getGroupId());
-
-                String share_string = "RC APP" + "\n\n\n";
-
-                share_string = share_string + share_book.getName() + "\n";
-                share_string = share_string + "Authors : " + share_book.getAuthors() + "\n";
-                share_string = share_string + "Subjects : " + share_book.getSubjects() + "\n";
-                share_string = share_string + "Published By : " + share_book.getPublisher() + "\n";
-                share_string = share_string + "Call Number : " + share_book.getCallnumber() + "\n";
-                share_string = share_string + "For more visit: " + share_book.getUrl();
-
-                i.putExtra(Intent.EXTRA_TEXT, share_string);
-                startActivity(Intent.createChooser(i, "Happy Reading..."));
-
-            }
-            catch (Exception e) {}
-//            displayMessage("Share Book" + + item.getGroupId());
-        }
-
-        return super.onContextItemSelected(item);
-    }
 
 //-------------------------------------------------------------------------------------------------------
     public void displayMessage(String message)

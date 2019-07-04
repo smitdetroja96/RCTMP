@@ -1,5 +1,7 @@
 package com.example.rctmp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -17,9 +19,11 @@ import java.util.Date;
 public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.MyViewHolder3> {
 
     private ArrayList<HistoryBooksClass> historyItems;
+    Context context;
 
-    public IssuedBooksAdapter(ArrayList<HistoryBooksClass> historyItemsList) {
+    public IssuedBooksAdapter(ArrayList<HistoryBooksClass> historyItemsList, Context cont) {
         historyItems = historyItemsList;
+        context = cont;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IssuedBooksAdapter.MyViewHolder3 holder, int position) {
+    public void onBindViewHolder(@NonNull IssuedBooksAdapter.MyViewHolder3 holder,final int position) {
 
         String title_val = "Title: " + historyItems.get(position).getMybook().name;
         String author_val = "Author: " + historyItems.get(position).getMybook().authors;
@@ -54,13 +58,22 @@ public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.
         holder.title.setText(title_val);
         holder.author.setText(author_val);
         holder.date.setText(date_val);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ViewDetails.class);
+                i.putExtra("BookDetails",historyItems.get(position).getMybook());
+                i.putExtra("isMain",true);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {return historyItems.size();}
 
 
-    public static class MyViewHolder3 extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class MyViewHolder3 extends RecyclerView.ViewHolder {
 
         TextView title,date,author;
         CardView cardView;
@@ -71,16 +84,7 @@ public class IssuedBooksAdapter extends RecyclerView.Adapter<IssuedBooksAdapter.
             author = itemView.findViewById(R.id.tv_author);
             date = itemView.findViewById(R.id.tv_check_in_date);
             cardView = itemView.findViewById(R.id.history_item_card_view);
-            cardView.setOnCreateContextMenuListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-
-            contextMenu.setHeaderTitle("Select An Option");
-            contextMenu.add(this.getAdapterPosition(),1,0,"Add to Favourites");
-            contextMenu.add(this.getAdapterPosition(),2,0,"Show Book Details");
-            contextMenu.add(this.getAdapterPosition(),3,0,"Share Book");
+//            cardView.setOnCreateContextMenuListener(this);
         }
     }
 
