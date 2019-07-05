@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SuggestionsActivity">
 
+    <WebView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/wv_suggestion_history"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+    </WebView>
+
 </android.support.constraint.ConstraintLayout>
