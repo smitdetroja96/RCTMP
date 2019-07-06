@@ -3,6 +3,7 @@ package com.example.rctmp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -28,6 +29,8 @@ public class FinesActivity extends AppCompatActivity {
     ArrayList<String> descriptions = new ArrayList<>();
     ArrayList<String> amounts_outstanding = new ArrayList<>();
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,14 @@ public class FinesActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.wv_fines);
         textViewForNoFines = findViewById(R.id.tv_no_fines);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_fines_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Fines And Charges");
+//-------------------------------------------------------------------------------------------------------------------------------------
+
 
         try_once = true;
         webView.setWebViewClient(new WebViewClient() {

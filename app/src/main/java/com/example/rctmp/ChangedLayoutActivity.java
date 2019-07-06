@@ -120,8 +120,15 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                                     public void onReceiveValue(String s) {
                                         if (!loginState) {
                                             dialog.dismiss();
-                                            startActivity(new Intent(ChangedLayoutActivity.this, MainActivity.class));
-                                            finish();
+                                            saveData1();
+                                            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+                                                @Override
+                                                public void onReceiveValue(Boolean aBoolean) {
+                                                    Intent i = new Intent(ChangedLayoutActivity.this,MainActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                }
+                                            });
                                         } else
                                             Log.d("CHANGED_TEST", "Yes");
                                     }
