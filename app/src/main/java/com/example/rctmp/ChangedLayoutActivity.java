@@ -42,7 +42,7 @@ import java.util.Date;
 
 public class ChangedLayoutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    LinearLayout search,issuedBooks,history,wishList,suggestions,signOut;
+    LinearLayout search,issuedBooks,history,suggestions;
     private DrawerLayout drawer;
 
     static boolean loginState;
@@ -62,9 +62,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         search = findViewById(R.id.ll_search);
         issuedBooks = findViewById(R.id.ll_issuedBooks);
         history = findViewById(R.id.ll_history);
-        wishList = findViewById(R.id.ll_wishList);
         suggestions = findViewById(R.id.ll_suggestions);
-        signOut = findViewById(R.id.ll_signOut);
         readBookData();
         readData();
 
@@ -205,32 +203,10 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
             }
         });
 
-        wishList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Wishlist",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         suggestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ChangedLayoutActivity.this,"Suggestions",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData1();
-                CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
-                    @Override
-                    public void onReceiveValue(Boolean aBoolean) {
-                        Intent i = new Intent(ChangedLayoutActivity.this,MainActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
-                });
             }
         });
 
