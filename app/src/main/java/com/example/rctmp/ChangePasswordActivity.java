@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +28,18 @@ public class ChangePasswordActivity extends AppCompatActivity {
     WebView webView;
     boolean first_if=false,second_if=false,change_password_attempted = false;
     WebSettings webSettings;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+
+
+        toolbar = findViewById(R.id.toolbar_password_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Change Account Password");
 
         change_password_button = findViewById(R.id.bt_change_password);
         webView = findViewById(R.id.wv_change_pwd);

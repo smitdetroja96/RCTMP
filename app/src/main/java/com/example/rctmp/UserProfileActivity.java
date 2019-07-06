@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -39,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
     WebView webView;
     WebSettings webSettings;
     boolean try_once = true;
+    Toolbar toolbar;
 
     String name = "";
 
@@ -52,6 +54,12 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+
+        toolbar = findViewById(R.id.toolbar_profile_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("My Profile");
 
         webView = findViewById(R.id.wv_personal_details);
 
