@@ -208,14 +208,18 @@ public class ViewDetails extends AppCompatActivity {
         i.putExtra(Intent.EXTRA_SUBJECT, "RC APP");
 
         BooksClass share_book = book_viewed;
-
+        String empty = "empty@2019";
         String share_string = "RC APP" + "\n\n\n";
 
         share_string = share_string + share_book.getName() + "\n";
-        share_string = share_string + "Authors : " + share_book.getAuthors() + "\n";
-        share_string = share_string + "Subjects : " + share_book.getSubjects() + "\n";
-        share_string = share_string + "Published By : " + share_book.getPublisher() + "\n";
-        share_string = share_string + "Call Number : " + share_book.getCallnumber() + "\n";
+        if(!share_book.getAuthors().equals(empty))
+            share_string = share_string + "Authors : " + share_book.getAuthors() + "\n";
+        if(!share_book.getSubjects().equals(empty))
+            share_string = share_string + "Subjects : " + share_book.getSubjects() + "\n";
+        if(!share_book.getPublisher().equals(empty))
+            share_string = share_string + "Published By : " + share_book.getPublisher() + "\n";
+        if(!share_book.getCallnumber().equals(empty))
+            share_string = share_string + "Call Number : " + share_book.getCallnumber() + "\n";
         share_string = share_string + "For more visit: " + share_book.getUrl();
 
         i.putExtra(Intent.EXTRA_TEXT, share_string);

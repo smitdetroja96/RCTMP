@@ -113,6 +113,7 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                     public void onReceiveValue(String s) {
                                         Log.d("hello1:",s);
                                         if(s.equals("0") || s==null){
+                                            textView.setVisibility(View.VISIBLE);
                                             recyclerView.setVisibility(View.GONE);
                                             relativeLayout.setVisibility(View.GONE);
                                             dialog.dismiss();
@@ -134,6 +135,8 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                                 public void onReceiveValue(String s) {
                                                     Log.d("hello3:",s);
                                                     if(s.equals("0")){
+
+                                                        textView.setVisibility(View.VISIBLE);
                                                         recyclerView.setVisibility(View.GONE);
                                                         relativeLayout.setVisibility(View.GONE);
                                                         dialog.dismiss();
@@ -166,6 +169,8 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                             public void onReceiveValue(String s) {
 //                                    if(s==null)
                                                 if(s.equals("0")){
+
+                                                    textView.setVisibility(View.VISIBLE);
                                                     recyclerView.setVisibility(View.GONE);
                                                     relativeLayout.setVisibility(View.GONE);
                                                     dialog.dismiss();
@@ -213,11 +218,11 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                                                     radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                                                                         @Override
                                                                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                                                            if(checkedId==R.id.rb_title_history){
+                                                                            if(checkedId==R.id.rb_title_favorite){
                                                                                 Collections.sort(tempbooks,BooksClass.TitleComparator);
                                                                                 adapter.filterList(tempbooks);
                                                                             }
-                                                                            else if(checkedId==R.id.rb_author_history){
+                                                                            else if(checkedId==R.id.rb_author_favorite){
                                                                                 Collections.sort(tempbooks,BooksClass.AuthorComparator);
                                                                                 adapter.filterList(tempbooks);
                                                                             }
@@ -279,6 +284,7 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                             public void onReceiveValue(String s) {
                                 Log.d("hello1:",s);
                                 if(s.equals("0") || s==null){
+                                    textView.setVisibility(View.VISIBLE);
                                     recyclerView.setVisibility(View.GONE);
                                     relativeLayout.setVisibility(View.GONE);
                                     dialog.dismiss();
@@ -300,6 +306,7 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                         public void onReceiveValue(String s) {
                                             Log.d("hello3:",s);
                                             if(s.equals("0")){
+                                                textView.setVisibility(View.VISIBLE);
                                                 recyclerView.setVisibility(View.GONE);
                                                 relativeLayout.setVisibility(View.GONE);
                                                 dialog.dismiss();
@@ -332,6 +339,7 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                     public void onReceiveValue(String s) {
 //                                    if(s==null)
                                         if(s.equals("0")){
+                                            textView.setVisibility(View.VISIBLE);
                                             recyclerView.setVisibility(View.GONE);
                                             relativeLayout.setVisibility(View.GONE);
                                             dialog.dismiss();
@@ -379,11 +387,11 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                                             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                                                                 @Override
                                                                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                                                    if(checkedId==R.id.rb_title_history){
+                                                                    if(checkedId==R.id.rb_title_favorite){
                                                                         Collections.sort(tempbooks,BooksClass.TitleComparator);
                                                                         adapter.filterList(tempbooks);
                                                                     }
-                                                                    else if(checkedId==R.id.rb_author_history){
+                                                                    else if(checkedId==R.id.rb_author_favorite){
                                                                         Collections.sort(tempbooks,BooksClass.AuthorComparator);
                                                                         adapter.filterList(tempbooks);
                                                                     }

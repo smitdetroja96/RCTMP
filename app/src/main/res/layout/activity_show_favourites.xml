@@ -18,12 +18,13 @@
     </WebView>
 
     <TextView
-        android:layout_marginLeft="10dp"
         android:id="@+id/tv_empty_list"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:textSize="30dp"
-        android:text="List is Empty"
+        android:gravity="center"
+        android:text="No Favourites. Please select option in books menu."
         />
 
     <RelativeLayout
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_sort_label_history"
+            android:id="@+id/tv_sort_label_favs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -50,17 +51,17 @@
             android:id="@+id/rg_fav_sort_choices"
             android:orientation="horizontal"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tv_sort_label_history"
+            android:layout_toEndOf="@id/tv_sort_label_favs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:id="@+id/rb_title_history"
+                android:id="@+id/rb_title_favorite"
                 android:text="Title"
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/rb_author_history"
+                android:id="@+id/rb_author_favorite"
                 android:text="Author"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
@@ -68,15 +69,18 @@
 
         </RadioGroup>
 
-    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
+
         android:id="@+id/rv_favourites"
         android:scrollbars="vertical"
         android:layout_marginTop="20dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/rl_sort_history"
+        android:layout_below="@id/tv_sort_label_favs"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -21,6 +22,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +38,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+import static android.view.View.GONE;
+
 public class IssuedBooksActivity extends AppCompatActivity {
 
     ArrayList<HistoryBooksClass> MyIssues = new ArrayList<>();
@@ -44,6 +49,8 @@ public class IssuedBooksActivity extends AppCompatActivity {
     ArrayList<BooksClass> books = new ArrayList<>();
     boolean try_once = false;
     DatabaseReference databaseReference;
+    TextView textView;
+    RelativeLayout relativeLayout;
 
     private RecyclerView recyclerView;
     private IssuedBooksAdapter mAdapter;
@@ -53,6 +60,8 @@ public class IssuedBooksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issued_books);
+        textView = findViewById(R.id.tv_empty_issues);
+        relativeLayout = findViewById(R.id.rl_sort_issues);
 
         readBookData();
 
@@ -206,29 +215,38 @@ public class IssuedBooksActivity extends AppCompatActivity {
                                         //Log.d("date=",Integer.toString(MyDateList.size()));
                                         dialog.dismiss();
 
-                                        Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
-                                        layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);
-                                        recyclerView.setLayoutManager(layoutManager);
-                                        mAdapter = new IssuedBooksAdapter(MyIssues, IssuedBooksActivity.this);
-                                        recyclerView.setAdapter(mAdapter);
+                                        if(MyIssues.size()==0){
+                                            textView.setVisibility(View.VISIBLE);
+                                            recyclerView.setVisibility(GONE);
+                                            relativeLayout.setVisibility(GONE);
+                                        }
+                                        else{
+                                            Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
+                                            layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);
+                                            recyclerView.setLayoutManager(layoutManager);
+                                            mAdapter = new IssuedBooksAdapter(MyIssues, IssuedBooksActivity.this);
+                                            recyclerView.setAdapter(mAdapter);
+                                            textView.setVisibility(GONE);
 
-                                        radioGroup = findViewById(R.id.rg_issues_sort_choices);
-                                        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                            @Override
-                                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                                if (checkedId == R.id.rb_title_issue) {
-                                                    Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
-                                                    mAdapter.filterList(MyIssues);
-                                                } else if (checkedId == R.id.rb_author_issue) {
-                                                    Collections.sort(MyIssues, HistoryBooksClass.AuthorComparator);
-                                                    mAdapter.filterList(MyIssues);
-                                                } else {
-                                                    Collections.sort(MyIssues, HistoryBooksClass.DateComparator);
-                                                    Collections.reverse(MyIssues);
-                                                    mAdapter.filterList(MyIssues);
+                                            radioGroup = findViewById(R.id.rg_issues_sort_choices);
+                                            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                                    if (checkedId == R.id.rb_title_issue) {
+                                                        Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
+                                                        mAdapter.filterList(MyIssues);
+                                                    } else if (checkedId == R.id.rb_author_issue) {
+                                                        Collections.sort(MyIssues, HistoryBooksClass.AuthorComparator);
+                                                        mAdapter.filterList(MyIssues);
+                                                    } else {
+                                                        Collections.sort(MyIssues, HistoryBooksClass.DateComparator);
+                                                        Collections.reverse(MyIssues);
+                                                        mAdapter.filterList(MyIssues);
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
+
 
                                         // */
                                         //Toast.makeText(ReadingHistory.this,MyDateList.get(0), Toast.LENGTH_SHORT).show();
@@ -380,29 +398,37 @@ public class IssuedBooksActivity extends AppCompatActivity {
                                 //Log.d("date=",Integer.toString(MyDateList.size()));
                                 dialog.dismiss();
 
-                                Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
-                                layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);
-                                recyclerView.setLayoutManager(layoutManager);
-                                mAdapter = new IssuedBooksAdapter(MyIssues, IssuedBooksActivity.this);
-                                recyclerView.setAdapter(mAdapter);
+                                if(MyIssues.size() == 0){
+                                    textView.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(GONE);
+                                    relativeLayout.setVisibility(GONE);
+                                }
+                                else {
+                                    Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
+                                    layoutManager = new LinearLayoutManager(IssuedBooksActivity.this);
+                                    recyclerView.setLayoutManager(layoutManager);
+                                    mAdapter = new IssuedBooksAdapter(MyIssues, IssuedBooksActivity.this);
+                                    recyclerView.setAdapter(mAdapter);
+                                    textView.setVisibility(GONE);
 
-                                radioGroup = findViewById(R.id.rg_issues_sort_choices);
-                                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                    @Override
-                                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                        if (checkedId == R.id.rb_title_issue) {
-                                            Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
-                                            mAdapter.filterList(MyIssues);
-                                        } else if (checkedId == R.id.rb_author_issue) {
-                                            Collections.sort(MyIssues, HistoryBooksClass.AuthorComparator);
-                                            mAdapter.filterList(MyIssues);
-                                        } else {
-                                            Collections.sort(MyIssues, HistoryBooksClass.DateComparator);
-                                            Collections.reverse(MyIssues);
-                                            mAdapter.filterList(MyIssues);
+                                    radioGroup = findViewById(R.id.rg_issues_sort_choices);
+                                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                            if (checkedId == R.id.rb_title_issue) {
+                                                Collections.sort(MyIssues, HistoryBooksClass.TitleComparator);
+                                                mAdapter.filterList(MyIssues);
+                                            } else if (checkedId == R.id.rb_author_issue) {
+                                                Collections.sort(MyIssues, HistoryBooksClass.AuthorComparator);
+                                                mAdapter.filterList(MyIssues);
+                                            } else {
+                                                Collections.sort(MyIssues, HistoryBooksClass.DateComparator);
+                                                Collections.reverse(MyIssues);
+                                                mAdapter.filterList(MyIssues);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
 
                                 // */
                                 //Toast.makeText(ReadingHistory.this,MyDateList.get(0), Toast.LENGTH_SHORT).show();

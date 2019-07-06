@@ -2,7 +2,6 @@ package com.example.rctmp;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -21,6 +20,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +45,9 @@ public class ReadingHistoryActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     ArrayList<BooksClass> books;
     DatabaseReference databaseReference;
+    TextView textView;
 
-
+    RelativeLayout relativeLayout;
     private RecyclerView recyclerView;
     HistoryListAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -61,12 +63,14 @@ public class ReadingHistoryActivity extends AppCompatActivity {
 //        TextView textView = findViewById(R.id.loader);
 //        textView.setText("Fetching Books...");
         builder.setView(R.layout.progress_dialogue_layout_1);
+        textView = findViewById(R.id.tv_empty_history);
+        relativeLayout = findViewById(R.id.rl_sort_history);
         books = new ArrayList<>();
         readBookData();
 
 
         final AlertDialog dialog1 = builder.create();
-
+        dialog1.show();
         Window window1 = dialog1.getWindow();
         if (window1 != null) {
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -212,31 +216,38 @@ public class ReadingHistoryActivity extends AppCompatActivity {
 
                                         //Log.d("date=",Integer.toString(MyDateList.size()));
                                         dialog1.dismiss();
+                                        if(MyHistory.size() == 0){
+                                            textView.setVisibility(View.VISIBLE);
+                                            relativeLayout.setVisibility(View.GONE);
+                                            recyclerView.setVisibility(View.GONE);
+                                        }
+                                        else{
+                                            Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
+                                            layoutManager = new LinearLayoutManager(ReadingHistoryActivity.this);
+                                            recyclerView.setLayoutManager(layoutManager);
+                                            mAdapter = new HistoryListAdapter(MyHistory,ReadingHistoryActivity.this);
+                                            recyclerView.setAdapter(mAdapter);
+                                            textView.setVisibility(View.GONE);
+                                            radioGroup = findViewById(R.id.rg_history_sort_choices);
+                                            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                                    if(checkedId==R.id.rb_title_history){
+                                                        Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
+                                                        mAdapter.filterList(MyHistory);
+                                                    }
+                                                    else if(checkedId==R.id.rb_author_history){
+                                                        Collections.sort(MyHistory,HistoryBooksClass.AuthorComparator);
+                                                        mAdapter.filterList(MyHistory);
+                                                    }
+                                                    else{
+                                                        Collections.sort(MyHistory,HistoryBooksClass.DateComparator);
+                                                        mAdapter.filterList(MyHistory);
+                                                    }
+                                                }
+                                            });
+                                        }
 
-                                        Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                                        layoutManager = new LinearLayoutManager(ReadingHistoryActivity.this);
-                                        recyclerView.setLayoutManager(layoutManager);
-                                        mAdapter = new HistoryListAdapter(MyHistory,ReadingHistoryActivity.this);
-                                        recyclerView.setAdapter(mAdapter);
-
-                                        radioGroup = findViewById(R.id.rg_history_sort_choices);
-                                        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                            @Override
-                                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                                if(checkedId==R.id.rb_title_history){
-                                                    Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                                                    mAdapter.filterList(MyHistory);
-                                                }
-                                                else if(checkedId==R.id.rb_author_history){
-                                                    Collections.sort(MyHistory,HistoryBooksClass.AuthorComparator);
-                                                    mAdapter.filterList(MyHistory);
-                                                }
-                                                else{
-                                                    Collections.sort(MyHistory,HistoryBooksClass.DateComparator);
-                                                    mAdapter.filterList(MyHistory);
-                                                }
-                                            }
-                                        });
 
                                         // */
                                         //Toast.makeText(ReadingHistory.this,MyDateList.get(0), Toast.LENGTH_SHORT).show();
@@ -391,29 +402,37 @@ public class ReadingHistoryActivity extends AppCompatActivity {
                                 dialog1.dismiss();
 
                                 Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                                layoutManager = new LinearLayoutManager(ReadingHistoryActivity.this);
-                                recyclerView.setLayoutManager(layoutManager);
-                                mAdapter = new HistoryListAdapter(MyHistory,ReadingHistoryActivity.this);
-                                recyclerView.setAdapter(mAdapter);
-
-                                radioGroup = findViewById(R.id.rg_history_sort_choices);
-                                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                    @Override
-                                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                        if(checkedId==R.id.rb_title_history){
-                                            Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
-                                            mAdapter.filterList(MyHistory);
+                                if(MyHistory.size() == 0){
+                                    textView.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                    relativeLayout.setVisibility(View.GONE);
+                                }
+                                else{
+                                    Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
+                                    layoutManager = new LinearLayoutManager(ReadingHistoryActivity.this);
+                                    recyclerView.setLayoutManager(layoutManager);
+                                    mAdapter = new HistoryListAdapter(MyHistory,ReadingHistoryActivity.this);
+                                    recyclerView.setAdapter(mAdapter);
+                                    textView.setVisibility(View.GONE);
+                                    radioGroup = findViewById(R.id.rg_history_sort_choices);
+                                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                            if(checkedId==R.id.rb_title_history){
+                                                Collections.sort(MyHistory,HistoryBooksClass.TitleComparator);
+                                                mAdapter.filterList(MyHistory);
+                                            }
+                                            else if(checkedId==R.id.rb_author_history){
+                                                Collections.sort(MyHistory,HistoryBooksClass.AuthorComparator);
+                                                mAdapter.filterList(MyHistory);
+                                            }
+                                            else{
+                                                Collections.sort(MyHistory,HistoryBooksClass.DateComparator);
+                                                mAdapter.filterList(MyHistory);
+                                            }
                                         }
-                                        else if(checkedId==R.id.rb_author_history){
-                                            Collections.sort(MyHistory,HistoryBooksClass.AuthorComparator);
-                                            mAdapter.filterList(MyHistory);
-                                        }
-                                        else{
-                                            Collections.sort(MyHistory,HistoryBooksClass.DateComparator);
-                                            mAdapter.filterList(MyHistory);
-                                        }
-                                    }
-                                });
+                                    });
+                                }
 
                                 // */
                                 //Toast.makeText(ReadingHistory.this,MyDateList.get(0), Toast.LENGTH_SHORT).show();

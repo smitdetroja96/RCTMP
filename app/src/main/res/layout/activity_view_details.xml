@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,27 +12,30 @@
     android:layout_marginBottom="20dp"
     tools:context=".ViewDetails">
 
+    <WebView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:id="@+id/wv_add_to_fav"
+        >
+
+    </WebView>
+
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/sv_first"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:verticalScrollbarPosition="defaultPosition"
         android:scrollbars="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         >
 
-        <WebView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            android:id="@+id/wv_add_to_fav"
-            >
-
-        </WebView>
 
         <ImageView
             android:id="@+id/ivIcon"
@@ -119,9 +122,12 @@
             android:text="DESCRIPTION"
             android:textSize="20dp"/>
 
+    </RelativeLayout>
+    </ScrollView>
+
         <android.support.v7.widget.CardView
             android:id="@+id/cv_open_browser"
-            android:layout_below="@+id/tv_description"
+            android:layout_below="@+id/sv_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -140,21 +146,21 @@
 
                 <TextView
                     android:id="@+id/tv_open_browser"
-                    android:layout_width="199dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Open in Browser"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/iv_open_browser"/>
 
                 <ImageView
                     android:id="@+id/iv_open_browser"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="65dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/open_in_browser"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/tv_open_browser"/>
+                    android:textStyle="bold"/>
 
 
             </RelativeLayout>
@@ -188,16 +194,16 @@
                     android:layout_marginTop="10dp"
                     android:text="Share"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/iv_wish_list"/>
 
                 <ImageView
                     android:id="@+id/iv_wish_list"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="65dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/ic_share_black_24dp"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/tv_share"/>
+                    android:textStyle="bold"/>
 
 
             </RelativeLayout>
@@ -231,16 +237,16 @@
                     android:layout_marginTop="10dp"
                     android:text="Add to Favourites"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/iv_favourites" />
 
                 <ImageView
                     android:id="@+id/iv_favourites"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="65dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/ic_favorite"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/tv_add_to_fav"/>
+                    android:textStyle="bold"/>
 
 
             </RelativeLayout>
@@ -248,8 +254,7 @@
 
         </android.support.v7.widget.CardView>
 
-    </RelativeLayout>
-    </ScrollView>
+
 
     
-</ScrollView>
+</LinearLayout>
