@@ -270,7 +270,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                         bk.setBiblionumber(Integer.parseInt(biblio_string.toString()));
                                         bk.setName(title_string.toString());
                                         bk.setAuthors(author_string.toString());
-                                        MyIssues.add(new HistoryBooksClass(bk, date_str));
+//                                        MyIssues.add(new HistoryBooksClass(bk, date_str));
+                                        MyIssues.add(new HistoryBooksClass(bk, "06/07/2019"));
                                     }
                                     //MyDateList.add(temp2.toString());
                                     //MyBibList.add(temp.toString());
@@ -279,7 +280,7 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                     index_author = value.indexOf(search_author, index_author + search_author.length());
                                 }
 
-//                                MyIssues.add(new HistoryBooksClass("123", "An approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
+//                                MyIssues.add(new HistoryBooksClass(boo,"21/06/2019"));
 //                                MyIssues.add(new HistoryBooksClass("125", "Busy Bastards On the Street", "Smit Detroja", "21/06/2019"));
 //                                MyIssues.add(new HistoryBooksClass("128", "One More approach to Indian Society", "Shreyansh Surana", "21/06/2019"));
 
@@ -297,7 +298,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                                         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
                                         Intent intent;
+
                                         intent = new Intent(DrawerActivityLayout.this,AlarmReceiver.class);
+                                        intent.putExtra("title",i.getMybook().getName());
+                                        intent.putExtra("check_in_date",i.getCheckInDate());
 
                                         int requestCode = (i.getMybook().biblionumber);
                                         intent.putExtra("requestCode",requestCode);

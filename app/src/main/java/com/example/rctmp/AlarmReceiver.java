@@ -10,11 +10,16 @@ import android.support.v4.app.NotificationCompat;
 public class AlarmReceiver extends BroadcastReceiver {
 
     Context con;
+    String book_name,book_date;
 
     @Override
     public void onReceive(Context context, Intent intent){
 
         con = context;
+
+        book_name = intent.getStringExtra("title");
+        book_date = intent.getStringExtra("check_in_date");
+
         int alarmId = intent.getIntExtra("requestCode", 0);
 
 
@@ -26,8 +31,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Alarm")
-                .setContentText("Pay your Fine Buddy!")
+                .setContentTitle("Book Due !!!")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(book_name + "is due on " + book_date + "\n" + "Ignore If Returned"))
+                .setContentText(book_name + "is due on" + book_date)
                 .setAutoCancel(true)
                 .setOngoing(false);
 
