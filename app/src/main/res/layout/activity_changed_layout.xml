@@ -10,7 +10,8 @@
     tools:context=".ChangedLayoutActivity">
 
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,386 +41,386 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <RelativeLayout
+
+        <ImageView
+            android:id="@+id/iv_da_image"
+            android:src="@drawable/da_image"
             android:layout_below="@id/toolbar_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_da_image"
-                android:src="@drawable/da_image"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="0dp">
 
 
-            <LinearLayout
-                android:id="@+id/ll_first_row"
-                android:layout_below="@id/iv_da_image"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/ll_first_row"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_rcDetails">
+                    android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:id="@+id/ll_rc_details">
+                        android:layout_weight="1"
+                        android:id="@+id/cv_rcDetails">
 
-                        <ImageView
-                            android:id="@+id/rcDetailsImage"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_rc_details" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:orientation="vertical"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="RC DETAILS"/>
+                            android:id="@+id/ll_rc_details">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/rcDetailsImage"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_rc_details" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="RC DETAILS"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_search">
+                    </android.support.v7.widget.CardView>
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:id="@+id/ll_search">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_search">
 
-                        <ImageView
-                            android:id="@+id/searchImage"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_search_1" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:orientation="vertical"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="SEARCH"/>
+                            android:id="@+id/ll_search">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/searchImage"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_search_1" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="SEARCH"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-            </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/ll_second_row"
-                android:orientation="horizontal"
-                android:layout_below="@id/ll_first_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_issuedBooks">
+                <LinearLayout
+                    android:id="@+id/ll_second_row"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/ll_first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/ll_issuedBooks"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_issuedBooks">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:id="@+id/issuedBooksImage"
-                            android:src="@drawable/ic_issued_books" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/ll_issuedBooks"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="ISSUED BOOKS"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:id="@+id/issuedBooksImage"
+                                android:src="@drawable/ic_issued_books" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="ISSUED BOOKS"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_history">
+                    </android.support.v7.widget.CardView>
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/ll_history"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_history">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:id="@+id/historyImage"
-                            android:src="@drawable/ic_history" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/ll_history"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="HISTORY"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:id="@+id/historyImage"
+                                android:src="@drawable/ic_history" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="HISTORY"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_third_row"
-                android:orientation="horizontal"
-                android:layout_below="@id/ll_second_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_third_row"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/ll_second_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_wishlist">
-
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/ll_wishList"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_wishlist">
 
-                        <ImageView
-                            android:id="@+id/wishListImage"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_wishlist" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/ll_wishList"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="WISHLIST"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/wishListImage"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_wishlist" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="WISHLIST"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_myFavorites">
+                    </android.support.v7.widget.CardView>
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/ll_myFavoritesBooks"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_myFavorites">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center"
-                            android:id="@+id/favoriteBooksImage"
-                            android:src="@drawable/ic_favorite_changed_layout" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="FAVORITES"/>
+                            android:id="@+id/ll_myFavoritesBooks"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:id="@+id/favoriteBooksImage"
+                                android:src="@drawable/ic_favorite_changed_layout" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="FAVORITES"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_fourth_row"
-                android:layout_below="@id/ll_third_row"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_fourth_row"
+                    android:layout_below="@id/ll_third_row"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_suggestions">
-
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/ll_suggestions"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_suggestions">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:id="@+id/suggestionsImage"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_recommendation" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="RECOMMENDATIONS"/>
+                            android:id="@+id/ll_suggestions"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:id="@+id/suggestionsImage"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_recommendation" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="RECOMMENDATIONS"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:card_view="http://schemas.android.com/tools"
-                    app:cardBackgroundColor="#FCFCFC"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp"
-                    card_view:cardCornerRadius="10dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/cv_signout">
+                    </android.support.v7.widget.CardView>
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardBackgroundColor="#FCFCFC"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="3dp"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/ll_signOut"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cv_signout">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:id="@+id/signOutImage"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_logout" />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/ll_signOut"
                             android:layout_gravity="center"
-                            android:paddingTop="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="SIGN OUT"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:id="@+id/signOutImage"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_logout" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingTop="10dp"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:text="SIGN OUT"/>
 
-                </android.support.v7.widget.CardView>
+                        </LinearLayout>
 
-            </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
 
         </RelativeLayout>
 
@@ -430,7 +431,7 @@
 
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_1"
