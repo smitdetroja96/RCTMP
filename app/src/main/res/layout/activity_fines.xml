@@ -14,37 +14,29 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/tv_no_fines"
+        android:visibility="invisible"
+        android:layout_below="@id/toolbar_fines_layout"
+        android:text="You have no fines or charges!"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_fines_layout">
-
-    <RelativeLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="match_parent"
-        tools:context=".FinesActivity">
+        android:layout_below="@id/tv_no_fines">
 
         <WebView
             android:id="@+id/wv_fines"
             android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </WebView>
 
-        <TextView
-            android:id="@+id/tv_no_fines"
-            android:visibility="invisible"
-            android:text="You have no fines or charges!"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
 
     </ScrollView>
 
