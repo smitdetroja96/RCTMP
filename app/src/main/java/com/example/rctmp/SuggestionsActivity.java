@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.LoginFilter;
 import android.util.Log;
 import android.view.MenuItem;
@@ -59,6 +60,8 @@ public class SuggestionsActivity extends AppCompatActivity {
     WebSettings webSettings;
     boolean try_once;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,13 @@ public class SuggestionsActivity extends AppCompatActivity {
         aging_bits = new HashMap<>();
         main_tags = new HashSet<>();
         final_suggested_books = new ArrayList<>();
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_suggestions_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Recommended Books");
+//-------------------------------------------------------------------------------------------------------------------------------------
 
         recyclerView = findViewById(R.id.recycler_view_recommend);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

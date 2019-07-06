@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -50,6 +51,8 @@ public class ShowFavouritesActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     DatabaseReference databaseReference;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,14 @@ public class ShowFavouritesActivity extends AppCompatActivity {
         relativeLayout = findViewById(R.id.rl_sort_fav);
         recyclerView = findViewById(R.id.rv_favourites);
         textView = findViewById(R.id.tv_empty_list);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_favourites_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("My Favourites");
+//-------------------------------------------------------------------------------------------------------------------------------------
+
 
         readBookData();
 

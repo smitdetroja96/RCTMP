@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,12 +57,21 @@ public class IssuedBooksActivity extends AppCompatActivity {
     private IssuedBooksAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issued_books);
         textView = findViewById(R.id.tv_empty_issues);
         relativeLayout = findViewById(R.id.rl_sort_issues);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_issued_books_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Issued Books");
+//-------------------------------------------------------------------------------------------------------------------------------------
 
         readBookData();
 

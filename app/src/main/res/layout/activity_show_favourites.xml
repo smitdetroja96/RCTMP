@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:layout_height="match_parent"
     tools:context=".ShowFavouritesActivity">
 
@@ -17,7 +15,18 @@
         android:layout_height="0dp">
     </WebView>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_favourites_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
+         android:layout_below="@id/toolbar_favourites_layout"
         android:id="@+id/tv_empty_list"
         android:visibility="invisible"
         android:layout_width="match_parent"

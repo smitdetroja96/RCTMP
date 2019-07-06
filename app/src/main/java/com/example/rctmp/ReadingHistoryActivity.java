@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -52,11 +53,20 @@ public class ReadingHistoryActivity extends AppCompatActivity {
     HistoryListAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reading_history);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar_reading_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("My Reading History");
+//-------------------------------------------------------------------------------------------------------------------------------------
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ReadingHistoryActivity.this);
         builder.setCancelable(false);
