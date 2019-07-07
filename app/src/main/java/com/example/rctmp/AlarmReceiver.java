@@ -2,6 +2,7 @@ package com.example.rctmp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,12 +29,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         String channelName = "Channel Name";
         int importance = NotificationManager.IMPORTANCE_HIGH;
 
+        Intent intent1 = new Intent(context,IssuedBooksActivity.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,alarmId,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Book Due !!!")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(book_name + "is due on " + book_date + "\n" + "Ignore If Returned"))
                 .setContentText(book_name + "is due on" + book_date)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setOngoing(false);
 
