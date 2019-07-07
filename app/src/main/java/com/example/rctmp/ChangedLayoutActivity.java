@@ -42,7 +42,7 @@ import java.util.Date;
 
 public class ChangedLayoutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    LinearLayout search,issuedBooks,history,suggestions;
+    LinearLayout search,issuedBooks,history,suggestions,rcdetails,favourites;
     private DrawerLayout drawer;
 
     static boolean loginState;
@@ -63,6 +63,9 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         issuedBooks = findViewById(R.id.ll_issuedBooks);
         history = findViewById(R.id.ll_history);
         suggestions = findViewById(R.id.ll_suggestions);
+        rcdetails = findViewById(R.id.ll_rc_details);
+        favourites = findViewById(R.id.ll_myFavoritesBooks);
+
         readBookData();
         readData();
 
@@ -178,6 +181,15 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         toggle.syncState();
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
+        rcdetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(ChangedLayoutActivity.this,ShowDetailsActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,9 +218,20 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         suggestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangedLayoutActivity.this,"Suggestions",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChangedLayoutActivity.this,SuggestionsActivity.class);
+                startActivity(intent);
             }
         });
+
+        favourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChangedLayoutActivity.this,ShowFavouritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 

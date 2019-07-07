@@ -438,7 +438,8 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickRCDetails(View view) {
-
+        Intent newIntent = new Intent(DrawerActivityLayout.this,ShowDetailsActivity.class);
+        startActivity(newIntent);
     }
 
     public void displayMessage(String message)
