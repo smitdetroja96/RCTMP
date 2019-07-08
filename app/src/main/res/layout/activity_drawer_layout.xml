@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="5dp"
-                        android:text="RC DETAILS"
+                        android:text="RC TIMINGS"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/iv_rc_details"

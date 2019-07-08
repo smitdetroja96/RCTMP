@@ -100,7 +100,7 @@
                                 android:paddingTop="10dp"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
-                                android:text="RC DETAILS"/>
+                                android:text="RC TIMINGS"/>
 
                         </LinearLayout>
 
