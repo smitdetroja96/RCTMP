@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -24,10 +25,22 @@ public class OnlineResourceSearchActivity extends AppCompatActivity implements B
     boolean loaded = false;
     String search_query;
 
+    Toolbar online_resources_toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_resource_search);
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+        online_resources_toolbar = findViewById(R.id.toolbar_online_resources);
+        setSupportActionBar(online_resources_toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Online Resources");
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+
 
         rg = findViewById(R.id.rg_web_site_options);
         search_text = findViewById(R.id.et_search_text);
