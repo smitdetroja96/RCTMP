@@ -1,7 +1,13 @@
 package com.example.rctmp;
 
+import android.Manifest;
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.DownloadListener;
+import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -28,6 +37,8 @@ public class WebSearchActivity extends AppCompatActivity {
     String search_query;
 
     String refresh_url;
+    String downloadURL;
+
 
     Toolbar web_search_toolbar;
 
@@ -93,6 +104,36 @@ public class WebSearchActivity extends AppCompatActivity {
             }
 
         });
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+        wv.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+
+                downloadURL = url;
+                if(ContextCompat.checkSelfPermission(WebSearchActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(WebSearchActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                }
+                else {
+                    String download_file_name = URLUtil.guessFileName(url,null, MimeTypeMap.getFileExtensionFromUrl(url));
+
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                    request.allowScanningByMediaScanner();
+                    request.setMimeType(mimetype);
+                    request.setDescription("Downloading File");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, download_file_name);
+                    DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    downloadManager.enqueue(request);
+                }
+            }
+        });
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
         switch (site_to_be_searched)
         {
             case "aps":
@@ -132,6 +173,37 @@ public class WebSearchActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    String download_file_name = URLUtil.guessFileName(downloadURL,null, MimeTypeMap.getFileExtensionFromUrl(downloadURL));
+
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadURL));
+                    request.allowScanningByMediaScanner();
+                    request.setDescription("Downloading File");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, download_file_name);
+                    DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    downloadManager.enqueue(request);
+                } else {
+                    Toast.makeText(this, "Please provide Storage Permission to download content!", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     public void onBackPressed(){
         if(wv.canGoBack())
