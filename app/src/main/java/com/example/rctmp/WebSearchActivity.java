@@ -54,7 +54,7 @@ public class WebSearchActivity extends AppCompatActivity {
         setSupportActionBar(web_search_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("RC");
+        getSupportActionBar().setTitle("Online Resources");
 //-------------------------------------------------------------------------------------------------------------------------------------------
         progressBar = findViewById(R.id.pb_progressBar);
         wv = findViewById(R.id.wv_search_result);
@@ -136,6 +136,10 @@ public class WebSearchActivity extends AppCompatActivity {
 
         switch (site_to_be_searched)
         {
+            case "acm":
+//                refresh_url = "https://dlnext.acm.org/action/doSearch?AllField="+search_query;
+                wv.loadUrl("https://dlnext.acm.org/action/doSearch?AllField="+search_query);
+                break;
             case "aps":
 //                refresh_url = "https://journals.aps.org/search/results?sort=relevance&clauses=[%7B%22operator%22:%22AND%22,%22field%22:%22all%22,%22value%22:%22"+search_query+"%22%7D]";
                 wv.loadUrl("https://journals.aps.org/search/results?sort=relevance&clauses=[%7B%22operator%22:%22AND%22,%22field%22:%22all%22,%22value%22:%22"+search_query+"%22%7D]");

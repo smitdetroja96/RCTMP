@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,13 +14,11 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class OnlineResourceSearchActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class OnlineResourceSearchActivity extends AppCompatActivity { //implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    ImageButton search_web;
     EditText search_text;
-    RadioGroup rg;
     Intent intent;
-
+    CardView acm,aps,bloom,ieee,jstor,scidir,springer,usenix;
     BottomNavigationView bottomNavigationView;
 
     boolean loaded = false;
@@ -42,84 +41,169 @@ public class OnlineResourceSearchActivity extends AppCompatActivity implements B
         //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        rg = findViewById(R.id.rg_web_site_options);
-        search_text = findViewById(R.id.et_search_text);
-        search_web = findViewById(R.id.bt_searchWeb);
-        search_web.setOnClickListener(new View.OnClickListener() {
+
+
+        search_text = findViewById(R.id.et_online_res);
+        acm = findViewById(R.id.cv_acm);
+        aps = findViewById(R.id.cv_aps);
+        bloom = findViewById(R.id.cv_blooms);
+        ieee = findViewById(R.id.cv_ieee);
+        jstor = findViewById(R.id.cv_jstor);
+        scidir = findViewById(R.id.cv_science);
+        springer = findViewById(R.id.cv_springer);
+        usenix = findViewById(R.id.cv_usenix);
+
+
+        intent = new Intent(getApplicationContext(),WebSearchActivity.class);
+
+
+        acm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int website_id = rg.getCheckedRadioButtonId();
                 search_query = search_text.getText().toString();
-                search_query = search_query.replaceAll("^\\s*","");
-                if(search_query.length()<3){
-                    Toast.makeText(getApplicationContext(),"Please enter at least 3 characters",Toast.LENGTH_SHORT).show();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
-                intent = new Intent(getApplicationContext(),WebSearchActivity.class);
-
                 intent.putExtra("search_query",search_query);
-                switch (website_id)
-                {
-                    case R.id.rb_bloomsbury:
-                        intent.putExtra("site_to_be_searched","bloomsbury");
-                        break;
-                    case R.id.rb_ieee:
-                        intent.putExtra("site_to_be_searched","ieee");
-                        break;
-                    case R.id.rb_jstor:
-                        intent.putExtra("site_to_be_searched","jstor");
-                        break;
-                    case R.id.rb_science_direct:
-                        intent.putExtra("site_to_be_searched","science_direct");
-                        break;
-                    case R.id.rb_springer:
-                        intent.putExtra("site_to_be_searched","springer");
-                        break;
-                    case R.id.rb_usenix:
-                        intent.putExtra("site_to_be_searched","usenix");
-                        break;
-                }
+                intent.putExtra("site_to_be_searched", "acm");
                 startActivity(intent);
-
             }
         });
 
-        bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        bottomNavigationView.getMenu().getItem(0).setCheckable(true);
-        bottomNavigationView.getMenu().getItem(1).setCheckable(true);
-        bottomNavigationView.getMenu().getItem(2).setCheckable(true);
+        aps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "aps");
+                startActivity(intent);
+            }
+        });
+
+        bloom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "bloomsbury");
+                startActivity(intent);
+            }
+        });
+
+        ieee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "ieee");
+                startActivity(intent);
+            }
+        });
+
+        jstor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "jstor");
+                startActivity(intent);
+            }
+        });
+
+        scidir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "science_direct");
+                startActivity(intent);
+            }
+        });
+
+        springer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "springer");
+                startActivity(intent);
+            }
+        });
+
+        usenix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_query = search_text.getText().toString();
+                if(search_query.trim().isEmpty()){
+                    Toast.makeText(OnlineResourceSearchActivity.this, "Please enter a valid query!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("search_query",search_query);
+                intent.putExtra("site_to_be_searched", "usenix");
+                startActivity(intent);
+            }
+        });
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+//        bottomNavigationView = findViewById(R.id.bottom_nav_view);
+//        bottomNavigationView.getMenu().getItem(0).setCheckable(true);
+//        bottomNavigationView.getMenu().getItem(1).setCheckable(true);
+//        bottomNavigationView.getMenu().getItem(2).setCheckable(true);
+//
+//
+//        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId())
-        {
-            case R.id.bottom_nav_profile:
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.bottom_nav_home:
-                Intent i = new Intent(OnlineResourceSearchActivity.this,DrawerActivityLayout.class);
-                startActivity(i);
-                finish();
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//        switch (item.getItemId())
+//        {
+//            case R.id.bottom_nav_profile:
 //                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.bottom_nav_search:
-                Intent i1 = new Intent(OnlineResourceSearchActivity.this,IntermediateActivity.class);
-                startActivity(i1);
-                finish();
-//                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return true;
-    }
+//                break;
+//
+//            case R.id.bottom_nav_home:
+//                Intent i = new Intent(OnlineResourceSearchActivity.this,DrawerActivityLayout.class);
+//                startActivity(i);
+//                finish();
+////                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.bottom_nav_search:
+//                Intent i1 = new Intent(OnlineResourceSearchActivity.this,IntermediateActivity.class);
+//                startActivity(i1);
+//                finish();
+////                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//
+//        return true;
+//    }
 }

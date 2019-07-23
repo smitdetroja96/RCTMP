@@ -17,109 +17,433 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+
     <EditText
-        android:id="@+id/et_search_text"
-        android:hint="Search here..."
-        android:inputType="text"
-        android:maxLines="1"
-        android:layout_below="@id/toolbar_online_resources"
-        android:singleLine="true"
         android:textSize="20sp"
-        android:layout_width="300dip"
-        android:layout_height="wrap_content" />
-    <ImageButton
-        android:layout_marginTop="10dp"
-        android:id="@+id/bt_searchWeb"
-        android:src="@drawable/ic_search_1"
-        android:background="#00000000"
+        android:hint="Search query"
+        android:id="@+id/et_online_res"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_below="@id/toolbar_online_resources"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RadioGroup
-        android:id="@+id/rg_web_site_options"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/et_search_text"
+
+    <ScrollView
+        android:id="@+id/sv_online_res_list"
+        android:layout_below="@id/et_online_res"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/rb_bloomsbury"
-            android:checked="true"
-            android:text="Bloomsbury Design Library"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/rb_jstor"
-            android:text="JSTOR Online Archive"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_acm">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_acm"
+                        android:src="@mipmap/ic_acm"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_acm"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="ACM Digital Library"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_blooms"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_ieee">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_ieee"
+                        android:src="@drawable/ic_ieee_logo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_ieee"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="IEEE Xplore Digital Library"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_ieee"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_jstor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_jstor"
+                        android:src="@drawable/ic_jstor_vector_logo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_jstor"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="JSTOR Online Archive"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_aps"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_blooms">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_blooms"
+                        android:src="@mipmap/ic_bloomsbury"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_blooms"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="Bloomsbury Design Library"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_jstor"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_science">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_science"
+                        android:src="@drawable/ic_sciencedirect_vector_logo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_science"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="ScienceDirect "
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
 
-        <RadioButton
-            android:id="@+id/rb_ieee"
-            android:text="IEEE Xplore Digital Library"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_science"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_springer">
 
-        <RadioButton
-            android:id="@+id/rb_science_direct"
-            android:text="ScienceDirect Computer Science Journals"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_springer"
+                        android:src="@drawable/ic_springer"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_springer"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="Springer Link"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/rb_springer"
-            android:text="Springer Link"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </android.support.v7.widget.CardView>
 
-        <RadioButton
-            android:id="@+id/rb_usenix"
-            android:text="Usenix Publications"
-            android:paddingStart="10dp"
-            android:textSize="20sp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-    </RadioGroup>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_springer"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_usenix">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_usenix"
+                        android:src="@mipmap/ic_usenix"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_usenix"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="USENIX"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_acm"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="#fcfcfc"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="3dp"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true"
+                android:id="@+id/cv_aps">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_aps"
+                        android:src="@mipmap/ic_aps"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <TextView
+                        android:id="@+id/tv_aps"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:textSize="20sp"
+                        android:text="American Physical Society"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/et_search_text"-->
+        <!--android:hint="Search here..."-->
+        <!--android:inputType="text"-->
+        <!--android:maxLines="1"-->
+        <!--android:layout_below="@id/toolbar_online_resources"-->
+        <!--android:singleLine="true"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_width="300dip"-->
+        <!--android:layout_height="wrap_content" />-->
+    <!--<ImageButton-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/bt_searchWeb"-->
+        <!--android:src="@drawable/ic_search_1"-->
+        <!--android:background="#00000000"-->
+        <!--android:layout_below="@id/toolbar_online_resources"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rg_web_site_options"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_below="@id/et_search_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_bloomsbury"-->
+            <!--android:checked="true"-->
+            <!--android:text="Bloomsbury Design Library"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_jstor"-->
+            <!--android:text="JSTOR Online Archive"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_ieee"-->
+            <!--android:text="IEEE Xplore Digital Library"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_science_direct"-->
+            <!--android:text="ScienceDirect Computer Science Journals"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_springer"-->
+            <!--android:text="Springer Link"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_usenix"-->
+            <!--android:text="Usenix Publications"-->
+            <!--android:paddingStart="10dp"-->
+            <!--android:textSize="20sp"-->
+            <!--android:background="#00000000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    <!--</RadioGroup>-->
     
-    <android.support.design.widget.BottomNavigationView
-        android:layout_width="match_parent"
-        android:id="@+id/bottom_nav_view"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation_menu"
-        android:backgroundTint="#ffffff"
-        android:foregroundTint="#ffffff"
-        app:itemIconTint="@drawable/bottom_nav_item_selected"
-        app:itemTextColor="@drawable/bottom_nav_item_selected">
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/bottom_nav_view"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:menu="@menu/bottom_navigation_menu"-->
+        <!--android:backgroundTint="#ffffff"-->
+        <!--android:foregroundTint="#ffffff"-->
+        <!--app:itemIconTint="@drawable/bottom_nav_item_selected"-->
+        <!--app:itemTextColor="@drawable/bottom_nav_item_selected">-->
 
 
-    </android.support.design.widget.BottomNavigationView>
+    <!--</android.support.design.widget.BottomNavigationView>-->
 
 
 </RelativeLayout>
