@@ -352,6 +352,12 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+
         switch (item.getItemId())
         {
             case R.id.change_password:
@@ -374,25 +380,49 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickSearch(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent i = new Intent(DrawerActivityLayout.this,IntermediateActivity.class);
         startActivity(i);
     }
 
     public void onClickIssuedBooks(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(DrawerActivityLayout.this,IssuedBooksActivity.class);
         startActivity(intent);
     }
 
-    public void onClickWishList(View view) {
-        Toast.makeText(this,"WISH LIST",Toast.LENGTH_SHORT).show();
-    }
-
     public void onClickHistory(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(DrawerActivityLayout.this,ReadingHistoryActivity.class);
         startActivity(intent);
     }
 
     public void onClickSuggestions(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(DrawerActivityLayout.this,SuggestionsActivity.class);
         startActivity(intent);
     }
@@ -410,6 +440,13 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickMyFavourites(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(DrawerActivityLayout.this,ShowFavouritesActivity.class);
         startActivity(intent);
     }
@@ -438,6 +475,13 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
     }
 
     public void onClickRCDetails(View view) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent newIntent = new Intent(DrawerActivityLayout.this,ShowDetailsActivity.class);
         startActivity(newIntent);
     }

@@ -156,10 +156,6 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         }
 
 
-
-
-
-
 //------------------------------------------------------------------------------------------------------------------------------------
         Toolbar toolbar = findViewById(R.id.toolbar_1);
         setSupportActionBar(toolbar);
@@ -184,6 +180,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         rcdetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent newIntent = new Intent(ChangedLayoutActivity.this,ShowDetailsActivity.class);
                 startActivity(newIntent);
             }
@@ -193,6 +196,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent i = new Intent(ChangedLayoutActivity.this,IntermediateActivity.class);
                 startActivity(i);
             }
@@ -201,6 +211,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         issuedBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(ChangedLayoutActivity.this,IssuedBooksActivity.class);
                 startActivity(intent);
                 //Toast.makeText(ChangedLayoutActivity.this, "Issued Books", Toast.LENGTH_SHORT).show();
@@ -210,6 +227,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(ChangedLayoutActivity.this,ReadingHistoryActivity.class);
                 startActivity(intent);
             }
@@ -218,6 +242,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         suggestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(ChangedLayoutActivity.this,SuggestionsActivity.class);
                 startActivity(intent);
             }
@@ -226,12 +257,17 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
         favourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!isInternet())
+                {
+                    Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(ChangedLayoutActivity.this,ShowFavouritesActivity.class);
                 startActivity(intent);
             }
         });
-
-
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -430,6 +466,13 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if(!isInternet())
+        {
+            Snackbar.make(findViewById(R.id.drawer_layout),"No Internet !!!",Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+
         switch (item.getItemId())
         {
             case R.id.change_password:
