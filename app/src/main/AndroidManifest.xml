@@ -39,7 +39,8 @@
         <activity android:name=".ReadingHistoryActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".ChangedLayoutActivity" />
-        <activity android:name=".OnlineResourceSearchActivity" />
+        <activity android:name=".OnlineResourceSearchActivity"
+            android:parentActivityName=".IntermediateActivity"/>
         <activity android:name=".IntermediateActivity" />
         <activity
             android:name=".WebSearchActivity"

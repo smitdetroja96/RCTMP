@@ -533,7 +533,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
 
         int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
 
-        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
 
         books.clear();
 
@@ -542,7 +542,7 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
             books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
         }
 
-        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 
     private void saveData1()

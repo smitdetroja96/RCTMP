@@ -300,7 +300,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
             complexPreferences.putObject("Books" + Integer.toString(i), books.get(i));
         }
 
-        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
 
         editor.commit();
         complexPreferences.commit();
@@ -315,7 +315,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
 
-        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
 
         books.clear();
 
@@ -324,7 +324,7 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
             books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
         }
 
-        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 
     private void readData()

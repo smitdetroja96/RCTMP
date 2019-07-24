@@ -21,7 +21,7 @@ class CustomJavaScriptInterface {
     public void printId(final String val)
     {
         Log.d("returnVal",val);
-        Toast.makeText(mContext,val+"yes",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext,val+"yes",Toast.LENGTH_SHORT).show();
     }
 
 }

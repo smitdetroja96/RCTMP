@@ -68,7 +68,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             Toast.makeText(ChangePasswordActivity.this, "Password should have minimum 3 characters", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(ChangePasswordActivity.this, "Succesfully here", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ChangePasswordActivity.this, "Succesfully here", Toast.LENGTH_SHORT).show();
 
 
         first_if = false;
