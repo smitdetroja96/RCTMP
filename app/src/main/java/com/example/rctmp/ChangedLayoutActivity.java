@@ -489,6 +489,11 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                 startActivity(i);
                 finish();
                 break;
+            case R.id.nav_rules:
+                Intent i3 = new Intent(ChangedLayoutActivity.this,RulesActivity.class);
+                startActivity(i3);
+                break;
+
 
         }
         return true;

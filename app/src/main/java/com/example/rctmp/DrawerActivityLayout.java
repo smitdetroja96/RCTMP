@@ -374,6 +374,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 startActivity(i);
                 finish();
                 break;
+            case R.id.nav_rules:
+                Intent i3 = new Intent(DrawerActivityLayout.this,RulesActivity.class);
+                startActivity(i3);
+                break;
 
         }
         return true;
