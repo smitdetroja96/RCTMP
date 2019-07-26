@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                             msg = "NO";
                         }
                         Log.d("TAG", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
