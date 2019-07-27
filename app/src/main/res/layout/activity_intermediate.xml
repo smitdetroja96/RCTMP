@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bt_web_search"
                 android:layout_alignParentLeft="true"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="30dp"

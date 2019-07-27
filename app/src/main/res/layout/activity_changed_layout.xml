@@ -79,7 +79,6 @@
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="10dp"
                         android:id="@+id/cv_search">
 
                         <LinearLayout
@@ -113,6 +112,7 @@
                         xmlns:card_view="http://schemas.android.com/tools"
                         app:cardBackgroundColor="#FCFCFC"
                         app:cardCornerRadius="10dp"
+                        android:layout_marginStart="10dp"
                         app:cardUseCompatPadding="true"
                         app:contentPadding="3dp"
                         card_view:cardCornerRadius="10dp"
@@ -270,7 +270,6 @@
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_marginStart="10dp"
                         android:id="@+id/cv_myFavorites">
 
                         <LinearLayout
@@ -313,6 +312,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="10dp"
                         android:id="@+id/cv_rcDetails">
 
                         <LinearLayout

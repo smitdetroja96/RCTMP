@@ -327,7 +327,7 @@ public class ShowFavouritesActivity extends AppCompatActivity {
                                                 webView.evaluateJavascript(newscript, new ValueCallback<String>() {
                                                     @Override
                                                     public void onReceiveValue(String s) {
-                                                        Toast.makeText(ShowFavouritesActivity.this, "Opening lists...", Toast.LENGTH_SHORT).show();
+                                                        //Toast.makeText(ShowFavouritesActivity.this, "Opening lists...", Toast.LENGTH_SHORT).show();
                                                         loadNextPage = true;
                                                     }
                                                 });

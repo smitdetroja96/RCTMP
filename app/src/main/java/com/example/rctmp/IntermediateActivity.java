@@ -23,7 +23,7 @@ public class IntermediateActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_intermediate_layout);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("RC");
+        getSupportActionBar().setTitle("Search");
 //-------------------------------------------------------------------------------------------------------------------------------------
 
         button_web_search = findViewById(R.id.bt_web_search);

@@ -7,7 +7,7 @@
 
         <item
             android:id="@+id/nav_user_profile"
-            android:icon="@drawable/arrows"
+            android:icon="@drawable/ic_person_1"
             android:title="User Profile" />
 
         <item
@@ -25,11 +25,6 @@
             android:id="@+id/nav_rules"
             android:icon="@drawable/ic_help"
             android:title="Rules" />
-
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_setting"
-            android:title="Settings" />
 
     </group>
 

@@ -51,7 +51,7 @@ public class ScholarlyResourcesActivity extends AppCompatActivity {
         setSupportActionBar(scholarly_resources_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("RC");
+        getSupportActionBar().setTitle("Scholarly Resources");
 //-------------------------------------------------------------------------------------------------------------------------------------
         progressBar = findViewById(R.id.pb_progressBar1);
 

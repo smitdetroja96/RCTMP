@@ -55,7 +55,7 @@ public class RaxterSearchActivity extends AppCompatActivity {
         setSupportActionBar(raxter_search_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("RC");
+        getSupportActionBar().setTitle("Raxter Search");
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
         progressBar = findViewById(R.id.pb_raxter);
