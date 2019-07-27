@@ -24,7 +24,10 @@ public class ViewDetails extends AppCompatActivity {
     HistoryBooksClass book_now = new HistoryBooksClass();
     String url = "";
     WebView webView;
+    Boolean loadNextPage = false, third_if = false;
     WebSettings webSettings;
+    TextView add_fav;
+    boolean remove_t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class ViewDetails extends AppCompatActivity {
         setContentView(R.layout.activity_view_details);
 
         boolean whattofetch = (boolean) getIntent().getBooleanExtra("isMain",false);
+        remove_t = (boolean) getIntent().getBooleanExtra("showRemove",false);
+
+
         if(whattofetch == true){
             book_viewed = (BooksClass) getIntent().getSerializableExtra("BookDetails");
         }
@@ -39,6 +45,7 @@ public class ViewDetails extends AppCompatActivity {
             book_now = (HistoryBooksClass) getIntent().getSerializableExtra("BookDetails");
         }
 
+        add_fav = findViewById(R.id.tv_add_to_fav);
         tv_author = findViewById(R.id.tv_author);
         tv_title = findViewById(R.id.tv_title);
         tv_material_type = findViewById(R.id.tv_material_type);
@@ -49,6 +56,9 @@ public class ViewDetails extends AppCompatActivity {
         tv_quantity = findViewById(R.id.tv_quantity);
         webView = findViewById(R.id.wv_add_to_fav);
 
+        if(remove_t){
+            add_fav.setText("Remove from Fav.");
+        }
 
         if(whattofetch) {
             String temp;
@@ -112,94 +122,205 @@ public class ViewDetails extends AppCompatActivity {
 
     public void onClickFavorites(View view) {
 
-        webView.setWebViewClient(new WebViewClient(){
-            boolean page_load_error = false;
-            boolean done = false;
+        if(!remove_t) {
+            webView.setWebViewClient(new WebViewClient() {
+                boolean page_load_error = false;
+                boolean done = false;
 
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                page_load_error = true;
-            }
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    page_load_error = true;
+                }
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if(page_load_error)
-                    Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
-                else if(done==false){
-                    done = true;
-                    webView.evaluateJavascript("document.getElementById('shelfnumber').length;", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String s) {
-                            Log.d("leng",s);
-                            if(s.equals("0")){
-                                webView.evaluateJavascript("document.getElementById('newvirtualshelf').value='rc_app_list';", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String s) {
-                                        webView.evaluateJavascript("document.getElementById('category').value='1'", new ValueCallback<String>() {
-                                            @Override
-                                            public void onReceiveValue(String s) {
-                                                webView.evaluateJavascript("document.getElementsByClassName('btn')[1].click();", new ValueCallback<String>() {
-                                                    @Override
-                                                    public void onReceiveValue(String s) {
-                                                        Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                            else{
-//                                String script = "(function(){var len = document.getElementById('shelfnumber'); var tosearch = 'ggmu'; var lab = 'Public lists'; for(var i=0 ; i<len.options.length ; i++){if(len.options[i].text==tosearch && len.options[i].parentNode.label==lab){len.options[i].selected=true; return 1;}} return 0;})();";
-//                                Log.d("hello:why2",script);
-                                webView.evaluateJavascript("(function(){var len = document.getElementById('shelfnumber'); var tosearch = 'rc_app_list'; var lab = 'Private lists'; for(var i=0 ; i<len.options.length ; i++){if(len.options[i].text==tosearch && len.options[i].parentNode.label==lab){len.options[i].selected=true; return 1;}} return 0;})();", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String s) {
-//                                        Log.d("hello:why3",s);
-                                        if(s.equals("1")){
-                                            webView.evaluateJavascript("document.getElementsByClassName('btn')[0].click();", new ValueCallback<String>() {
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if (page_load_error)
+                        Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+                    else if (done == false) {
+                        done = true;
+                        webView.evaluateJavascript("document.getElementById('shelfnumber').length;", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
+                                Log.d("leng", s);
+                                if (s.equals("0")) {
+                                    webView.evaluateJavascript("document.getElementById('newvirtualshelf').value='rc_app_list';", new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String s) {
+                                            webView.evaluateJavascript("document.getElementById('category').value='1'", new ValueCallback<String>() {
                                                 @Override
                                                 public void onReceiveValue(String s) {
-                                                    Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                        else{
-                                            webView.evaluateJavascript("document.getElementById('newvirtualshelf').value='rc_app_list';", new ValueCallback<String>() {
-                                                @Override
-                                                public void onReceiveValue(String s) {
-                                                    webView.evaluateJavascript("document.getElementById('category').value='1'", new ValueCallback<String>() {
+                                                    webView.evaluateJavascript("document.getElementsByClassName('btn')[1].click();", new ValueCallback<String>() {
                                                         @Override
                                                         public void onReceiveValue(String s) {
-                                                            webView.evaluateJavascript("document.getElementsByClassName('btn')[1].click();", new ValueCallback<String>() {
-                                                                @Override
-                                                                public void onReceiveValue(String s) {
-                                                                    Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
+                                                            Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
+                                                            remove_t = true;
+                                                            add_fav.setText("Remove from Fav.");
                                                         }
                                                     });
                                                 }
                                             });
                                         }
+                                    });
+                                } else {
+//                                String script = "(function(){var len = document.getElementById('shelfnumber'); var tosearch = 'ggmu'; var lab = 'Public lists'; for(var i=0 ; i<len.options.length ; i++){if(len.options[i].text==tosearch && len.options[i].parentNode.label==lab){len.options[i].selected=true; return 1;}} return 0;})();";
+//                                Log.d("hello:why2",script);
+                                    webView.evaluateJavascript("(function(){var len = document.getElementById('shelfnumber'); var tosearch = 'rc_app_list'; var lab = 'Private lists'; for(var i=0 ; i<len.options.length ; i++){if(len.options[i].text==tosearch && len.options[i].parentNode.label==lab){len.options[i].selected=true; return 1;}} return 0;})();", new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String s) {
+//                                        Log.d("hello:why3",s);
+                                            if (s.equals("1")) {
+                                                webView.evaluateJavascript("document.getElementsByClassName('btn')[0].click();", new ValueCallback<String>() {
+                                                    @Override
+                                                    public void onReceiveValue(String s) {
+                                                        Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
+                                                        remove_t = true;
+                                                        add_fav.setText("Remove from Fav.");
+                                                    }
+                                                });
+                                            } else {
+                                                webView.evaluateJavascript("document.getElementById('newvirtualshelf').value='rc_app_list';", new ValueCallback<String>() {
+                                                    @Override
+                                                    public void onReceiveValue(String s) {
+                                                        webView.evaluateJavascript("document.getElementById('category').value='1'", new ValueCallback<String>() {
+                                                            @Override
+                                                            public void onReceiveValue(String s) {
+                                                                webView.evaluateJavascript("document.getElementsByClassName('btn')[1].click();", new ValueCallback<String>() {
+                                                                    @Override
+                                                                    public void onReceiveValue(String s) {
+                                                                        Toast.makeText(ViewDetails.this, "Successfully Added to the List", Toast.LENGTH_SHORT).show();
+                                                                        remove_t = true;
+                                                                        add_fav.setText("Remove from Fav.");
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+            webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setAllowContentAccess(true);
+            webSettings.setDomStorageEnabled(true);
+            webSettings.setDatabaseEnabled(true);
+            int bib = book_viewed.getBiblionumber();
+            String url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-addbybiblionumber.pl?biblionumber=" + bib;
+            webView.loadUrl(url);
+        }
+        else{
+            webView.setWebViewClient(new WebViewClient(){
+                boolean page_load_error = false;
+                boolean done = false;
+                boolean secondif = false;
+
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    page_load_error = true;
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if(page_load_error){
+                        Toast.makeText(ViewDetails.this, "Failed to Connect !", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(!done && !loadNextPage){
+                        done = true;
+                        webView.evaluateJavascript("(function(){return (document.getElementsByClassName('table')).length;})();", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
+                                Log.d("hello1:",s);
+                                if(s.equals("0") || s==null){
+
+                                }
+                                else{
+                                    String script= "(function(){\n" +
+                                            "\tvar x = document.getElementsByClassName('table')[0].rows.length;\n" +
+                                            "  var temp = document.getElementsByClassName('table')[0];\n" +
+                                            "  var search = 'rc_app_list';\n" +
+                                            "  for(var i=1 ; i<x ; i++){\n" +
+                                            "  \tif(temp.rows[i].cells[0].innerText == search){\n" +
+                                            "    \treturn i;\n" +
+                                            "    }\n" +
+                                            "  }\n" +
+                                            "  return 0;\n" +
+                                            "})();";
+                                    webView.evaluateJavascript(script, new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String s) {
+                                            Log.d("hello3:",s);
+                                            if(s.equals("0")){
+                                            }
+                                            else{
+                                                String newscript = "(document.getElementsByClassName('table')[0].rows["+s+"].cells[0]).firstChild.click();";
+                                                webView.evaluateJavascript(newscript, new ValueCallback<String>() {
+                                                    @Override
+                                                    public void onReceiveValue(String s) {
+                                                        //Toast.makeText(ShowFavouritesActivity.this, "Opening lists...", Toast.LENGTH_SHORT).show();
+                                                        loadNextPage = true;
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    else if(loadNextPage && !secondif){
+                        secondif = true;
+                        webView.evaluateJavascript("document.querySelector('div.maincontent > h2').textContent;", new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
+//                            Toast.makeText(ShowActivity.this, s, Toast.LENGTH_SHORT).show();
+                                Log.d("fffff1",s);
+                                webView.evaluateJavascript("(document.getElementsByClassName('table')).length;", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String s) {
+//                                    if(s==null)
+                                        if(s.equals("0")){
+                                        }
+                                        else{
+                                            webView.evaluateJavascript("", new ValueCallback<String>() {
+                                                @Override
+                                                public void onReceiveValue(String s) {
+                                                    String bibnum = book_viewed.getBiblionumber()+"";
+                                                    String cururl = webView.getUrl();
+                                                    int idx = cururl.indexOf("number=");
+                                                    cururl = cururl.substring(idx+7);
+                                                    String newurl = "https://opac.daiict.ac.in/cgi-bin/koha/opac-shelves.pl?op=remove_biblios&shelfnumber="+cururl+"&biblionumber="+bibnum;
+                                                    Log.e("newrr",cururl);
+                                                    Log.e("newur",newurl);
+                                                    Log.e("bib",bibnum);
+                                                    webView.loadUrl(newurl);
+                                                    Toast.makeText(ViewDetails.this, "Book removed from favourites successfully", Toast.LENGTH_SHORT).show();
+                                                    add_fav.setText("Add to Favourites");
+                                                    remove_t = false;
+                                                }
+                                            });
+                                        }
                                     }
                                 });
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
+            });
 
-
-        webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDatabaseEnabled(true);
-        int bib = book_viewed.getBiblionumber();
-        String url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-addbybiblionumber.pl?biblionumber=" + bib;
-        webView.loadUrl(url);
+            webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setAllowContentAccess(true);
+            webSettings.setDomStorageEnabled(true);
+            webSettings.setDatabaseEnabled(true);
+            webView.loadUrl("https://opac.daiict.ac.in/cgi-bin/koha/opac-shelves.pl?op=list&category=1");
+        }
     }
 
     public void onClickShare(View view) {
@@ -224,5 +345,11 @@ public class ViewDetails extends AppCompatActivity {
 
         i.putExtra(Intent.EXTRA_TEXT, share_string);
         startActivity(Intent.createChooser(i, "Happy Reading..."));
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK,new Intent());
+        finish();
     }
 }

@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Open in Browser"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     android:layout_marginLeft="40dp"
                     android:layout_toRightOf="@+id/iv_open_browser"/>
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Share"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     android:layout_marginLeft="40dp"
                     android:layout_toRightOf="@+id/iv_wish_list"/>
@@ -237,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Add to Favourites"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     android:layout_marginLeft="40dp"
                     android:layout_toRightOf="@+id/iv_favourites" />

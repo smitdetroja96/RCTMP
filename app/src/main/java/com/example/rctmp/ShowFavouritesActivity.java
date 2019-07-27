@@ -2,6 +2,7 @@ package com.example.rctmp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -488,6 +489,13 @@ public class ShowFavouritesActivity extends AppCompatActivity {
         editor.commit();
         complexPreferences.commit();
         editor1.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 420){
+            recreate();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.rctmp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -74,7 +75,8 @@ public class FavouritesAdapter extends  RecyclerView.Adapter<FavouritesAdapter.M
                 Intent i = new Intent(context, ViewDetails.class);
                 i.putExtra("BookDetails",firebase_books.get(position));
                 i.putExtra("isMain",true);
-                context.startActivity(i);
+                i.putExtra("showRemove",true);
+                ((Activity)context).startActivityForResult(i,420);
             }
         });
     }
