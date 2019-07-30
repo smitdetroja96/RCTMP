@@ -16,8 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RulesActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".ShowDetailsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SuggestUs"></activity>
+        <activity
+            android:name=".RulesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -27,33 +32,62 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".SuggestionsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ShowFavouritesActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SuggestionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowFavouritesActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ScholarlyResourcesActivity"
-            android:parentActivityName=".IntermediateActivity" android:screenOrientation="portrait" />
+            android:parentActivityName=".IntermediateActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RaxterSearchActivity"
-            android:parentActivityName=".IntermediateActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".FinesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".IssuedBooksActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".UserProfileActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ReadingHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ChangePasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ChangedLayoutActivity" android:screenOrientation="portrait"/>
+            android:parentActivityName=".IntermediateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FinesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IssuedBooksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChangedLayoutActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OnlineResourceSearchActivity"
-            android:parentActivityName=".IntermediateActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".IntermediateActivity" android:screenOrientation="portrait"/>
+            android:parentActivityName=".IntermediateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IntermediateActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WebSearchActivity"
-            android:parentActivityName=".OnlineResourceSearchActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ViewDetails" android:screenOrientation="portrait"/>
-        <activity android:name=".SearchingActivity" android:screenOrientation="portrait"/>
+            android:parentActivityName=".OnlineResourceSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DrawerActivityLayout"
-            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
