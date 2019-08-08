@@ -22,6 +22,12 @@
             />
 
         <item
+            android:id="@+id/show_fines"
+            android:title="Fines"
+            android:icon="@drawable/ic_fines_rupee"
+            />
+
+        <item
             android:id="@+id/nav_rules"
             android:icon="@drawable/ic_help"
             android:title="Rules" />

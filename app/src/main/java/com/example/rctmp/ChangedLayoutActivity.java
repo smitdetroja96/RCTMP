@@ -501,6 +501,14 @@ public class ChangedLayoutActivity extends AppCompatActivity implements Navigati
                 Intent i4 = new Intent(ChangedLayoutActivity.this,SuggestUs.class);
                 startActivity(i4);
                 break;
+
+            case R.id.show_fines:
+                Intent i5 = new Intent(ChangedLayoutActivity.this,FinesActivity.class);
+                startActivity(i5);
+                break;
+
+            case R.id.nav_devlopers:
+
         }
         return true;
     }

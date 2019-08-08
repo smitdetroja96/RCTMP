@@ -382,6 +382,10 @@ public class DrawerActivityLayout extends AppCompatActivity implements Navigatio
                 Intent i4 = new Intent(DrawerActivityLayout.this,SuggestUs.class);
                 startActivity(i4);
                 break;
+            case R.id.show_fines:
+                Intent i5 = new Intent(DrawerActivityLayout.this,FinesActivity.class);
+                startActivity(i5);
+                break;
         }
         return true;
     }

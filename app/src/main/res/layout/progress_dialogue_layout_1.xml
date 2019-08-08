@@ -16,7 +16,7 @@
         android:layout_height="45dp" />
     <TextView
         android:layout_width="wrap_content"
-        android:text="Fetching ..."
+        android:text="This may take a while ..."
         android:textAppearance="?android:textAppearanceSmall"
         android:layout_gravity="center_vertical"
         android:id="@+id/tv_loading_msg"
