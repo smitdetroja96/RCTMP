@@ -63,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        FirebaseMessaging.getInstance().subscribeToTopic("general1")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "YES";
+                        if (!task.isSuccessful()) {
+                            msg = "NO";
+                        }
+                        Log.d("TAG", msg);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 //        CookieManager.getInstance().removeAllCookies(null);
         readData();
 
