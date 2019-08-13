@@ -16,12 +16,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".TestActivity">
+        </activity>
         <activity
             android:name=".ShowNotificationActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
-            android:taskAffinity="" />
+            android:taskAffinity="">
+            <intent-filter>
+            <action android:name="OPEN_LINK_ACTIVITY" />
+            <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SuggestUs" />
         <activity
             android:name=".RulesActivity"
