@@ -16,12 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TestActivity"></activity>
         <activity
             android:name=".ShowNotificationActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
             android:excludeFromRecents="true"
-            ></activity>
+            android:launchMode="singleTask"
+            android:taskAffinity="" />
         <activity android:name=".SuggestUs" />
         <activity
             android:name=".RulesActivity"

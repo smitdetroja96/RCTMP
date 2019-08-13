@@ -1,5 +1,7 @@
 package com.example.rctmp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +26,11 @@ public class ShowNotificationActivity extends AppCompatActivity {
         java.lang.String def = "https://opac.daiict.ac.in";
         String url = getIntent().getStringExtra("url");
 
-        webView = findViewById(R.id.wv_for_notification);
-        webView.loadUrl(url);
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Log.e("thisOpens:",url);
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 }

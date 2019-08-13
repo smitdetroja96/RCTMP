@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -31,6 +32,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import junit.framework.Test;
+
 public class MainActivity extends AppCompatActivity {
 
     static boolean loginState;
@@ -49,6 +52,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        Log.e("errrrrr:","hello" );
+        if (intent.hasExtra("ShowNotificationActivity")) {
+            Log.e("pppppppppppp","comone");
+            String url = intent.getStringExtra("url");
+            if (!url.startsWith("http://") && !url.startsWith("https://"))
+                url = "http://" + url;
+
+            Log.e("thisOpens:",url);
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(browserIntent);
+            finish();
+//            handleFirebaseNotificationIntent(intent);
+//            String url = intent.getStringExtra("url");
+//            Intent i1 = new Intent(MainActivity.this, TestActivity.class);
+////            i1.putExtra("url",url);
+//            i1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//            Log.e("rttttttttt","work!please");
+        }
 
         FirebaseMessaging.getInstance().subscribeToTopic("general")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -385,6 +410,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------
+    private void handleFirebaseNotificationIntent(Intent intent){
+        String className = intent.getStringExtra("ShowNotificationActivity");
+        Log.e("herewereached","yO");
+        startSelectedActivity(className, intent.getStringExtra("url"));
+    }
+
+    private void startSelectedActivity(String className, String extras){
+        Class cls;
+        try {
+            cls = Class.forName(className);
+        }catch(ClassNotFoundException e){
+            return;
+        }
+        Intent i = new Intent(MainActivity.this, cls);
+        Log.e("pleaseworkbro",extras);
+        if (i != null && extras.length()>0) {
+            i.putExtra("url",extras);
+            this.startActivity(i);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------
 }
 
