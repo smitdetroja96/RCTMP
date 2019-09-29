@@ -1,11 +1,17 @@
 package com.example.rctmp;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -13,26 +19,35 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ViewDetails extends AppCompatActivity {
 
+    ArrayList<BooksClass> books;
     TextView tv_author,tv_title,tv_material_type,tv_publisher,tv_description;
     TextView tv_subjects,tv_callnumber,tv_quantity;
     BooksClass book_viewed = new BooksClass();
     HistoryBooksClass book_now = new HistoryBooksClass();
     String url = "";
-    WebView webView;
+    WebView webView, webView1;
     Boolean loadNextPage = false, third_if = false;
-    WebSettings webSettings;
+    WebSettings webSettings, webSettings1;
     TextView add_fav;
     boolean remove_t;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
+
+        books = new ArrayList<>();
+        readBookData();
 
         boolean whattofetch = (boolean) getIntent().getBooleanExtra("isMain",false);
         remove_t = (boolean) getIntent().getBooleanExtra("showRemove",false);
@@ -55,10 +70,13 @@ public class ViewDetails extends AppCompatActivity {
         tv_subjects = findViewById(R.id.tv_subject);
         tv_quantity = findViewById(R.id.tv_quantity);
         webView = findViewById(R.id.wv_add_to_fav);
+        webView1 = findViewById(R.id.wv_update_quantity);
 
         if(remove_t){
             add_fav.setText("Remove from Fav.");
         }
+
+        int bibnumber;
 
         if(whattofetch) {
             String temp;
@@ -89,8 +107,9 @@ public class ViewDetails extends AppCompatActivity {
                 temp = "Call Number: " + book_viewed.getCallnumber();
                 tv_callnumber.setText(temp);
             }
-            else
+            else {
                 tv_callnumber.setVisibility(View.GONE);
+            }
             if(!book_viewed.getSubjects().equals(empty)){
                 temp = "Subjects: " + book_viewed.getSubjects();
                 tv_subjects.setText(temp);
@@ -108,10 +127,82 @@ public class ViewDetails extends AppCompatActivity {
                 tv_description.setVisibility(View.GONE);
             }
             url = book_viewed.getUrl();
+            bibnumber = book_viewed.getBiblionumber();
         }
         else{
+            bibnumber = book_now.getMybook().getBiblionumber();
             url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-detail.pl?biblionumber=" + book_now.getMybook().getBiblionumber();
         }
+
+        // getting index in books array
+        int i, indexOfCurrentBib;
+        for(i=0 ; i<books.size() ; i++){
+            if(books.get(i).getBiblionumber() == bibnumber){
+                indexOfCurrentBib = i;
+                break;
+            }
+        }
+
+        // getting the current quantity
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(ViewDetails.this);
+//        builder.setCancelable(false);
+//        builder.setView(R.layout.progress_dialogue_layout_1);
+//
+//        final AlertDialog dialog = builder.create();
+//
+//        Window window1 = dialog.getWindow();
+//        if (window1 != null) {
+//            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+//            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+//            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            dialog.getWindow().setAttributes(layoutParams);
+//        }
+//
+//        dialog.show();
+//
+//        webView1.setWebViewClient(new WebViewClient() {
+//            boolean page_load_error = false;
+//
+//            @Override
+//            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//                page_load_error = true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                if (page_load_error) {
+//
+//                    dialog.dismiss();
+//                    Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                else {
+//                    //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
+//                    String script= "(function(){\n" +
+//                            " return document.getElementsByClassName('status').length; \n"+
+//                            "})();";
+//                    webView1.evaluateJavascript(script, new ValueCallback<String>() {
+//                        @Override
+//                        public void onReceiveValue(String value) {
+//                            Log.e("hhhhhhhhhhhhhhhhhh",value);
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                }
+//
+//
+//                //startActivity(new Intent(MainActivity.this, ChangedLayoutActivity.class));
+//            }
+//        });
+//
+//        webSettings1 = webView.getSettings();
+//        webSettings1.setJavaScriptEnabled(true);
+//        webSettings1.setAllowContentAccess(true);
+//        webSettings1.setDomStorageEnabled(true);
+//        webSettings1.setDatabaseEnabled(true);
+//        webView1.loadUrl(url);
     }
 
     public void onClickUrl(View view) {
@@ -351,5 +442,25 @@ public class ViewDetails extends AppCompatActivity {
     public void onBackPressed() {
         setResult(RESULT_OK,new Intent());
         finish();
+    }
+
+    private void readBookData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+//        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+        if(books.size() > 0)
+            books.clear();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+//        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
     }
 }

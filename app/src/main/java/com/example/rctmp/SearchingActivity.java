@@ -87,40 +87,10 @@ public class SearchingActivity extends AppCompatActivity  implements AdapterView
 
         //***********************************************************************************************
 
-        if(todays_date.equals(current_date) == false)
-        {
 
-            //-------------------------------------------------------------------------------------------------------------
-
-            databaseReference = FirebaseDatabase.getInstance().getReference("Books").child("inside");
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        BooksClass temp = snapshot.getValue(BooksClass.class);
-                        books.add(temp);
-                    }
-
-                    saveData();
-                    dialog.dismiss();
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    dialog.dismiss();
-                    Toast.makeText(SearchingActivity.this, "Failed : " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        }
-        else
-        {
             readBookData();
             dialog.dismiss();
-        }
+
 
         recyclerView = findViewById(R.id.recycler_view);
 

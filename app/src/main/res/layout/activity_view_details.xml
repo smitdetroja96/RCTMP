@@ -21,6 +21,15 @@
 
     </WebView>
 
+    <WebView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:id="@+id/wv_update_quantity"
+        >
+
+    </WebView>
+
     <ScrollView
         android:id="@+id/sv_first"
         android:layout_width="match_parent"
