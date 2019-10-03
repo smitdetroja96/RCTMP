@@ -34,6 +34,17 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import junit.framework.Test;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+
 public class MainActivity extends AppCompatActivity {
 
     static boolean loginState;
@@ -47,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isSignIn = false;
     boolean isDefaultView = true;
+
+
+    ArrayList<BooksClass> books = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +117,18 @@ public class MainActivity extends AppCompatActivity {
 
 //        CookieManager.getInstance().removeAllCookies(null);
         readData();
+        readBookData();
+        if(books.size() == 0){
+            saveDataBooks();
+        }
+
 
         if(!isInternet())
         {
             Snackbar.make(findViewById(R.id.root_layout_main_activity),"No Internet !!!!",Snackbar.LENGTH_SHORT).show();
         }
+
+
 
         if(isSignIn)
         {
@@ -429,6 +450,108 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("url",extras);
             this.startActivity(i);
         }
+    }
+
+    private void readBookData()
+    {
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        int numberOfAllBooks = sharedpreferences.getInt("numberOfBooks",0);
+
+//        Toast.makeText(this, "" + numberOfAllBooks, Toast.LENGTH_SHORT).show();
+
+        books.clear();
+
+        for(int i=0;i<numberOfAllBooks;i++)
+        {
+            books.add(complexPreferences.getObject("Books"+Integer.toString(i),BooksClass.class));
+        }
+
+//        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveDataBooks()
+    {
+
+        SharedPreferences preferences = getSharedPreferences("CUR_DATE",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = preferences.edit();
+
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String cur_date = df.format(date);
+
+        editor1.putString("CUR_DATE",cur_date);
+
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        complexPreferences.clearObject();
+
+        try{
+            JSONObject obj = new JSONObject(loadJSONFromAsset(this));
+            JSONObject books_obj = obj.getJSONObject("Books");
+            JSONObject inside_obj = books_obj.getJSONObject("inside");
+            Iterator<String> keys = inside_obj.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                JSONObject current_obj = inside_obj.getJSONObject(key);
+//                Log.d("Details-->", jo_inside.getString("formule"));
+                BooksClass curr_book = new BooksClass();
+                curr_book.setAuthors(current_obj.getString("authors"));
+                curr_book.setBiblionumber(current_obj.getInt("biblionumber"));
+                curr_book.setCallnumber(current_obj.getString("callnumber"));
+                curr_book.setDescription(current_obj.getString("description"));
+                curr_book.setIsbn(current_obj.getString("isbn"));
+                curr_book.setMaterialType(current_obj.getString("materialType"));
+                curr_book.setName(current_obj.getString("name"));
+                curr_book.setPublisher(current_obj.getString("publisher"));
+                curr_book.setQuantity(current_obj.getInt("quantity"));
+                curr_book.setSubjects(current_obj.getString("subjects"));
+                curr_book.setUrl(current_obj.getString("url"));
+
+                //Add your values in your `ArrayList` as below:
+                books.add(curr_book);
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        editor.putInt("numberOfBooks",books.size());
+
+        int i;
+
+        for(i = 0 ; i < books.size() ; i++)
+        {
+            complexPreferences.putObject("Books" + Integer.toString(i), books.get(i));
+        }
+
+//        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
+
+        editor.commit();
+        complexPreferences.commit();
+        editor1.commit();
+        Log.e("currentCount:",""+books.size());
+    }
+
+    public String loadJSONFromAsset(Context context) {
+        String json = null;
+        try {
+//            InputStream is = get
+            InputStream is = context.getAssets().open("rcappsri-96aa2-export.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        Log.e("hhhhhhhhhhhh","success");
+        return json;
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------------------
