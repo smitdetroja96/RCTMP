@@ -23,7 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ViewDetails extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class ViewDetails extends AppCompatActivity {
     BooksClass book_viewed = new BooksClass();
     HistoryBooksClass book_now = new HistoryBooksClass();
     String url = "";
+    int indexOfCurrentBib = 0;
     WebView webView, webView1;
     Boolean loadNextPage = false, third_if = false;
     WebSettings webSettings, webSettings1;
@@ -76,7 +80,18 @@ public class ViewDetails extends AppCompatActivity {
             add_fav.setText("Remove from Fav.");
         }
 
-        int bibnumber;
+        int bibnumber = book_viewed.getBiblionumber();
+
+        // getting index in books array
+        int i;
+        for(i=0 ; i<books.size() ; i++){
+            if(books.get(i).getBiblionumber() == bibnumber){
+                indexOfCurrentBib = i;
+                break;
+            }
+        }
+
+        book_viewed = books.get(indexOfCurrentBib);
 
         if(whattofetch) {
             String temp;
@@ -134,75 +149,86 @@ public class ViewDetails extends AppCompatActivity {
             url = "https://opac.daiict.ac.in/cgi-bin/koha/opac-detail.pl?biblionumber=" + book_now.getMybook().getBiblionumber();
         }
 
-        // getting index in books array
-        int i, indexOfCurrentBib;
-        for(i=0 ; i<books.size() ; i++){
-            if(books.get(i).getBiblionumber() == bibnumber){
-                indexOfCurrentBib = i;
-                break;
-            }
-        }
+        Log.e("currentUrl",url);
 
         // getting the current quantity
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(ViewDetails.this);
-//        builder.setCancelable(false);
-//        builder.setView(R.layout.progress_dialogue_layout_1);
-//
-//        final AlertDialog dialog = builder.create();
-//
-//        Window window1 = dialog.getWindow();
-//        if (window1 != null) {
-//            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-//            layoutParams.copyFrom(dialog.getWindow().getAttributes());
-//            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-//            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//            dialog.getWindow().setAttributes(layoutParams);
-//        }
-//
-//        dialog.show();
-//
-//        webView1.setWebViewClient(new WebViewClient() {
-//            boolean page_load_error = false;
-//
-//            @Override
-//            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-//                page_load_error = true;
-//            }
-//
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                if (page_load_error) {
-//
-//                    dialog.dismiss();
-//                    Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else {
-//                    //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
-//                    String script= "(function(){\n" +
-//                            " return document.getElementsByClassName('status').length; \n"+
-//                            "})();";
-//                    webView1.evaluateJavascript(script, new ValueCallback<String>() {
-//                        @Override
-//                        public void onReceiveValue(String value) {
-//                            Log.e("hhhhhhhhhhhhhhhhhh",value);
-//                            dialog.dismiss();
-//                        }
-//                    });
-//                }
-//
-//
-//                //startActivity(new Intent(MainActivity.this, ChangedLayoutActivity.class));
-//            }
-//        });
-//
-//        webSettings1 = webView.getSettings();
-//        webSettings1.setJavaScriptEnabled(true);
-//        webSettings1.setAllowContentAccess(true);
-//        webSettings1.setDomStorageEnabled(true);
-//        webSettings1.setDatabaseEnabled(true);
-//        webView1.loadUrl(url);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewDetails.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_dialogue_layout_1);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window1 = dialog.getWindow();
+        if (window1 != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
+        dialog.show();
+
+        webView1.setWebViewClient(new WebViewClient() {
+            boolean page_load_error = false;
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                page_load_error = true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (page_load_error) {
+
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Failed to Connect!", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    //Toast.makeText(SignInActivity.this, "Reached Here!", Toast.LENGTH_SHORT).show();
+                    String script= "(function(){\n" +
+                            " var str='';"+
+                            " var x = document.getElementsByClassName('status').length; \n"+
+                            " for(var i=1 ; i<x ; i++){"+
+                            "   str += document.getElementsByClassName('status')[i].childNodes[3].innerText[0];"+
+                            "}" +
+                            "return str;" +
+                            "})();";
+                    webView1.evaluateJavascript(script, new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            Log.e("hhhhhhhhhhhhhhhhhh",value);
+                            int cnt = 0;
+                            for(int i=0 ; i<value.length() ; i++) {
+                                if (value.charAt(i) == 'A')
+                                    cnt++;
+                            }
+                            Log.e("hhhhhhhhhhhhhhhhhhhhcnt",cnt+"");
+                            Log.e("hhhhhhhhhhhhhhhhhdhjshd",books.get(indexOfCurrentBib).getQuantity()+"");
+                            if(books.get(indexOfCurrentBib).getQuantity() != cnt){
+                                books.get(indexOfCurrentBib).setQuantity(cnt);
+                                saveData();
+                            }
+                            String temp = "Quantity: " + cnt;
+                            tv_quantity.setText(temp);
+                            dialog.dismiss();
+                        }
+                    });
+                }
+
+
+                //startActivity(new Intent(MainActivity.this, ChangedLayoutActivity.class));
+            }
+        });
+
+        webSettings1 = webView1.getSettings();
+        webSettings1.setJavaScriptEnabled(true);
+        webSettings1.setAllowContentAccess(true);
+        webSettings1.setDomStorageEnabled(true);
+        webSettings1.setDatabaseEnabled(true);
+        webView1.loadUrl(url);
     }
 
     public void onClickUrl(View view) {
@@ -462,5 +488,38 @@ public class ViewDetails extends AppCompatActivity {
         }
 
 //        Toast.makeText(this, "" + books.size() + " hii", Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveData()
+    {
+
+        SharedPreferences preferences = getSharedPreferences("CUR_DATE",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = preferences.edit();
+
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String cur_date = df.format(date);
+
+        editor1.putString("CUR_DATE",cur_date);
+
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+        complexPreferences.clearObject();
+
+        editor.putInt("numberOfBooks",books.size());
+
+        int i;
+
+        for(i = 0 ; i < books.size() ; i++)
+        {
+            complexPreferences.putObject("Books" + Integer.toString(i), books.get(i));
+        }
+
+//        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
+
+        editor.commit();
+        complexPreferences.commit();
+        editor1.commit();
     }
 }

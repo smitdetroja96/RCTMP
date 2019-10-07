@@ -36,6 +36,8 @@
 
     <EditText
         android:maxLines="1"
+        android:lines="1"
+        android:singleLine="true"
         android:id="@+id/et_search_books"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

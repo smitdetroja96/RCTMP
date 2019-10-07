@@ -20,6 +20,9 @@
 
 
     <EditText
+        android:maxLines="1"
+        android:lines="1"
+        android:singleLine="true"
         android:textSize="20sp"
         android:hint="Search query"
         android:id="@+id/et_online_res"
