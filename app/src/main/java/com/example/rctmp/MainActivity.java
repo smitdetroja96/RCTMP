@@ -215,15 +215,24 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
         sign_in_button = findViewById(R.id.bt_sign_in);
         webView = findViewById(R.id.wv_sign_in);
         username_field = findViewById(R.id.ti_et_student_id);
-        username_field.setText("201601112");
         password_field = findViewById(R.id.ti_et_password);
-        password_field.setText("abc");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
+        SharedPreferences sharedP = getSharedPreferences("savedPassword",Context.MODE_PRIVATE);
+        String val = sharedP.getString("savedPassword","1");
+
+        if(!val.equals("1")){
+            password = val;
+            username = sharedP.getString("savedUsername","1");
+            username_field.setText(username);
+            password_field.setText(password);
+            onClickSignUp(sign_in_button);
+        }
     }
 
     public void onClickSignUp(View view) {
@@ -241,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
         }
         username = username_field.getText().toString();
         password = password_field.getText().toString();
-        String ans = "123";
         first_if = false;
         second_if = false;
         sign_in_attempted = false;
@@ -315,6 +323,17 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onReceiveValue(String value) {
                                         if (loginState) {
+
+//                                            ----------------
+
+                                            SharedPreferences pref = getSharedPreferences("savedPassword",Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor edit = pref.edit();
+                                            edit.putString("savedPassword",password);
+                                            edit.putString("savedUsername",username);
+                                            edit.commit();
+
+
+//                                            -----------------
                                             dialog.dismiss();
                                             saveData();
                                             Intent intent = new Intent(MainActivity.this,DrawerActivityLayout.class);

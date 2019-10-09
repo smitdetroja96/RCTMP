@@ -178,6 +178,12 @@ public class UserProfileActivity extends AppCompatActivity {
         CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
             @Override
             public void onReceiveValue(Boolean aBoolean) {
+
+                SharedPreferences pref = getSharedPreferences("savedPassword",Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = pref.edit();
+                edit.putString("savedPassword","1");
+                edit.commit();
+
                 Intent i = new Intent(UserProfileActivity.this,MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
