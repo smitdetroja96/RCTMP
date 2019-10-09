@@ -21,7 +21,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     String  notification_title,notification_body;
 
-    MyFirebaseMessagingService(){}
+    public MyFirebaseMessagingService(){}
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

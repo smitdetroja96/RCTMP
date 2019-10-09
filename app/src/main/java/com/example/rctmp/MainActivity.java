@@ -30,6 +30,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import junit.framework.Test;
@@ -58,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isSignIn = false;
     boolean isDefaultView = true;
+
+    int curVer=1,active=0,latest=1;
+    DatabaseReference databaseReference;
 
 
     ArrayList<BooksClass> books = new ArrayList<>();
@@ -116,12 +124,56 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 //        CookieManager.getInstance().removeAllCookies(null);
-        readData();
         readBookData();
         if(books.size() == 0){
             saveDataBooks();
         }
+        readData();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("GoHere");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if(child.getKey().compareTo("active")==0)
+                        active = child.getValue(Integer.class);
+                    else
+                        latest = child.getValue(Integer.class);
+                }
+
+                Log.e("hhhhhhhhhhhhhh",active+" "+latest);
+
+                if(active == 0 && curVer != latest){
+                    SharedPreferences pref = getSharedPreferences("curVer",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = pref.edit();
+                    edit.putInt("curVer",latest);
+                    edit.commit();
+                    for(int i=curVer+1 ; i<= latest ; i++){
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child(i+"");
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                    BooksClass temp = snapshot.getValue(BooksClass.class);
+                                    books.add(temp);
+                                }
+                                saveDataBooks2();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         if(!isInternet())
         {
@@ -403,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void readData()
     {
         SharedPreferences sharedpreferences = getSharedPreferences("isSignIn", Context.MODE_PRIVATE);
@@ -415,6 +467,9 @@ public class MainActivity extends AppCompatActivity {
         //SharedPreferences.Editor editor1 = preferences.edit();
         isDefaultView = preferences.getBoolean("isDefaultView",true);
         //editor1.clear().commit();
+
+//        SharedPreferences pref = getSharedPreferences("curVer",Context.MODE_PRIVATE);
+//        curVer = pref.getInt("curVer",1);
 
     }
 
@@ -428,6 +483,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor1 = preferences.edit();
         editor1.putString("ID",username);
         editor1.commit();
+
 
     }
 
@@ -534,6 +590,12 @@ public class MainActivity extends AppCompatActivity {
         complexPreferences.commit();
         editor1.commit();
         Log.e("currentCount:",""+books.size());
+
+
+        SharedPreferences pref = getSharedPreferences("curVer",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt("curVer",1);
+        edit.commit();
     }
 
     public String loadJSONFromAsset(Context context) {
@@ -554,6 +616,39 @@ public class MainActivity extends AppCompatActivity {
         return json;
     }
 
+    private void saveDataBooks2()
+    {
+
+        SharedPreferences preferences = getSharedPreferences("CUR_DATE",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = preferences.edit();
+
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String cur_date = df.format(date);
+
+        editor1.putString("CUR_DATE",cur_date);
+
+        SharedPreferences sharedpreferences = getSharedPreferences("allBooks", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(),"allBooks",0);
+
+        complexPreferences.clearObject();
+
+        editor.putInt("numberOfBooks",books.size());
+
+        int i;
+
+        for(i = 0 ; i < books.size() ; i++)
+        {
+            complexPreferences.putObject("Books" + Integer.toString(i), books.get(i));
+        }
+
+//        Toast.makeText(this, "" + i, Toast.LENGTH_SHORT).show();
+
+        editor.commit();
+        complexPreferences.commit();
+        editor1.commit();
+    }
+
     //------------------------------------------------------------------------------------------------------------------------------------------------
 }
-
