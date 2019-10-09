@@ -27,6 +27,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import com.google.android.gms.tasks.Tasks;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -144,28 +145,41 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("hhhhhhhhhhhhhh",active+" "+latest);
 
                 if(active == 0 && curVer != latest){
-                    SharedPreferences pref = getSharedPreferences("curVer",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor edit = pref.edit();
-                    edit.putInt("curVer",latest);
-                    edit.commit();
-                    for(int i=curVer+1 ; i<= latest ; i++){
-                        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child(i+"");
-                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                                    BooksClass temp = snapshot.getValue(BooksClass.class);
-                                    books.add(temp);
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Books");//.child(i+"");
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            SharedPreferences pref = getSharedPreferences("curVer",Context.MODE_PRIVATE);
+                            curVer = pref.getInt("curVer",0);
+
+                            Log.e("HELL22",curVer+"");
+
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+
+                                String currentChild = snapshot.getKey();
+                                if(Integer.parseInt(currentChild) > curVer ){
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        BooksClass temp = snap.getValue(BooksClass.class);
+                                        books.add(temp);
+                                    }
                                 }
-                                saveDataBooks2();
                             }
+                            saveDataBooks2();
+                            Log.e("HELLO",curVer+"");
+                            SharedPreferences preff = getSharedPreferences("curVer",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = preff.edit();
+                            edit.putInt("curVer",latest);
+                            edit.commit();
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-                    }
+                        }
+                    });
+
                 }
             }
 
